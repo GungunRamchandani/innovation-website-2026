@@ -1,0 +1,164 @@
+/* Futuristic Typography Hook */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+.timeline-container2 {
+  --neon-blue: #00d2ff;
+  --cyber-green: #00ff9f;
+  --dark-bg: rgba(10, 15, 30, 0.85);
+  --dark-red: #8B0000;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Detail Card Styling - Futuristic Glassmorphism */
+.detail-card2 {
+  position: fixed;
+  background: var(--dark-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.2), inset 0 0 10px rgba(0, 210, 255, 0.1);
+  z-index: 20;
+  animation: cyberSlide 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: white;
+  width: 320px;
+  transform: translate(-50%, -100%);
+}
+
+/* Top Right Close Button */
+.close-btn2 {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--neon-blue);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.close-btn2:hover {
+  transform: rotate(90deg) scale(1.2);
+  color: white;
+}
+
+.card-header2 h3 {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  margin: 0;
+  color: var(--neon-blue);
+  font-size: 1.2rem;
+}
+
+.id-badge2 {
+  background: var(--neon-blue);
+  color: #000;
+  padding: 2px 10px;
+  border-radius: 2px;
+  font-weight: 800;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.venue-text {
+  color: var(--cyber-green);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin: 12px 0 5px 0;
+}
+
+.desc-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  border-left: 2px solid var(--neon-blue);
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+/* Glowing Register Button */
+.register-btn2 {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--cyber-green);
+  border: 1px solid var(--cyber-green);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.register-btn2:hover {
+  background: var(--cyber-green);
+  color: #000;
+  box-shadow: 0 0 20px var(--cyber-green), 0 0 40px var(--cyber-green);
+  transform: translateY(-2px);
+}
+
+/* Marker Styling */
+.marker-pin2 {
+  fill: #000000;
+}
+
+/* Marker Label Text */
+.marker-label2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.15rem;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
+@keyframes cyberSlide {
+  from { transform: translate(-50%, -100%) scale(0.95); opacity: 0; }
+  to { transform: translate(-50%, -100%) scale(1); opacity: 1; }
+}
+
+/* Mobile View - Smaller Detail Card */
+@media (max-width: 768px) {
+  .detail-card2 {
+    width: 280px;
+    padding: 16px;
+  }
+
+  .card-header2 h3 {
+    font-size: 1rem;
+  }
+
+  .venue-text {
+    font-size: 0.75rem;
+  }
+
+  .desc-text {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+
+  .register-btn2 {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .id-badge2 {
+    padding: 2px 8px;
+    font-size: 0.65rem;
+  }
+
+  .close-btn2 {
+    font-size: 20px;
+  }
+}
+
+/* Laptop Adjustments */
+@media (min-width: 769px) {
+  .detail-card2 {
+    width: 320px;
+  }
+}
