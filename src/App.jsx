@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css"
+import Globe from "./Globe"
 
 function App() {
-  return <h1></h1>;
+  return <Globe />
 }
 
-export default App;
+export default App
