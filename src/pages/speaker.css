@@ -1,0 +1,874 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@property --shimmer-pos {
+    syntax: "<percentage>";
+    initial-value: -100%;
+    inherits: false;
+}
+
+.speakers1 {
+    min-height: 100vh;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#neural-canvas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.speakers-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.speakers-title,
+.speakers-subtitle {
+    pointer-events: auto;
+}
+
+/* ========================
+   POLISHED METALLIC TITLE
+   ======================== */
+
+.speakers-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-family: 'Orbitron', 'Montserrat', sans-serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    position: relative;
+
+    /* Chrome/platinum metallic gradient */
+    background: linear-gradient(100deg,
+            #667788 0%,
+            #c0c8d0 15%,
+            #ffffff 30%,
+            #e8e0d4 45%,
+            #c0b8a8 55%,
+            #ffffff 70%,
+            #c0c8d0 85%,
+            #667788 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: metallicShine 6s ease-in-out infinite;
+
+    /* Subtle text shadow via filter */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(180, 200, 220, 0.3));
+}
+
+.speakers-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
+    animation: pulseWidth 3s ease-in-out infinite;
+}
+
+@keyframes metallicShine {
+
+    0%,
+    100% {
+        background-position: 200% 0;
+    }
+
+    50% {
+        background-position: 0% 0;
+    }
+}
+
+@keyframes pulseWidth {
+
+    0%,
+    100% {
+        width: 100px;
+        opacity: 0.6;
+    }
+
+    50% {
+        width: 180px;
+        opacity: 1;
+    }
+}
+
+.speakers-subtitle {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    margin-bottom: 80px;
+
+    /* Softer silver gradient */
+    background: linear-gradient(90deg,
+            #8899aa 0%,
+            #b8c4d0 25%,
+            #e0e8f0 50%,
+            #b8c4d0 75%,
+            #8899aa 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: metallicShine 8s ease-in-out infinite;
+
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* ========================
+   QUANTUM ENTANGLEMENT LAYOUT
+   ======================== */
+
+.quantum-entanglement-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 140px;
+    position: relative;
+    padding: 60px 0;
+    pointer-events: none;
+}
+
+/* Individual speaker node */
+.quantum-speaker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.quantum-speaker:hover {
+    transform: scale(1.08) translateY(-5px);
+}
+
+/* Photo circle with refined glow */
+.quantum-photo-wrapper {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 4px;
+    background: conic-gradient(from var(--gradient-angle),
+            #0a3d5c, #0e7490, #06b6d4, #22d3ee, #67e8f9, #22d3ee, #06b6d4, #0e7490, #0a3d5c);
+    animation: rotation 6s linear infinite, quantumPulse 4s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+    box-shadow:
+        0 0 30px rgba(6, 182, 212, 0.35),
+        0 0 60px rgba(6, 182, 212, 0.15),
+        inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.quantum-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: conic-gradient(from var(--gradient-angle),
+            transparent 0deg,
+            rgba(34, 211, 238, 0.5) 60deg,
+            transparent 120deg,
+            rgba(6, 182, 212, 0.3) 180deg,
+            transparent 240deg,
+            rgba(34, 211, 238, 0.4) 300deg,
+            transparent 360deg);
+    animation: rotation 3s linear infinite reverse;
+    z-index: -1;
+    filter: blur(8px);
+}
+
+.quantum-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 3px solid rgba(0, 20, 40, 0.8);
+}
+
+@keyframes quantumPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 30px rgba(6, 182, 212, 0.35),
+            0 0 60px rgba(6, 182, 212, 0.15),
+            inset 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            0 0 45px rgba(6, 182, 212, 0.5),
+            0 0 90px rgba(6, 182, 212, 0.25),
+            inset 0 0 25px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Speaker 1 & 2 entanglement sync */
+.speaker-1 .quantum-photo-wrapper {
+    animation: rotation 6s linear infinite, quantumPulse 4s ease-in-out infinite;
+}
+
+.speaker-2 .quantum-photo-wrapper {
+    animation: rotation 6s linear infinite reverse, quantumPulse 4s ease-in-out 2s infinite;
+}
+
+/* ========================
+   ORBITING ELECTRON RINGS - Refined
+   ======================== */
+
+.electron-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 50%;
+    transform-origin: center;
+    z-index: 1;
+    box-shadow:
+        0 0 10px rgba(6, 182, 212, 0.1),
+        inset 0 0 10px rgba(6, 182, 212, 0.05);
+}
+
+.electron-ring.ring-1 {
+    width: 250px;
+    height: 250px;
+    margin-left: -125px;
+    margin-top: -125px;
+    transform: rotateX(75deg) rotateZ(0deg);
+    animation: orbitSpin1 5s linear infinite;
+}
+
+.electron-ring.ring-2 {
+    width: 270px;
+    height: 270px;
+    margin-left: -135px;
+    margin-top: -135px;
+    transform: rotateX(75deg) rotateZ(60deg);
+    animation: orbitSpin2 6s linear infinite;
+    border-color: rgba(6, 182, 212, 0.15);
+}
+
+.electron-ring.ring-3 {
+    width: 260px;
+    height: 260px;
+    margin-left: -130px;
+    margin-top: -130px;
+    transform: rotateX(75deg) rotateZ(120deg);
+    animation: orbitSpin3 7s linear infinite;
+    border-color: rgba(6, 182, 212, 0.12);
+}
+
+@keyframes orbitSpin1 {
+    from {
+        transform: rotateX(75deg) rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateX(75deg) rotateZ(360deg);
+    }
+}
+
+@keyframes orbitSpin2 {
+    from {
+        transform: rotateX(75deg) rotateZ(60deg);
+    }
+
+    to {
+        transform: rotateX(75deg) rotateZ(420deg);
+    }
+}
+
+@keyframes orbitSpin3 {
+    from {
+        transform: rotateX(75deg) rotateZ(120deg);
+    }
+
+    to {
+        transform: rotateX(75deg) rotateZ(480deg);
+    }
+}
+
+/* Electron dot - refined glow */
+.electron {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #67e8f9 0%, #22d3ee 50%, transparent 100%);
+    border-radius: 50%;
+    top: -3px;
+    left: 50%;
+    margin-left: -3px;
+    box-shadow:
+        0 0 8px #22d3ee,
+        0 0 16px rgba(34, 211, 238, 0.5),
+        0 0 24px rgba(34, 211, 238, 0.3);
+}
+
+/* ========================
+   ENTANGLEMENT BEAM - Enhanced
+   ======================== */
+
+.entanglement-beam {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 3px;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(6, 182, 212, 0.1) 20%,
+            rgba(6, 182, 212, 0.2) 50%,
+            rgba(6, 182, 212, 0.1) 80%,
+            transparent);
+    border-radius: 2px;
+}
+
+.beam-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: radial-gradient(circle, #67e8f9 0%, #22d3ee 60%, transparent 100%);
+    border-radius: 50%;
+    top: -1px;
+    box-shadow:
+        0 0 6px #22d3ee,
+        0 0 12px rgba(34, 211, 238, 0.5);
+    animation: beamTravel 2.5s ease-in-out infinite;
+}
+
+.beam-particle.p1 {
+    animation-delay: 0s;
+}
+
+.beam-particle.p2 {
+    animation-delay: 0.5s;
+}
+
+.beam-particle.p3 {
+    animation-delay: 1s;
+}
+
+.beam-particle.p4 {
+    animation-delay: 1.5s;
+}
+
+.beam-particle.p5 {
+    animation-delay: 2s;
+}
+
+@keyframes beamTravel {
+    0% {
+        left: 0;
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    15% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    85% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+/* Speaker info text - polished */
+.quantum-speaker-info {
+    margin-top: 30px;
+    text-align: center;
+    opacity: 0.95;
+}
+
+.quantum-speaker-info h3 {
+    color: #f0f4f8;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.quantum-speaker-info p {
+    color: #67e8f9;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+}
+
+/* ========================
+   MODAL - Enhanced Glass Effect
+   ======================== */
+
+.speaker-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0, 20, 40, 0.9), rgba(0, 0, 0, 0.95));
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.speaker-modal {
+    max-width: 520px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border-radius: 24px;
+    background: linear-gradient(135deg,
+            rgba(10, 30, 50, 0.9) 0%,
+            rgba(5, 15, 30, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(6, 182, 212, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    animation: slideUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.speaker-modal::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(from var(--gradient-angle),
+            transparent 0deg,
+            #0891b2 90deg,
+            #06b6d4 180deg,
+            #22d3ee 270deg,
+            transparent 360deg);
+    filter: blur(20px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: rotation 8s linear infinite;
+    border-radius: 26px;
+}
+
+@keyframes rotation {
+    to {
+        --gradient-angle: 360deg;
+    }
+}
+
+.speaker-modal:hover::before {
+    opacity: 0.6;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(40px) scale(0.96);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: rgba(6, 182, 212, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 10;
+    color: #9ca3af;
+}
+
+.modal-close:hover {
+    background: rgba(6, 182, 212, 0.25);
+    border-color: #06b6d4;
+    color: #fff;
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.modal-content {
+    padding: 32px;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.modal-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 3px;
+    background: conic-gradient(from var(--gradient-angle),
+            #0a3d5c, #0891b2, #06b6d4, #22d3ee, #06b6d4, #0891b2, #0a3d5c);
+    animation: rotation 6s linear infinite;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.modal-header-text h2 {
+    color: #f0f4f8;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.modal-header-text h3 {
+    color: #22d3ee;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.modal-body {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-section {
+    margin-bottom: 22px;
+}
+
+.modal-section h4 {
+    color: #67e8f9;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.modal-section p {
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.92rem;
+}
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.info-item {
+    background: rgba(6, 182, 212, 0.06);
+    backdrop-filter: blur(10px);
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-label {
+    display: block;
+    color: #67e8f9;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.info-value {
+    display: block;
+    color: #f0f4f8;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+
+@media (max-width: 768px) {
+    .speakers1 {
+        min-height: auto;
+        padding: 40px 0 60px 0;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .speakers-container {
+        width: 100%;
+    }
+
+    .speakers-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .speakers-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+    }
+
+    .quantum-entanglement-layout {
+        flex-direction: column;
+        gap: 60px;
+        padding: 30px 0 40px 0;
+    }
+
+    .entanglement-beam {
+        width: 3px;
+        height: 100px;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(180deg,
+                transparent,
+                rgba(6, 182, 212, 0.15) 30%,
+                rgba(6, 182, 212, 0.15) 70%,
+                transparent);
+    }
+
+    .beam-particle {
+        width: 5px;
+        height: 5px;
+        left: -1px !important;
+        top: auto;
+        animation-name: beamTravelVertical;
+    }
+
+    .quantum-photo-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+
+    .electron-ring.ring-1 {
+        width: 200px;
+        height: 200px;
+        margin-left: -100px;
+        margin-top: -100px;
+    }
+
+    .electron-ring.ring-2 {
+        width: 220px;
+        height: 220px;
+        margin-left: -110px;
+        margin-top: -110px;
+    }
+
+    .electron-ring.ring-3 {
+        width: 210px;
+        height: 210px;
+        margin-left: -105px;
+        margin-top: -105px;
+    }
+
+    .modal-content {
+        padding: 24px 20px;
+    }
+
+    .modal-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .modal-photo {
+        width: 85px;
+        height: 85px;
+    }
+
+    .modal-header-text h2 {
+        font-size: 1.25rem;
+    }
+
+    .modal-header-text h3 {
+        font-size: 0.85rem;
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@keyframes beamTravelVertical {
+    0% {
+        top: 0;
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    15% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    85% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+@media (max-width: 480px) {
+    .speakers1 {
+        padding: 25px 0 100px 0;
+    }
+
+    .speakers-title {
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+    }
+
+    .speakers-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 30px;
+    }
+
+    .quantum-entanglement-layout {
+        gap: 100px;
+        padding: 20px 0 30px 0;
+    }
+
+    .quantum-photo-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+
+    .electron-ring.ring-1 {
+        width: 165px;
+        height: 165px;
+        margin-left: -82.5px;
+        margin-top: -82.5px;
+    }
+
+    .electron-ring.ring-2 {
+        width: 180px;
+        height: 180px;
+        margin-left: -90px;
+        margin-top: -90px;
+    }
+
+    .electron-ring.ring-3 {
+        width: 172px;
+        height: 172px;
+        margin-left: -86px;
+        margin-top: -86px;
+    }
+
+    .quantum-speaker-info {
+        margin-top: 20px;
+    }
+
+    .quantum-speaker-info h3 {
+        font-size: 1rem;
+    }
+
+    .quantum-speaker-info p {
+        font-size: 0.75rem;
+    }
+}
+
+/* Hide Scrollbar */
+.speaker-modal::-webkit-scrollbar {
+    display: none;
+}
+
+.speaker-modal {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
