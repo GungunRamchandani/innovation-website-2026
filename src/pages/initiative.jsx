@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, GeoAlt, People, Heart, Lightbulb, Trophy, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 import "./initiative.css";
-
 
 // Import event photos
 import eventPhoto1 from "../photos/images.jpg";
@@ -33,7 +32,7 @@ const Initiative = () => {
         { src: eventPhoto3, alt: "Hackathon Event", caption: "Innovation in Action" },
         { src: eventPhoto4, alt: "Training Session", caption: "Learning Together" },
         { src: eventPhoto5, alt: "Award Ceremony", caption: "Celebrating Success" },
-        { src: eventPhoto6, alt: "Community Gathering", caption: "Stronger Together" }
+        { src: eventPhoto6, alt: "Community Gathering", caption: "Stronger Together" },
     ];
 
     // Auto-slide for gallery
@@ -44,7 +43,7 @@ const Initiative = () => {
         return () => clearInterval(interval);
     }, [galleryPhotos.length]);
 
-    // Interactive bubble background
+    // Interactive bubble background — follows mouse
     useEffect(() => {
         const bubble = document.querySelector(".interactive");
         let x = 0, y = 0, tx = 0, ty = 0;
@@ -68,7 +67,7 @@ const Initiative = () => {
     // Track active section on scroll
     useEffect(() => {
         const handleScroll = () => {
-            const sectionElements = sections.map(s => document.getElementById(s.id));
+            const sectionElements = sections.map((s) => document.getElementById(s.id));
             const scrollPosition = window.scrollY + window.innerHeight / 3;
 
             sectionElements.forEach((section, index) => {
@@ -96,7 +95,7 @@ const Initiative = () => {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % galleryPhotos.length);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + galleryPhotos.length) % galleryPhotos.length);
 
-    // Initiative data
+    // ─── Initiative Data ──────────────────────────────────────────────────────
     const initiativeData = {
         title: "Women in Tech Initiative",
         tagline: "Empowering Women Through Technology & Innovation",
@@ -106,7 +105,7 @@ const Initiative = () => {
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`,
         },
         impactGoals: {
             title: "Impact & Goals",
@@ -117,14 +116,14 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
                 { number: "500+", label: "Women Impacted", icon: People },
                 { number: "50+", label: "Sessions", icon: Lightbulb },
                 { number: "100%", label: "Satisfaction", icon: Heart },
-                { number: "25+", label: "Awards", icon: Trophy }
+                { number: "25+", label: "Awards", icon: Trophy },
             ],
             goals: [
                 "Bridge the digital divide for underserved women communities",
                 "Provide hands-on technology training and mentorship",
                 "Create sustainable pathways for career development",
-                "Foster a supportive community of women in technology"
-            ]
+                "Foster a supportive community of women in technology",
+            ],
         },
         events: {
             sessions: [
@@ -139,7 +138,7 @@ Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis solli
                     time: "10:00 AM - 4:00 PM",
                     venue: "Community Center, Tribal Area",
                     registrationLink: "",
-                    image: eventPhoto1
+                    image: eventPhoto1,
                 },
                 {
                     id: 2,
@@ -152,8 +151,8 @@ Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vestibulum ac
                     time: "2:00 PM - 5:00 PM",
                     venue: "Sunshine Old Age Home",
                     registrationLink: "",
-                    image: eventPhoto2
-                }
+                    image: eventPhoto2,
+                },
             ],
             hackathon: {
                 title: "All-Women Hackathon",
@@ -166,34 +165,36 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 venue: "Innovation Hub, Main Campus",
                 prizes: ["1st Place: $5000", "2nd Place: $3000", "3rd Place: $1500"],
                 registrationLink: "",
-                image: eventPhoto3
-            }
-        }
+                image: eventPhoto3,
+            },
+        },
     };
 
-    // Animation variants
+    // ─── Framer Motion Variants ───────────────────────────────────────────────
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
     };
 
     const staggerChildren = {
-        visible: { transition: { staggerChildren: 0.1 } }
+        visible: { transition: { staggerChildren: 0.1 } },
     };
 
+    // ─── JSX ──────────────────────────────────────────────────────────────────
     return (
         <div className="initiative-page" ref={containerRef}>
-            {/* Interactive Gradient Bubble Background */}
+
+            {/* ── Animated Gradient Background ── */}
             <div className="gradient-bg">
-                <div className="g1"></div>
-                <div className="g2"></div>
-                <div className="g3"></div>
-                <div className="g4"></div>
-                <div className="g5"></div>
-                <div className="interactive"></div>
+                <div className="g1" />
+                <div className="g2" />
+                <div className="g3" />
+                <div className="g4" />
+                <div className="g5" />
+                <div className="interactive" />
             </div>
 
-            {/* Side Navigation */}
+            {/* ── Side Navigation HUD ── */}
             <nav className="side-nav">
                 <div className="nav-line">
                     <div
@@ -201,22 +202,24 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         style={{ height: `${((activeSection + 1) / sections.length) * 100}%` }}
                     />
                 </div>
+
                 {sections.map((section, index) => (
                     <button
                         key={section.id}
-                        className={`nav-dot ${activeSection === index ? 'active' : ''}`}
+                        className={`nav-dot ${activeSection === index ? "active" : ""}`}
                         onClick={() => scrollToSection(section.id)}
-                        aria-label={section.label}
+                        aria-label={`Navigate to ${section.label}`}
                     >
                         <span className="nav-label">{section.label}</span>
-                        <span className="dot"></span>
+                        <span className="dot" />
                     </button>
                 ))}
             </nav>
 
-            {/* Hero Section */}
+            {/* ── Hero ── */}
             <section id="hero" className="hero-section">
-                <div className="hero-bg-pattern"></div>
+                <div className="hero-bg-pattern" />
+
                 <motion.div
                     className="hero-content"
                     initial={{ opacity: 0, y: 30 }}
@@ -224,8 +227,11 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     transition={{ duration: 0.8 }}
                 >
                     <span className="hero-badge">Women Empowerment Initiative</span>
-                    <h1 className="hero-title" data-text={initiativeData.title}>{initiativeData.title}</h1>
+                    <h1 className="hero-title" data-text={initiativeData.title}>
+                        {initiativeData.title}
+                    </h1>
                     <p className="hero-tagline">{initiativeData.tagline}</p>
+
                     <div className="hero-cta">
                         <a href="#events" className="cta-btn primary">
                             Explore Events <ArrowRight />
@@ -235,13 +241,14 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         </a>
                     </div>
                 </motion.div>
+
                 <div className="hero-scroll-indicator">
                     <span>Scroll</span>
-                    <div className="scroll-line"></div>
+                    <div className="scroll-line" />
                 </div>
             </section>
 
-            {/* Introduction Section */}
+            {/* ── Introduction ── */}
             <section id="introduction" className="content-section intro-section">
                 <div className="section-container">
                     <motion.div
@@ -254,6 +261,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <span className="section-number">01</span>
                         <h2>{initiativeData.introduction.title}</h2>
                     </motion.div>
+
                     <motion.div
                         className="intro-content"
                         initial="hidden"
@@ -261,14 +269,14 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         viewport={{ once: true }}
                         variants={fadeInUp}
                     >
-                        {initiativeData.introduction.content.split('\n\n').map((p, i) => (
+                        {initiativeData.introduction.content.split("\n\n").map((p, i) => (
                             <p key={i}>{p}</p>
                         ))}
                     </motion.div>
                 </div>
             </section>
 
-            {/* Impact & Goals Section */}
+            {/* ── Impact & Goals ── */}
             <section id="impact" className="content-section impact-section">
                 <div className="section-container">
                     <motion.div
@@ -289,11 +297,12 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         viewport={{ once: true }}
                         variants={fadeInUp}
                     >
-                        {initiativeData.impactGoals.content.split('\n\n').map((p, i) => (
+                        {initiativeData.impactGoals.content.split("\n\n").map((p, i) => (
                             <p key={i}>{p}</p>
                         ))}
                     </motion.div>
 
+                    {/* Stats */}
                     <motion.div
                         className="stats-grid"
                         initial="hidden"
@@ -310,6 +319,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         ))}
                     </motion.div>
 
+                    {/* Goals list */}
                     <motion.div
                         className="goals-grid"
                         initial="hidden"
@@ -321,7 +331,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <ul>
                             {initiativeData.impactGoals.goals.map((goal, i) => (
                                 <motion.li key={i} variants={fadeInUp}>
-                                    <span className="goal-marker">{String(i + 1).padStart(2, '0')}</span>
+                                    <span className="goal-marker">{String(i + 1).padStart(2, "0")}</span>
                                     {goal}
                                 </motion.li>
                             ))}
@@ -330,7 +340,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 </div>
             </section>
 
-            {/* Events Section */}
+            {/* ── Events ── */}
             <section id="events" className="content-section events-section">
                 <div className="section-container">
                     <motion.div
@@ -361,17 +371,20 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             >
                                 <div className="event-image">
                                     <img src={session.image} alt={session.title} />
-                                    <div className="event-overlay"></div>
+                                    <div className="event-overlay" />
                                 </div>
+
                                 <div className="event-content">
                                     <span className="event-tag">Session {idx + 1}</span>
                                     <h4>{session.title}</h4>
                                     <p className="event-subtitle">{session.subtitle}</p>
+
                                     <div className="event-description">
-                                        {session.description.split('\n\n').map((p, i) => (
+                                        {session.description.split("\n\n").map((p, i) => (
                                             <p key={i}>{p}</p>
                                         ))}
                                     </div>
+
                                     <div className="event-meta">
                                         <div className="meta-item">
                                             <Calendar size={14} />
@@ -386,6 +399,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                             <span>{session.venue}</span>
                                         </div>
                                     </div>
+
                                     <a href={session.registrationLink || "#"} className="register-btn">
                                         Register Now <ArrowRight size={14} />
                                     </a>
@@ -408,19 +422,24 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             variants={fadeInUp}
                         >
                             <div className="hackathon-hero">
-                                <img src={initiativeData.events.hackathon.image} alt={initiativeData.events.hackathon.title} />
+                                <img
+                                    src={initiativeData.events.hackathon.image}
+                                    alt={initiativeData.events.hackathon.title}
+                                />
                                 <div className="hackathon-overlay">
                                     <span className="featured-tag">Featured Event</span>
                                     <h4>{initiativeData.events.hackathon.title}</h4>
                                     <p>{initiativeData.events.hackathon.subtitle}</p>
                                 </div>
                             </div>
+
                             <div className="hackathon-body">
                                 <div className="hackathon-description">
-                                    {initiativeData.events.hackathon.description.split('\n\n').map((p, i) => (
+                                    {initiativeData.events.hackathon.description.split("\n\n").map((p, i) => (
                                         <p key={i}>{p}</p>
                                     ))}
                                 </div>
+
                                 <div className="hackathon-info">
                                     <div className="hackathon-meta">
                                         <div className="meta-item">
@@ -436,8 +455,27 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                             <span>{initiativeData.events.hackathon.venue}</span>
                                         </div>
                                     </div>
+
+                                    <div className="prizes">
+                                        <h5>Prizes</h5>
+                                        <div className="prize-list">
+                                            {initiativeData.events.hackathon.prizes.map((prize, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={`prize-item rank-${i + 1}`}
+                                                >
+                                                    <Trophy size={16} />
+                                                    <span>{prize}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href={initiativeData.events.hackathon.registrationLink || "#"} className="register-btn hackathon-btn">
+
+                                <a
+                                    href={initiativeData.events.hackathon.registrationLink || "#"}
+                                    className="register-btn hackathon-btn"
+                                >
                                     Register for Hackathon <ArrowRight size={16} />
                                 </a>
                             </div>
@@ -446,7 +484,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 </div>
             </section>
 
-            {/* Gallery Section with Slider */}
+            {/* ── Gallery ── */}
             <section id="gallery" className="content-section gallery-section">
                 <div className="section-container">
                     <motion.div
@@ -462,16 +500,23 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
 
                     <div className="gallery-slider">
                         <div className="slider-container">
+                            {/* Corner accents */}
+                            <span className="corner-accent tl" />
+                            <span className="corner-accent br" />
+
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={currentSlide}
                                     className="slide"
-                                    initial={{ opacity: 0, x: 100 }}
+                                    initial={{ opacity: 0, x: 80 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -100 }}
-                                    transition={{ duration: 0.5 }}
+                                    exit={{ opacity: 0, x: -80 }}
+                                    transition={{ duration: 0.45, ease: "easeInOut" }}
                                 >
-                                    <img src={galleryPhotos[currentSlide].src} alt={galleryPhotos[currentSlide].alt} />
+                                    <img
+                                        src={galleryPhotos[currentSlide].src}
+                                        alt={galleryPhotos[currentSlide].alt}
+                                    />
                                     <div className="slide-caption">
                                         <span>{galleryPhotos[currentSlide].caption}</span>
                                     </div>
@@ -479,10 +524,10 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             </AnimatePresence>
                         </div>
 
-                        <button className="slider-btn prev" onClick={prevSlide}>
+                        <button className="slider-btn prev" onClick={prevSlide} aria-label="Previous slide">
                             <ChevronLeft />
                         </button>
-                        <button className="slider-btn next" onClick={nextSlide}>
+                        <button className="slider-btn next" onClick={nextSlide} aria-label="Next slide">
                             <ChevronRight />
                         </button>
 
@@ -490,22 +535,24 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             {galleryPhotos.map((_, i) => (
                                 <button
                                     key={i}
-                                    className={`dot ${currentSlide === i ? 'active' : ''}`}
+                                    className={`dot ${currentSlide === i ? "active" : ""}`}
                                     onClick={() => setCurrentSlide(i)}
+                                    aria-label={`Go to slide ${i + 1}`}
                                 />
                             ))}
                         </div>
 
+                        {/* Slide counter (hidden via CSS by default) */}
                         <div className="slider-counter">
-                            <span className="current">{String(currentSlide + 1).padStart(2, '0')}</span>
+                            <span className="current">{String(currentSlide + 1).padStart(2, "0")}</span>
                             <span className="separator">/</span>
-                            <span className="total">{String(galleryPhotos.length).padStart(2, '0')}</span>
+                            <span className="total">{String(galleryPhotos.length).padStart(2, "0")}</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
+            {/* ── CTA ── */}
             <section className="cta-section">
                 <div className="section-container">
                     <motion.div
@@ -528,6 +575,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     </motion.div>
                 </div>
             </section>
+
         </div>
     );
 };
