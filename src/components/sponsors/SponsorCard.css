@@ -1,0 +1,117 @@
+.card-wrapper {
+  perspective: 1000px;
+}
+
+/* ================= OUTER CARD ================= */
+/* ================= OUTER CARD ================= */
+.glow-card {
+  background: #0e0e0e;
+  border-radius: 22px;
+
+  padding: 16px;              /* ✅ EQUAL SPACE ON ALL SIDES */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* ================= LOGO BOX (SAME FOR ALL) ================= */
+.logo-box {
+  width: 180px;
+  height: 120px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= LOGO ================= */
+.sponsor-logo {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+
+/* ================= PLATINUM ================= */
+.glow-card.platinum {
+  box-shadow:
+    0 0 50px rgba(0, 255, 231, 0.35),
+    0 30px 60px rgba(0, 0, 0, 0.9);
+}
+
+.card-wrapper:hover .glow-card.platinum {
+  transform: translateZ(70px);
+  box-shadow:
+    0 0 80px rgba(0, 255, 231, 0.75),
+    0 40px 80px rgba(0, 0, 0, 0.9);
+}
+
+/* ================= GOLD ================= */
+.glow-card.gold {
+  box-shadow:
+    0 0 50px rgba(255, 193, 7, 0.4),
+    0 30px 60px rgba(0, 0, 0, 0.9);
+}
+
+.card-wrapper:hover .glow-card.gold {
+  transform: translateZ(70px);
+  box-shadow:
+    0 0 80px rgba(255, 193, 7, 0.8),
+    0 40px 80px rgba(0, 0, 0, 0.9);
+}
+
+/* ================= EVENT (SILVER) ================= */
+.glow-card.event {
+  box-shadow:
+    0 0 50px rgba(200, 200, 200, 0.4),
+    0 30px 60px rgba(0, 0, 0, 0.9);
+}
+
+.card-wrapper:hover .glow-card.event {
+  transform: translateZ(70px);
+  box-shadow:
+    0 0 80px rgba(220, 220, 220, 0.85),
+    0 40px 80px rgba(0, 0, 0, 0.9);
+}
+
+/* ================= PLATFORM (ORANGE) ================= */
+.glow-card.platform {
+  box-shadow:
+    0 0 50px rgba(255, 140, 0, 0.45),
+    0 30px 60px rgba(0, 0, 0, 0.9);
+}
+
+.card-wrapper:hover .glow-card.platform {
+  transform: translateZ(70px);
+  box-shadow:
+    0 0 80px rgba(255, 140, 0, 0.85),
+    0 40px 80px rgba(0, 0, 0, 0.9);
+}
+
+/* ================= KNOWLEDGE (WHITE) ================= */
+.glow-card.knowledge {
+  box-shadow:
+    0 0 55px rgba(255, 255, 255, 0.45),
+    0 30px 60px rgba(0, 0, 0, 0.9);
+}
+
+.card-wrapper:hover .glow-card.knowledge {
+  transform: translateZ(70px);
+  box-shadow:
+    0 0 90px rgba(255, 255, 255, 0.9),
+    0 40px 80px rgba(0, 0, 0, 0.9);
+}
+
+/* ================= TITLE ================= */
+.sponsor-name {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #dff;
+}
