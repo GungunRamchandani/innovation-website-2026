@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'Exo 2', sans-serif;
@@ -29,43 +23,44 @@
   --radius: 0.5rem;
 }
 
-@layer base {
-  body {
-    @apply bg-background text-foreground antialiased overflow-x-hidden;
-    font-family: var(--font-body);
-    background: radial-gradient(circle at center, hsl(222, 47%, 8%), hsl(222, 47%, 2%));
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    @apply font-bold uppercase tracking-wider;
-  }
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(circle at center, hsl(222, 47%, 8%), hsl(222, 47%, 2%));
+  color: hsl(210 40% 98%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 10px rgba(15, 185, 177, 0.5), 0 0 20px rgba(15, 185, 177, 0.3);
-  }
-  
-  .box-glow {
-    box-shadow: 0 0 15px rgba(15, 185, 177, 0.15), inset 0 0 15px rgba(15, 185, 177, 0.05);
-  }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-  
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
+.text-glow {
+  text-shadow: 0 0 10px rgba(15, 185, 177, 0.5), 0 0 20px rgba(15, 185, 177, 0.3);
+}
+
+.box-glow {
+  box-shadow: 0 0 15px rgba(15, 185, 177, 0.15), inset 0 0 15px rgba(15, 185, 177, 0.05);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }
 
 /* Custom Scrollbar */
