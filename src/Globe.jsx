@@ -1,152 +1,184 @@
-import { useEffect, useRef } from "react"
-import * as THREE from "three"
-
-
-
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 function Globe() {
-  const containerRef = useRef(null)
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const container = containerRef.current
+    const container = containerRef.current;
+    if (!container) return;
+
+    const isMobile = window.innerWidth < 768;
 
     // SCENE
-    const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0xffffff)
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
 
     // CAMERA
     const camera = new THREE.PerspectiveCamera(
-      55,
+      isMobile ? 70 : 55,
       window.innerWidth / window.innerHeight,
       0.1,
-      100
-    )
-    camera.position.z = 10
+      1000
+    );
+    camera.position.z = isMobile ? 8 : 10;
 
     // RENDERER
-    const renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(window.devicePixelRatio)
-    container.appendChild(renderer.domElement)
-
-    // LIGHT
-    scene.add(new THREE.AmbientLight(0xffffff, 1))
-
-    // GLOBE
-    const globe = new THREE.Group()
-    scene.add(globe)
-
-    const images = Object.values(
-        import.meta.glob("./assets/*.{jpg,JPG,png,jpeg,webp}", { eager: true })
-    ).map(mod => mod.default)
-
-
-    const poleImages = images
-    const loader = new THREE.TextureLoader()
-    const radius = 4.8
-    const arcWidth = Math.PI / 9;
-
-    const bands = [
-      { lat: Math.PI / 2 + 0.45, arc: Math.PI / 10, opacity: 0.75 },
-      { lat: Math.PI / 2, arc: Math.PI / 9, opacity: 1.0 },
-      { lat: Math.PI / 2 - 0.45, arc: Math.PI / 10, opacity: 0.75 }
-    ]
-
-    bands.forEach((band, bandIndex) => {
-        images.forEach((_, i) => {
-
-            const imgIndex = (i + bandIndex * 2) % images.length
-            const src = images[imgIndex]
-            const isMiddle = bandIndex === 1;
-            const material = new THREE.MeshBasicMaterial({
-                map: loader.load(src),
-                side: THREE.DoubleSide,
-                transparent: !isMiddle,
-                opacity: isMiddle ? 1 : 0.55,
-                depthWrite: isMiddle
-            });
-
-            const theta = (i / images.length) * Math.PI * 2;
-            
-            const geometry = new THREE.SphereGeometry(
-                radius,
-                64,
-                64,
-                theta,
-                arcWidth,
-                band.lat - band.arc / 2,
-                band.arc
-            );
-
-            globe.add(new THREE.Mesh(geometry, material));
-        });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true
     });
 
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    function createPolarRing(phiCenter) {
-      const count = 5
-      const width = Math.PI / 24
-      const height = Math.PI / 8
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
 
-      for (let i = 0; i < count; i++) {
+    container.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+    // GLOBE
+    const globe = new THREE.Group();
+    scene.add(globe);
+
+    const images = Object.values(
+      import.meta.glob("./assets/*.{jpg,JPG,png,jpeg,webp}", { eager: true })
+    ).map(mod => mod.default);
+
+    const loader = new THREE.TextureLoader();
+
+    // Responsive radius
+    const minDimension = Math.min(window.innerWidth, window.innerHeight);
+    const radius = (minDimension / window.innerWidth) * (isMobile ? 3.2 : 4.5);
+
+    const arcWidth = Math.PI / 8;
+
+    // =========================
+    // 3 MAIN BANDS
+    // =========================
+    const bands = [
+      { lat: Math.PI / 2 + 0.45, arc: Math.PI / 9, opacity: 0.75 },
+      { lat: Math.PI / 2, arc: Math.PI / 7, opacity: 1 },
+      { lat: Math.PI / 2 - 0.45, arc: Math.PI / 9, opacity: 0.75 }
+    ];
+
+    bands.forEach((band, bandIndex) => {
+      images.forEach((_, i) => {
+        const imgIndex = (i + bandIndex * 2) % images.length;
+        const texture = loader.load(images[imgIndex]);
+
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        texture.minFilter = THREE.LinearMipmapLinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.generateMipmaps = true;
+
         const material = new THREE.MeshBasicMaterial({
-          map: loader.load(poleImages[i % poleImages.length]),
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.45
-        })
+          map: texture,
+          side: THREE.FrontSide,
+          transparent: bandIndex !== 1,
+          opacity: band.opacity
+        });
 
-        const theta = (i / count) * Math.PI * 2
+        const theta = (i / images.length) * Math.PI * 2;
 
         const geometry = new THREE.SphereGeometry(
           radius,
-          64,
-          64,
+          32,
+          32,
+          theta,
+          arcWidth,
+          band.lat - band.arc / 2,
+          band.arc
+        );
+
+        globe.add(new THREE.Mesh(geometry, material));
+      });
+    });
+
+    // =========================
+    // POLAR RINGS (VISIBLE)
+    // =========================
+    function createPolarRing(phiCenter) {
+      const count = 6;
+      const width = Math.PI / 16;
+      const height = Math.PI / 6;
+
+      for (let i = 0; i < count; i++) {
+        const texture = loader.load(images[i % images.length]);
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.FrontSide,
+          transparent: true,
+          opacity: 0.8
+        });
+
+        const theta = (i / count) * Math.PI * 2;
+
+        const geometry = new THREE.SphereGeometry(
+          radius,
+          32,
+          32,
           theta,
           width,
           phiCenter - height / 2,
           height
-        )
+        );
 
-        globe.add(new THREE.Mesh(geometry, material))
+        globe.add(new THREE.Mesh(geometry, material));
       }
     }
 
-    createPolarRing(0.25)
-    createPolarRing(Math.PI - 0.25)
+    // Move away from exact poles
+    createPolarRing(0.55);
+    createPolarRing(Math.PI - 0.55);
 
-    function animate() {
-      requestAnimationFrame(animate)
+    // =========================
+    // ANIMATION
+    // =========================
+    const animate = () => {
+      requestAnimationFrame(animate);
+      globe.rotation.y += 0.0015;
+      renderer.render(scene, camera);
+    };
 
-      globe.rotation.y += 0.001;
+    animate();
 
-
-      globe.children.forEach(mesh => {
-        const pos = new THREE.Vector3()
-        mesh.getWorldPosition(pos)
-        mesh.visible = pos.z > -radius * 0.75
-      })
-
-      renderer.render(scene, camera)
-    }
-
-    animate()
-
+    // =========================
+    // RESIZE
+    // =========================
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(window.innerWidth, window.innerHeight)
-    }
+      const mobile = window.innerWidth < 768;
 
-    window.addEventListener("resize", handleResize)
+      camera.fov = mobile ? 70 : 55;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize)
-      container.removeChild(renderer.domElement)
-    }
-  }, [])
+      window.removeEventListener("resize", handleResize);
+      container.removeChild(renderer.domElement);
+      renderer.dispose();
+    };
+  }, []);
 
-  return <div ref={containerRef} style={{ width: "100vw", height: "100vh" }} />
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: "100%",
+        height: "100dvh",
+        overflow: "hidden"
+      }}
+    />
+  );
 }
 
-export default Globe
+export default Globe;
