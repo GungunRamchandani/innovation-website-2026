@@ -1,6 +1,6 @@
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import Sponsors from "./pages/sponsors";
-
+import Team from "./pages/team";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
       <Routes>
 
         <Route path="/sponsors" element={<Sponsors />} />
+        <Route path="/teams" element={<Team />} />
 
       </Routes>
 
