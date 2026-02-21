@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Timeline from './components/timeline';
-import Timeline2 from './components/timeline2';
-import Timeline3 from './components/timeline3';
+import Timeline from './components/timeline/timeline';
+import Timeline2 from './components/timeline/timeline2';
+import Timeline3 from './components/timeline/timeline3';
 import './App.css';
 
 function App() {

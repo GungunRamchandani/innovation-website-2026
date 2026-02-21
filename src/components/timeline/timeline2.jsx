@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './timeline2.css';
-import roadVertical from '../assets/road3.png'; 
-import roadHorizontal from '../assets/horizontal road.jpeg'; // Using your new laptop image
+import roadVertical from '../../assets/timeline-photos/road3.png';
+import roadHorizontal from '../../assets/timeline-photos/horizontal road.jpeg'; // Using your new laptop image
 
 const Timeline2 = () => {
   const [activePoint, setActivePoint] = useState(null);
