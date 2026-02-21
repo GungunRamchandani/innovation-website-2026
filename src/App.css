@@ -40,6 +40,7 @@
 .read-the-docs {
   color: #888;
 } */
+/*  */
 .nav-menu {
   display: flex;
   justify-content: center;
@@ -47,8 +48,23 @@
   margin: 20px 0;
 }
 
+main {
+  position: relative;
+}
+
+.nav-overlay {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 10;
+}
+
 .nav-link {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid #1a3017;
   color: #1a3017;
   font-weight: 600;
@@ -57,16 +73,20 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .nav-link:hover {
   background-color: #1a3017;
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 48, 23, 0.3);
 }
 
 .nav-link.active {
   background-color: #1a3017;
   color: white;
+  box-shadow: 0 6px 16px rgba(26, 48, 23, 0.3);
 }
 
 .home-screen {

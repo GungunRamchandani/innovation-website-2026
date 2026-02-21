@@ -24,7 +24,10 @@ function App() {
     <div className="App">
       <header className="header">
         <h1>Timeline Journey</h1>
-        <nav className="nav-menu">
+      </header>
+      
+      <main>
+        <div className="nav-overlay">
           <button 
             className={`nav-link ${selectedDay === 1 ? 'active' : ''}`}
             onClick={() => setSelectedDay(1)}
@@ -43,16 +46,10 @@ function App() {
           >
             DAY 3
           </button>
-        </nav>
-      </header>
-      
-      <main>
+        </div>
         {renderContent()}
       </main>
       
-      <footer>
-        <p>© 2026 Timeline Project</p>
-      </footer>
     </div>
   );
 }
