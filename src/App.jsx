@@ -22,9 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header">
-        <h1>Timeline Journey</h1>
-      </header>
+      
       
       <main>
         <div className="nav-overlay">
