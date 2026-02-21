@@ -1,13 +1,17 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode, useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import Animation from './pages/animation.jsx'
 import App from './App.jsx'
 
 function Main() {
-  const [showApp, setShowApp] = useState(false);
+  // Check if animation has already been shown in this session
+  const [showApp, setShowApp] = useState(() => {
+    return sessionStorage.getItem('animationShown') === 'true';
+  });
   
   const handleAnimationComplete = () => {
+    sessionStorage.setItem('animationShown', 'true');
     setShowApp(true);
   };
   
