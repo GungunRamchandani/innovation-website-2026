@@ -4,28 +4,33 @@ import Initiative from "./pages/initiative";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
 import Speakers1 from "./pages/speakers";
+import Header from "./components/header-footer/Header";
+import Footer from "./components/header-footer/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
+      <div className="app-layout">
+        <Header />
 
-      {/* Common Navbar */}
-      <CompassNavbar />
+        <main className="app-content">
+          {/* Floating Compass Navbar */}
+          <CompassNavbar />
 
-      {/* Routing only */}
-      <Routes>
+          {/* Routes */}
+          <Routes>
+            <Route path="/" element={<Sponsors />} />
+            <Route path="/sponsors" element={<Sponsors />} />
+            <Route path="/initiative" element={<Initiative />} />
+            <Route path="/teams" element={<Team />} />
+            <Route path="/timeline" element={<Timeline />} />
+            <Route path="/speakers" element={<Speakers1 />} />
+          </Routes>
+        </main>
 
-        <Route path="/sponsors" element={<Sponsors />} />
-        <Route path="/initiative" element={<Initiative />} />
-        <Route path="/teams" element={<Team />} />
-        <Route path="/timeline" element={<Timeline />} />
-
-        <Route path="/speakers" element={<Speakers1 />} />
-
-
-      </Routes>
-
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
