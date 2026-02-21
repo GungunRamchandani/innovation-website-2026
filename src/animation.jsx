@@ -102,12 +102,12 @@ function getResponsiveConfig() {
 
 let responsiveConfig = getResponsiveConfig();
 
-let spotLight = new THREE.SpotLight(0xffffff, 3, 0, 10, 2);
-let ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Bright ambient light
-let hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.1); // Sky and ground light
+let spotLight = new THREE.SpotLight(0xffffff, 15, 0, 10, 2);
+let ambientLight = new THREE.AmbientLight(0xffffff, 1.2); // Bright ambient light
+let hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.5); // Sky and ground light
 
 // Subtle light below launchpad
-let launchpadLight = new THREE.PointLight(0x00ffff, 0.5, 0.5);
+let launchpadLight = new THREE.PointLight(0x00ffff, 1.5, 0.5);
 launchpadLight.position.set(0, 0.3, 0); // Below the launchpad
 
 // Texture Loader
@@ -764,6 +764,7 @@ earth.getObjectByName('surface').geometry.center();
 let textMesh = null;
 let textAnimationTime = 0;
 let renderStartTime = Date.now(); // Track when animation started
+let shockwaveStartTime = null; // Track when shockwave animation starts
 const loader = new FontLoader();
 
 // Load from local public folder
@@ -879,6 +880,7 @@ let render = function () {
             obj.scale.set(1, 1, 1);
             obj.material.opacity = 0.8;
             obj.userData.shockStartTime = Date.now();
+            shockwaveStartTime = Date.now(); // Track globally
           }
         });
       }
@@ -890,7 +892,7 @@ let render = function () {
       : 1 - Math.pow(-2 * progress + 2, 3) / 2; // Reduced power to 3 for a much slower, visible finish
 
     // Ensure a longer overall flight duration for slower motion
-    drone.userData.flightDuration = 500;
+    drone.userData.flightDuration = 600;
 
     // Mark as complete when animation finishes (no break, just flag)
     if (progress >= 0.98) {
@@ -1099,7 +1101,7 @@ let render = function () {
       // 2. Shockwave expansion
       if (obj.name === 'shockwaveRing' && obj.userData.shockStartTime) {
         let elapsedShock = Date.now() - obj.userData.shockStartTime;
-        let shockDuration = 2000; // Slower shockwave (2 seconds instead of 1)
+        let shockDuration = 1500; // Slower shockwave (2 seconds instead of 1)
         if (elapsedShock < shockDuration) {
           let shockT = elapsedShock / shockDuration;
           let scale = 1 + shockT * 12; // Expand much further (12x)
@@ -1183,9 +1185,13 @@ let render = function () {
     }
   }
 
-  // End animation after text has been displayed for 3 seconds
-  if (textAnimationTime > 5.0) {
-    console.log('Animation sequence complete');
+  // End animation after shockwave completes (2 seconds) plus brief display time
+  const shockwaveDuration = 1500; // 2 seconds for shockwave expansion
+  const additionalDisplayTime = 500; // Show text briefly after shockwave completes
+  const totalAnimationDuration = shockwaveDuration + additionalDisplayTime;
+  
+  if (shockwaveStartTime && (Date.now() - shockwaveStartTime) > totalAnimationDuration) {
+    console.log('Animation sequence complete - shockwave finished');
     renderer.render(scene, camera);
     // Trigger transition to App.jsx
     if (onComplete) {
