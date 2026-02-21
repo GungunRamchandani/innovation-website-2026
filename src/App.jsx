@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import './App.css'
 
