@@ -765,9 +765,9 @@ let shockwaveStartTime = null; // Track when shockwave animation starts
 // Modern Three.js FontLoader
 const fontLoader = new FontLoader();
 
-// Load Gentilis font
+// Load TT Supermolot Neue font
 fontLoader.load(
-  '/fonts/gentilis_bold.typeface.json',
+  '/fonts/TT_Supermolot_Neue.json',
   function (font) {
     console.log('Font loaded successfully');
 
@@ -1261,7 +1261,7 @@ window.addEventListener('resize', function () {
       }
 
       const fontLoader = new FontLoader();
-      fontLoader.load('/fonts/gentilis_bold.typeface.json', function (font) {
+      fontLoader.load('/fonts/TT_Supermolot_Neue.json', function (font) {
         if (responsiveConfig.isStacked) {
           // Stacked text for mobile/tablet
           const textGroup = new THREE.Group();
