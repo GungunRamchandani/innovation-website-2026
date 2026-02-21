@@ -1,54 +1,32 @@
-import { useState } from 'react';
-import Timeline from './components/timeline/timeline';
-import Timeline2 from './components/timeline/timeline2';
-import Timeline3 from './components/timeline/timeline3';
-import './App.css';
+import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
+import Sponsors from "./pages/sponsors";
+import Initiative from "./pages/initiative";
+import Team from "./pages/team";
+import Timeline from "./pages/timeline";
+import Speakers1 from "./pages/speakers";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [selectedDay, setSelectedDay] = useState(1);
-
-  const renderContent = () => {
-    switch(selectedDay) {
-      case 1:
-        return <Timeline />;
-      case 2:
-        return <Timeline2 />;
-      case 3:
-        return <Timeline3 />;
-      default:
-        return <Timeline />;
-    }
-  };
-
   return (
-    <div className="App">
-      
-      
-      <main>
-        <div className="nav-overlay">
-          <button 
-            className={`nav-link ${selectedDay === 1 ? 'active' : ''}`}
-            onClick={() => setSelectedDay(1)}
-          >
-            DAY 1
-          </button>
-          <button 
-            className={`nav-link ${selectedDay === 2 ? 'active' : ''}`}
-            onClick={() => setSelectedDay(2)}
-          >
-            DAY 2
-          </button>
-          <button 
-            className={`nav-link ${selectedDay === 3 ? 'active' : ''}`}
-            onClick={() => setSelectedDay(3)}
-          >
-            DAY 3
-          </button>
-        </div>
-        {renderContent()}
-      </main>
-      
-    </div>
+    <BrowserRouter>
+
+      {/* Common Navbar */}
+      <CompassNavbar />
+
+      {/* Routing only */}
+      <Routes>
+
+        <Route path="/sponsors" element={<Sponsors />} />
+        <Route path="/initiative" element={<Initiative />} />
+        <Route path="/teams" element={<Team />} />
+        <Route path="/timeline" element={<Timeline />} />
+
+        <Route path="/speakers" element={<Speakers1 />} />
+
+
+      </Routes>
+
+    </BrowserRouter>
   );
 }
 

@@ -1,7 +1,12 @@
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
 
   --background: 222 47% 4%;
   --foreground: 210 40% 98%;
@@ -32,4 +37,44 @@
     font-family: var(--font-display);
     @apply font-bold uppercase tracking-wider;
   }
-} */
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(15, 185, 177, 0.5), 0 0 20px rgba(15, 185, 177, 0.3);
+  }
+  
+  .box-glow {
+    box-shadow: 0 0 15px rgba(15, 185, 177, 0.15), inset 0 0 15px rgba(15, 185, 177, 0.05);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background)); 
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.6); 
+}

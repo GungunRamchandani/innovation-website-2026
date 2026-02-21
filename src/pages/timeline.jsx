@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Timeline from '../components/timeline/timeline';
 import Timeline2 from '../components/timeline/timeline2';
 import Timeline3 from '../components/timeline/timeline3';
-import './App.css';
+import './timeline.css';
 
-function App() {
+function timeline() {
   const [selectedDay, setSelectedDay] = useState(1);
 
   const renderContent = () => {
@@ -52,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default timeline;
