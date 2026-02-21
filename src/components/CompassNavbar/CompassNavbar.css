@@ -8,8 +8,8 @@
 /* Compass Container */
 .compass-container {
   position: fixed;
-  bottom: 55px; /* adjust */
-  right: 5px; /* adjust */
+  bottom: 70px; /* adjust */
+  right: 70px; /* adjust */
   width: 120px;
   height: 120px;
   z-index: 1000; /* above footer */
@@ -17,8 +17,8 @@
 
 /* Compass Button */
 #compass-btn {
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background: #000;
   border: 2px solid #00f6ff;
@@ -46,7 +46,7 @@
 .guiding-light {
   position: absolute;
   bottom: 50px;
-  left: 50%;
+  left: 70%;
   width: 360px;
   height: 360px;
   transform: translateX(-50%) scaleY(0);
@@ -82,18 +82,22 @@
 #nav-menu {
   list-style: none;
   position: absolute;
-  bottom: 160px;
-  right: 20px;
+  bottom: 140px;
+  right: 0;
   pointer-events: none;
+  align-items: flex-end;
 }
 
 #nav-menu li {
+  width: 110px;
+  font-size: 1.15rem;
+  text-align: center;
   opacity: 0;
   transform: translateY(10px);
-  margin: 12px 0;
-  padding: 8px 14px;
+  margin: 26px 0;
+  padding: 10px 12px;
   background: rgba(0, 246, 255, 0.1);
-  border: 1px solid #00f6ff;
+  border: 2px solid #00f6ff;
   border-radius: 6px;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
@@ -118,15 +122,15 @@
 @media (max-width: 768px) {
 
   .compass-container {
-    bottom: 43px;
-    right: 12px;
+    bottom: 100px;
+    right: 40px;
     width: 48px;
     height: 55px;
   }
 
   #compass-btn {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-width: 1.5px;
   }
 
@@ -137,28 +141,30 @@
   }
 
   .guiding-light {
-    width: 240px;
+    left: 45px;
+    width: 300px;
     height: 240px;
     bottom: 40px;
     filter: blur(4px);
   }
 
     #nav-menu {
-        bottom: 88px;
-        right: 5px;
+        position: fixed;
+        bottom: 250px;
+        right: 14px;
 
         display: flex;
         flex-direction: column;
         align-items: flex-end;
 
-        width: max-content;   
+        width: auto;   
     }
 
 
     #nav-menu li {
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         padding: 3px 5px;
-        margin: 6px 0;
+        margin: 14px 0;
 
         border-radius: 999px;
 
