@@ -7,7 +7,8 @@ html, body {
 .hero {
   position: relative;
   width: 100%;
-  height: 120px;
+  height: 18vh;
+  max-height: 120px;
   overflow: hidden;
   background: radial-gradient(circle at center, #001f26, #000);
 }
@@ -25,6 +26,8 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+  pointer-events: none; 
 }
 
 .center-content {
@@ -37,7 +40,8 @@ html, body {
 }
 
 .center-content h1 {
-  font-size: 48px;
+  position: relative;
+  font-size: 40px;
   margin: 0;
 
   -webkit-text-stroke: 1px white;   
@@ -49,10 +53,10 @@ html, body {
 }
 
 .center-content h2 {
-  font-size: 24px;
+  font-size: 18px;
   margin-top: 4px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
   text-shadow:
     0 0 3px #00f0ff,
     0 0 6px rgba(0,240,255,0.6);
@@ -77,15 +81,10 @@ html, body {
 .icon {
   position: absolute;
   width: 6vw;
-  max-width: 70px;
+  max-width: 50px;
   transform: translate(-50%, -50%);
   z-index: 2;
   transition: 0.3s ease;
-}
-
-.icon:hover {
-  filter: drop-shadow(0 0 10px #00f0ff);
-  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .i1 { top: 25%; left: 11%; }
@@ -113,6 +112,7 @@ html, body {
   bottom: 0;
   width: 100%;
   height: 2px;
+  z-index: 50;
   background: #00f0ff;
 }
 
@@ -120,6 +120,8 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+  pointer-events: none; 
 }
 
 .center-content {
@@ -146,8 +148,10 @@ html, body {
 .center-content h2 {
   font-size: 9px;
   margin-top: 4px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 2px;
+ 
+
   text-shadow:
     0 0 3px #00f0ff,
     0 0 6px rgba(0,240,255,0.6);
@@ -176,11 +180,6 @@ html, body {
   transform: translate(-50%, -50%);
   z-index: 2;
   transition: 0.3s ease;
-}
-
-.icon:hover {
-  filter: drop-shadow(0 0 10px #00f0ff);
-  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .i1 { top: 14%; left: 11%; }

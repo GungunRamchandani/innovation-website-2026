@@ -8,8 +8,8 @@
 /* Compass Container */
 .compass-container {
   position: fixed;
-  bottom: 70px; /* adjust */
-  right: 70px; /* adjust */
+  bottom: 0.5%; /* adjust */
+  right: 2%; /* adjust */
   width: 120px;
   height: 120px;
   z-index: 1000; /* above footer */
@@ -17,8 +17,8 @@
 
 /* Compass Button */
 #compass-btn {
-  width: 160px;
-  height: 160px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: #000;
   border: 2px solid #00f6ff;
@@ -46,7 +46,7 @@
 .guiding-light {
   position: absolute;
   bottom: 50px;
-  left: 70%;
+  left: 51%;
   width: 360px;
   height: 360px;
   transform: translateX(-50%) scaleY(0);
@@ -82,19 +82,20 @@
 #nav-menu {
   list-style: none;
   position: absolute;
-  bottom: 140px;
-  right: 0;
+  bottom: 120%;
+  right: 6%;
   pointer-events: none;
   align-items: flex-end;
 }
 
 #nav-menu li {
-  width: 110px;
+  height: 7vh;
+  width: 20vh;
   font-size: 1.15rem;
   text-align: center;
   opacity: 0;
   transform: translateY(10px);
-  margin: 26px 0;
+  margin: 12px 0px;
   padding: 10px 12px;
   background: rgba(0, 246, 255, 0.1);
   border: 2px solid #00f6ff;
@@ -122,7 +123,7 @@
 @media (max-width: 768px) {
 
   .compass-container {
-    bottom: 100px;
+    bottom: 75px;
     right: 40px;
     width: 48px;
     height: 55px;
@@ -144,13 +145,13 @@
     left: 45px;
     width: 300px;
     height: 240px;
-    bottom: 40px;
+    bottom: 20px;
     filter: blur(4px);
   }
 
     #nav-menu {
         position: fixed;
-        bottom: 250px;
+        bottom: 190px;
         right: 14px;
 
         display: flex;
@@ -162,11 +163,11 @@
 
 
     #nav-menu li {
-        font-size: 0.8rem;
-        padding: 3px 5px;
-        margin: 14px 0;
+        font-size: 0.85rem;
+        padding: 11px 7px;
+        margin: 6px 0;
 
-        border-radius: 999px;
+        border-radius: 9px;
 
         width: 100%;          
         text-align: center;
