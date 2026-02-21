@@ -1,9 +1,10 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
-import Sponsors from "./pages/sponsors";
+import Aboutus from "./pages/aboutus";
 import Initiative from "./pages/initiative";
+import Sponsors from "./pages/sponsors";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/initiative" element={<Initiative />} />
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
+        <Route path="/aboutus" element={<Aboutus />} />
 
 
       </Routes>
