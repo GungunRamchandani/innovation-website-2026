@@ -1,0 +1,79 @@
+:root {
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+
+  /* Teal Blue: #0FB9B1 -> 177 85% 39% */
+  /* Deep Blue/Black Background */
+  
+  --background: 222 47% 4%;     /* Very dark blue/black */
+  --foreground: 210 40% 98%;    /* White-ish */
+  
+  --primary: 177 85% 39%;       /* #0FB9B1 Teal */
+  --primary-foreground: 222 47% 11%;
+  
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  
+  --card: 222 47% 6%;           /* Slightly lighter than bg */
+  --card-foreground: 210 40% 98%;
+  
+  --border: 177 85% 39%;        /* Teal border for tech feel */
+  --input: 217 33% 17%;
+  
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(circle at center, hsl(222, 47%, 8%), hsl(222, 47%, 2%));
+  color: hsl(210 40% 98%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(15, 185, 177, 0.5), 0 0 20px rgba(15, 185, 177, 0.3);
+}
+
+.box-glow {
+  box-shadow: 0 0 15px rgba(15, 185, 177, 0.15), inset 0 0 15px rgba(15, 185, 177, 0.05);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background)); 
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.6); 
+}
