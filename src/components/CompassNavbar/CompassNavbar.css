@@ -8,10 +8,11 @@
 /* Compass Container */
 .compass-container {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 55px; /* adjust */
+  right: 5px; /* adjust */
   width: 120px;
   height: 120px;
+  z-index: 1000; /* above footer */
 }
 
 /* Compass Button */
@@ -117,7 +118,7 @@
 @media (max-width: 768px) {
 
   .compass-container {
-    bottom: 16px;
+    bottom: 43px;
     right: 12px;
     width: 48px;
     height: 55px;
