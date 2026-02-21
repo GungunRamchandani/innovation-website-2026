@@ -5,6 +5,8 @@ import Initiative from "./pages/initiative";
 import Sponsors from "./pages/sponsors";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
+import Speakers1 from "./pages/speakers";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/aboutus" element={<Aboutus />} />
+
+        <Route path="/speakers" element={<Speakers1 />} />
 
 
       </Routes>
