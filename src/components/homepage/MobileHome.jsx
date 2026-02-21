@@ -6,12 +6,12 @@ export default function MobileHome() {
   return (
     <div style={containerStyle}>
       {/* Background */}
-      <img src="/images/city-bg.jpeg" alt="bg" style={bgStyle} />
+      <img src="/homepage/images/city-bg.jpeg" alt="bg" style={bgStyle} />
       <div style={overlayStyle} />
 
       {/* Foreground PNG (rings + connectors) */}
       <img
-        src="/images/foreground2.png"
+        src="/homepage/images/foreground2.png"
         alt="foreground"
         style={foregroundStyle}
       />
@@ -20,43 +20,43 @@ export default function MobileHome() {
       <IconNode
         top="13%"
         left="60%"
-        icon="/images/icon_3.png"
+        icon="/homepage/images/icon_3.png"
         onClick={() => navigate("/timeline")}
       />
       <IconNode
         top="27.5%"
         left="34%"
-        icon="/images/icon_2.png"
+        icon="/homepage/images/icon_2.png"
         onClick={() => navigate("/speakers")}
       />
       <IconNode
         top="41%"
         left="59.5%"
-        icon="/images/icon_0.png"
+        icon="/homepage/images/icon_0.png"
         onClick={() => navigate("/events")}
       />
       <IconNode
         top="53%"
         left="34%"
-        icon="/images/icon_1.png"
+        icon="/homepage/images/icon_1.png"
         onClick={() => navigate("/sponsors")}
       />
       <IconNode
         top="64.5%"
         left="60%"
-        icon="/images/icon_5.png"
+        icon="/homepage/images/icon_5.png"
         onClick={() => navigate("/initiative")}
       />
       <IconNode
         top="76.5%"
         left="34%"
-        icon="/images/icon_6.png"
+        icon="/homepage/images/icon_6.png"
         onClick={() => navigate("/initiative")}
       />
       <IconNode
         top="89%"
         left="59.5%"
-        icon="/images/icon_4.png"
+        icon="/homepage/images/icon_4.png"
         onClick={() => navigate("/initiative")}
       />
       <TextLabel top="13%" left="35%" text="TIMELINE" />
