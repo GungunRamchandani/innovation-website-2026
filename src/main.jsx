@@ -1,33 +1,35 @@
-import { StrictMode, useState, useEffect } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Animation from './pages/animation.jsx'
-import App from './App.jsx'
+import { useState } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+
+import Animation from "./pages/animation.jsx";
+import App from "./App.jsx";
 
 function Main() {
-  // Check if animation has already been shown in this session
-  const [showApp, setShowApp] = useState(() => {
-    return sessionStorage.getItem('animationShown') === 'true';
-  });
-  
-  const handleAnimationComplete = () => {
-    sessionStorage.setItem('animationShown', 'true');
-    setShowApp(true);
+  const [animationDone, setAnimationDone] = useState(() =>
+    sessionStorage.getItem("animationShown") === "true"
+  );
+
+  const [phase, setPhase] = useState("loader");
+
+  const handleComplete = () => {
+    sessionStorage.setItem("animationShown", "true");
+    setAnimationDone(true);
   };
-  
+
   return (
     <>
-      {!showApp ? (
-        <Animation onComplete={handleAnimationComplete} />
-      ) : (
-        <App />
+      <App phase={phase} setPhase={setPhase} />
+
+      {!animationDone && (
+        <Animation onComplete={handleComplete} />
       )}
     </>
   );
 }
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Main />
-  </StrictMode>,
-)
+createRoot(document.getElementById("root")).render(
+
+  <Main />
+
+);

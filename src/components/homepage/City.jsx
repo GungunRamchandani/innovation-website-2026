@@ -6,11 +6,11 @@ import {
   useCallback,
   useRef,
 } from "react";
+import { memo } from "react";
 import { useThree } from "@react-three/fiber";
 import { Instances, Instance, useProgress } from "@react-three/drei";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
-import { SkeletonUtils } from "three-stdlib";
 import Dome from "./Dome";
 import { useNavigate } from "react-router-dom";
 
@@ -397,11 +397,18 @@ function ProgressBar() {
 // ─────────────────────────────────────────────
 function useTreeAsset() {
   const { nodes, materials } = useGLTF("/homepage/models/tree.glb");
-  const mesh = Object.values(nodes).find((n) => n.isMesh);
-  return {
-    geometry: mesh.geometry,
-    material: mesh.material || materials[Object.keys(materials)[0]],
-  };
+
+  return useMemo(() => {
+    const mesh = Object.values(nodes).find((n) => n.isMesh);
+    if (!mesh) return null;
+
+    return {
+      geometry: mesh.geometry,
+      material:
+        mesh.material ||
+        materials[Object.keys(materials)[0]],
+    };
+  }, [nodes, materials]);
 }
 
 // ─────────────────────────────────────────────
@@ -409,16 +416,19 @@ function useTreeAsset() {
 // ─────────────────────────────────────────────
 function InstancedRobos({ robos }) {
   const { nodes } = useGLTF("/homepage/models/robo.glb");
-  const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
-    [nodes],
-  );
-  if (!mesh) return null;
+
+  const mesh = useMemo(() => {
+    return Object.values(nodes).find((n) => n.isMesh) || null;
+  }, [nodes]);
+
+  if (!mesh || robos.length === 0) return null;
+
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={robos.length}
+      range={robos.length}
     >
       {robos.map((r, i) => (
         <Instance
@@ -431,20 +441,25 @@ function InstancedRobos({ robos }) {
     </Instances>
   );
 }
-function InstancedBicycles({ bikes }) {
+
+function InstancedBicycles({ bicycles = [] }) {
   const { nodes } = useGLTF("/homepage/models/bycycle.glb");
-  const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
-    [nodes],
-  );
-  if (!mesh) return null;
+
+  const mesh = useMemo(() => {
+    if (!nodes) return null;
+    return Object.values(nodes).find((n) => n.isMesh) || null;
+  }, [nodes]);
+
+  if (!mesh || bicycles.length === 0) return null;
+
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
-      limit={bikes.length}
+      limit={bicycles.length}
+      range={bicycles.length}
     >
-      {bikes.map((b, i) => (
+      {bicycles.map((b, i) => (
         <Instance
           key={i}
           position={b.position}
@@ -455,18 +470,22 @@ function InstancedBicycles({ bikes }) {
     </Instances>
   );
 }
+
 function InstancedSheep({ sheep }) {
   const { nodes } = useGLTF("/homepage/models/sheep.glb");
-  const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
-    [nodes],
-  );
-  if (!mesh) return null;
+
+  const mesh = useMemo(() => {
+    return Object.values(nodes).find((n) => n.isMesh) || null;
+  }, [nodes]);
+
+  if (!mesh || sheep.length === 0) return null;
+
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={sheep.length}
+      range={sheep.length}
     >
       {sheep.map((s, i) => (
         <Instance
@@ -481,16 +500,19 @@ function InstancedSheep({ sheep }) {
 }
 function InstancedGoats({ goats }) {
   const { nodes } = useGLTF("/homepage/models/goat.glb");
-  const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
-    [nodes],
-  );
-  if (!mesh) return null;
+
+  const mesh = useMemo(() => {
+    return Object.values(nodes).find((n) => n.isMesh) || null;
+  }, [nodes]);
+
+  if (!mesh || goats.length === 0) return null;
+
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={goats.length}
+      range={goats.length}
     >
       {goats.map((g, i) => (
         <Instance
@@ -503,18 +525,29 @@ function InstancedGoats({ goats }) {
     </Instances>
   );
 }
+useGLTF.preload("/homepage/models/tree.glb");
+useGLTF.preload("/homepage/models/robo.glb");
+useGLTF.preload("/homepage/models/bycycle.glb");
+useGLTF.preload("/homepage/models/sheep.glb");
+useGLTF.preload("/homepage/models/goat.glb");
+
+
 function InstancedCows({ cows }) {
   const { nodes } = useGLTF("/homepage/models/Cow.glb");
+
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
-    [nodes],
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
+    [nodes]
   );
-  if (!mesh) return null;
+
+  if (!mesh || cows.length === 0) return null;
+
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={cows.length}
+      range={cows.length}
     >
       {cows.map((c, i) => (
         <Instance
@@ -527,18 +560,20 @@ function InstancedCows({ cows }) {
     </Instances>
   );
 }
+
 function InstancedBuildings({ buildings }) {
   const { nodes } = useGLTF("/homepage/models/building.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || buildings.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={buildings.length}
+       range={buildings.length}
     >
       {buildings.map((b, i) => (
         <Instance
@@ -554,15 +589,16 @@ function InstancedBuildings({ buildings }) {
 function InstancedSolarPanels({ panels }) {
   const { nodes } = useGLTF("/homepage/models/solarpanels.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || panels.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={panels.length}
+      range={panels.length}
     >
       {panels.map((p, i) => (
         <Instance
@@ -578,15 +614,16 @@ function InstancedSolarPanels({ panels }) {
 function InstancedCars({ cars }) {
   const { nodes } = useGLTF("/homepage/models/car.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || cars.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={cars.length}
+      range={cars.length}
     >
       {cars.map((c, i) => (
         <Instance
@@ -602,15 +639,16 @@ function InstancedCars({ cars }) {
 function InstancedChickens({ chickens }) {
   const { nodes } = useGLTF("/homepage/models/chicken.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || chickens.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={chickens.length}
+      range={chickens.length}
     >
       {chickens.map((c, i) => (
         <Instance
@@ -626,15 +664,16 @@ function InstancedChickens({ chickens }) {
 function InstancedResBuildings({ buildings }) {
   const { nodes } = useGLTF("/homepage/models/resbuilding.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || buildings.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={buildings.length}
+      range={buildings.length}
     >
       {buildings.map((b, i) => (
         <Instance
@@ -650,15 +689,16 @@ function InstancedResBuildings({ buildings }) {
 function InstancedHorses({ horses }) {
   const { nodes } = useGLTF("/homepage/models/Horse.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || horses.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={horses.length}
+      range={horses.length}
     >
       {horses.map((h, i) => (
         <Instance
@@ -674,15 +714,16 @@ function InstancedHorses({ horses }) {
 function InstancedBlueBase({ bases }) {
   const { nodes } = useGLTF("/homepage/models/blue_base.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || bases.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={bases.length}
+      range={bases.length}
     >
       {bases.map((b, i) => (
         <Instance
@@ -698,15 +739,16 @@ function InstancedBlueBase({ bases }) {
 function InstancedWindmills({ windmills }) {
   const { nodes } = useGLTF("/homepage/models/windmill.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || windmills.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={windmills.length}
+      range={windmills.length}
     >
       {windmills.map((w, i) => (
         <Instance
@@ -722,15 +764,16 @@ function InstancedWindmills({ windmills }) {
 function InstancedCrops({ crops }) {
   const { nodes } = useGLTF("/homepage/models/crops.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || crops.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={crops.length}
+      range={crops.length}
     >
       {crops.map((c, i) => (
         <Instance
@@ -746,15 +789,16 @@ function InstancedCrops({ crops }) {
 function InstancedFarms({ farms }) {
   const { nodes } = useGLTF("/homepage/models/farm.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || farms.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={farms.length}
+      range={farms.length}
     >
       {farms.map((f, i) => (
         <Instance
@@ -770,15 +814,16 @@ function InstancedFarms({ farms }) {
 function InstancedCabins({ cabins }) {
   const { nodes } = useGLTF("/homepage/models/Cabin.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || cabins.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={cabins.length}
+      range={cabins.length}
     >
       {cabins.map((c, i) => (
         <Instance
@@ -794,15 +839,16 @@ function InstancedCabins({ cabins }) {
 function InstancedMountains({ mountains }) {
   const { nodes } = useGLTF("/homepage/models/mountain.glb");
   const mesh = useMemo(
-    () => Object.values(nodes).find((n) => n.isMesh),
+    () => Object.values(nodes).find((n) => n.isMesh) || null,
     [nodes],
   );
-  if (!mesh) return null;
+  if (!mesh || mountains.length===0) return null;
   return (
     <Instances
       geometry={mesh.geometry}
       material={mesh.material}
       limit={mountains.length}
+      range={mountains.length}
       castShadow
       receiveShadow
     >
@@ -820,20 +866,20 @@ function InstancedMountains({ mountains }) {
 function AllTreeClusters({ clusters }) {
   const { geometry, material } = useTreeAsset();
   const allTrees = useMemo(
-    () =>
-      clusters.flatMap(({ position, count, spread }) =>
-        Array.from({ length: count }, () => ({
-          pos: [
-            position[0] + (Math.random() - 0.5) * spread,
-            position[1],
-            position[2] + (Math.random() - 0.5) * spread,
-          ],
-          scale: 3 + Math.random() * 3,
-          rot: Math.random() * Math.PI * 2,
-        })),
-      ),
-    [],
-  );
+  () =>
+    clusters.flatMap(({ position, count, spread }) =>
+      Array.from({ length: count }, () => ({
+        pos: [
+          position[0] + (Math.random() - 0.5) * spread,
+          position[1],
+          position[2] + (Math.random() - 0.5) * spread,
+        ],
+        scale: 3 + Math.random() * 3,
+        rot: Math.random() * Math.PI * 2,
+      }))
+    ),
+  [clusters]
+);
   return (
     <Instances geometry={geometry} material={material} limit={allTrees.length}>
       {allTrees.map((t, i) => (
@@ -898,26 +944,64 @@ function HexPerimeterRoad({ angle, radius }) {
     </group>
   );
 }
-function Model({ path, position, scale = 1, rotation = [0, 0, 0] }) {
+const Model = memo(function Model({
+  path,
+  position,
+  scale = 1,
+  rotation = [0, 0, 0],
+}) {
   const { scene } = useGLTF(path);
-  const clonedScene = useMemo(() => SkeletonUtils.clone(scene), [scene]);
+
+  useEffect(() => {
+    scene.traverse((obj) => {
+      if (obj.isMesh) {
+        obj.matrixAutoUpdate = false;
+        obj.updateMatrix();
+      }
+    });
+  }, [scene]);
+
   return (
     <primitive
-      object={clonedScene}
+      object={scene}
+      dispose={null}
       position={position}
       scale={[scale, scale, scale]}
       rotation={rotation}
     />
   );
-}
+});
+
+Model.displayName = "Model";
+
+useGLTF.preload("/homepage/models/Cow.glb");
+useGLTF.preload("/homepage/models/building.glb");
+useGLTF.preload("/homepage/models/solarpanels.glb");
+useGLTF.preload("/homepage/models/car.glb");
+useGLTF.preload("/homepage/models/chicken.glb");
+useGLTF.preload("/homepage/models/resbuilding.glb");
+useGLTF.preload("/homepage/models/Horse.glb");
+useGLTF.preload("/homepage/models/blue_base.glb");
+useGLTF.preload("/homepage/models/windmill.glb");
+useGLTF.preload("/homepage/models/crops.glb");
+useGLTF.preload("/homepage/models/farm.glb");
+useGLTF.preload("/homepage/models/Cabin.glb");
+useGLTF.preload("/homepage/models/mountain.glb");
+
 function SkyLogoI({ position = [0, 140, -80], size = 700 }) {
   const texture = useTexture("/homepage/images/logo.png");
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.generateMipmaps = false;
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
+
+  useEffect(() => {
+    if (!texture) return;
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.generateMipmaps = false;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.needsUpdate = true;
+  }, [texture]);
+
   return (
-    <mesh position={position}>
+    <mesh position={position} frustumCulled={false}>
       <planeGeometry args={[size, size]} />
       <meshBasicMaterial
         map={texture}
@@ -950,6 +1034,18 @@ useTexture.preload("/homepage/images/icon_3.png");
 useTexture.preload("/homepage/images/icon_4.png");
 useTexture.preload("/homepage/images/icon_5.png");
 useTexture.preload("/homepage/images/icon_6.png");
+
+
+useGLTF.preload("/homepage/models/robo.glb");
+useGLTF.preload("/homepage/models/car.glb");
+useGLTF.preload("/homepage/models/bycycle.glb");
+useGLTF.preload("/homepage/models/sheep.glb");
+useGLTF.preload("/homepage/models/goat.glb");
+useGLTF.preload("/homepage/models/Cow.glb");
+useGLTF.preload("/homepage/models/Horse.glb");
+useGLTF.preload("/homepage/models/building.glb");
+useGLTF.preload("/homepage/models/resbuilding.glb");
+useGLTF.preload("/homepage/models/solarpanels.glb");
 
 // ─────────────────────────────────────────────
 // LAYER 2 — mounts after loader hides
@@ -1361,24 +1457,28 @@ function LoadTracker({ enabled, onDone }) {
 //   showLayers    — true after loader screen hides → mounts L2+L3
 //   domsLocked    — true while city is still loading → blocks dome clicks
 // ─────────────────────────────────────────────
-export default function City({
+function City({
   onSelectDome,
   showLayers,
   domsLocked,
   onAllLoaded,
 }) {
+
+  let hasLoadedOnce = false;
+
+   console.log("City loaded")
   const navigate = useNavigate();
   const { scene, gl, camera } = useThree();
   const hexRadius = 110;
 
-  const getCornerPos = useCallback(
-    (i) => [
-      Math.cos((i * Math.PI) / 3) * hexRadius,
-      1,
-      Math.sin((i * Math.PI) / 3) * hexRadius,
-    ],
-    [],
-  );
+ const getCornerPos = useCallback(
+  (i) => [
+    Math.cos((i * Math.PI) / 3) * hexRadius,
+    1,
+    Math.sin((i * Math.PI) / 3) * hexRadius,
+  ],
+  [hexRadius],
+);
 
   // ── Data ──
   const mountainData = useMemo(
@@ -1608,13 +1708,15 @@ export default function City({
     setRotatingDome(null);
     document.body.style.cursor = "auto";
   };
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => gl.compile(scene, camera));
-    return () => cancelAnimationFrame(id);
-  }, [scene, gl, camera]);
+useEffect(() => {
+  const t = setTimeout(() => {
+    gl.compile(scene, camera);
+  }, 500);
+  return () => clearTimeout(t);
+}, []);
 
   const handleAllLoaded = useCallback(() => onAllLoaded?.(), [onAllLoaded]);
+      const domeIndices = useMemo(() => [0,1,2,3,4,5,6], []);
 
   return (
     <group>
@@ -1623,11 +1725,15 @@ export default function City({
         position={[50, 100, 50]}
         intensity={1.2}
         color="#ffffff"
+        matrixAutoUpdate={false}
+        onUpdate={(self) => self.updateMatrix()}
       />
 
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, -0.1, 0]}
+        matrixAutoUpdate={false}
+        onUpdate={(self) => self.updateMatrix()}
         onClick={() => {
           if (activeDome !== null) resetView();
         }}
@@ -1638,7 +1744,7 @@ export default function City({
 
       {/* ── Layer 1 ── */}
       <InstancedMountains mountains={mountainData} />
-      {[0, 1, 2, 3, 4, 5].map((i) => (
+      {domeIndices.map((i) => (
         <HexPerimeterRoad
           key={i}
           angle={(i * Math.PI) / 3 + Math.PI / 6}
@@ -1655,7 +1761,7 @@ export default function City({
       <SkyLogoI position={[0, -200, -2200]} size={90} />
 
       {/* ── Domes ── */}
-      {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+      {domeIndices.map((i) => {
         const pos = i === 6 ? [0, 1, 0] : getCornerPos(i);
         return (
           <group key={i} position={pos}>
@@ -1713,3 +1819,7 @@ export default function City({
     </group>
   );
 }
+
+City.displayName = "City";
+
+export default memo(City);
