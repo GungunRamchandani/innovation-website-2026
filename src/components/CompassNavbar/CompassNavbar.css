@@ -8,10 +8,11 @@
 /* Compass Container */
 .compass-container {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 0.5%; /* adjust */
+  right: 2%; /* adjust */
   width: 120px;
   height: 120px;
+  z-index: 9999;
 }
 
 /* Compass Button */
@@ -45,7 +46,7 @@
 .guiding-light {
   position: absolute;
   bottom: 50px;
-  left: 50%;
+  left: 51%;
   width: 360px;
   height: 360px;
   transform: translateX(-50%) scaleY(0);
@@ -81,18 +82,25 @@
 #nav-menu {
   list-style: none;
   position: absolute;
-  bottom: 160px;
-  right: 20px;
+  bottom: 110%;
+  right: 6%;
   pointer-events: none;
+  align-items: flex-end;
 }
 
 #nav-menu li {
+  height: 6vh;
+  width: 20vh;
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #0e3333;
+  text-align: center;
   opacity: 0;
   transform: translateY(10px);
-  margin: 12px 0;
-  padding: 8px 14px;
-  background: rgba(0, 246, 255, 0.1);
-  border: 1px solid #00f6ff;
+  margin: 6px 0px;
+  padding: 3px 12px;
+  background: rgba(0, 246, 255, 0.8);
+  border: 2px solid #00f6ff;
   border-radius: 6px;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
@@ -100,7 +108,7 @@
 
 #nav-menu li:hover {
   background: #00f6ff;
-  color: #000;
+  color: white;
 }
 
 #nav-menu.show {
@@ -117,15 +125,15 @@
 @media (max-width: 768px) {
 
   .compass-container {
-    bottom: 16px;
-    right: 12px;
+    bottom: 75px;
+    right: 40px;
     width: 48px;
     height: 55px;
   }
 
   #compass-btn {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-width: 1.5px;
   }
 
@@ -136,36 +144,44 @@
   }
 
   .guiding-light {
-    width: 240px;
+    left: 45px;
+    width: 300px;
     height: 240px;
-    bottom: 40px;
+    bottom: 20px;
     filter: blur(4px);
   }
 
     #nav-menu {
-        bottom: 88px;
-        right: 5px;
+        position: fixed;
+        bottom: 150px;
+        right: 14px;
 
         display: flex;
         flex-direction: column;
         align-items: flex-end;
 
-        width: max-content;   
+        width: auto;   
     }
 
 
     #nav-menu li {
-        font-size: 0.5rem;
-        padding: 3px 5px;
-        margin: 6px 0;
+        height: 6vh;
+        font-size: 0.85rem;
+        font-weight: bold;
+        padding: 3px 10px;
+        margin: 4px 0;
 
-        border-radius: 999px;
+        border-radius: 10px;
 
-        width: 100%;          
+        width: 100%;  
+        line-height:1;        
         text-align: center;
 
-        display: flex;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+
+        background-color: rgba(0, 246, 255, 0.8);  /* soft teal */
     }
 
 }

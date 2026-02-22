@@ -1,10 +1,14 @@
 import "./CompassNavbar.css";
 import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Events from "./pages/Events";
+
 
 function CompassNavbar() {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleCompass = () => {
     setOpen(!open);
   };
@@ -22,18 +26,29 @@ function CompassNavbar() {
       </button>
 
       <ul id="nav-menu" className={open ? "show" : ""}>
-        {["Events", "Timeline", "Speakers", "Sponsors", "Team", "About Us"].map(
-          (item, index) => (
+        {[
+          { name: "Home", path: "/" },
+          { name: "Events", path: "/Events" },
+          { name: "Timeline", path: "/timeline" },
+          { name: "Speakers", path: "/speakers" },
+          { name: "Initiative", path: "/initiative" },
+          { name: "Sponsors", path: "/sponsors" },
+          { name: "Team", path: "/teams" },
+          { name: "About Us", path: "/aboutus" },
+        ].map((item, index) => (
             <li
-              key={item}
+              key={item.name}
               style={{
                 transitionDelay: open ? `${index * 0.08}s` : "0s",
               }}
+              onClick={() => {
+                setOpen(false);
+                navigate(item.path);
+              }}
             >
-              {item}
+            {item.name}
             </li>
-          )
-        )}
+          ))}
       </ul>
     </div>
   );

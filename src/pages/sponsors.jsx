@@ -4,7 +4,7 @@ import "../pages/sponsors.css";
 
 function Sponsors() {
   return (
-    <div className="page">
+    <div className="sponsor-page">
       {Object.entries(sponsors).map(([category, list]) => (
         <section key={category}>
           <h2 className={`title ${category.toLowerCase()}`}>

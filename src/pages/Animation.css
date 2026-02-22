@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles moved to .animation-container to avoid affecting other pages */
+
+.animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* dat.gui styling */
+.dg {
+  font-family: 'Monaco', monospace;
+  font-size: 12px;
+}
+
+.dg.main {
+  margin-right: 10px;
+}
