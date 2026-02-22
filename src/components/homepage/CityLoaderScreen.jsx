@@ -8,6 +8,13 @@ export function CityLoaderScreen({ onReady }) {
   const [hidden, setHidden] = useState(false);
   const doneRef = useRef(false);
 
+  const [alreadyLoaded] = useState(() => sessionStorage.getItem('city_initialized') === 'true');
+
+  if (alreadyLoaded || done) {
+    sessionStorage.setItem('city_initialized', 'true');
+    return null;
+  }
+
   // Keep displayed % always moving forward
   useEffect(() => {
     setPct((p) => Math.max(p, Math.round(progress)));
