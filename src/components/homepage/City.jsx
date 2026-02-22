@@ -1673,9 +1673,9 @@ export default function City({
                 const pages = {
                   0: "/events",
                   1: "/speakers",
-                  2: "/team",
+                  2: "/teams",
                   3: "/timeline",
-                  4: "/about",
+                  4: "/aboutus",
                   5: "/sponsors",
                   6: "/initiative",
                 };

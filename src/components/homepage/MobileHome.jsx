@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   {
     icon: "/homepage/images/icon_2.png",
     label: "TEAM",
-    route: "/team",
+    route: "/teams",
     side: "left",
   },
   {
@@ -42,7 +42,7 @@ const NAV_ITEMS = [
   {
     icon: "/homepage/images/icon_4.png",
     label: "ABOUT US",
-    route: "/about",
+    route: "/aboutus",
     side: "right",
   },
 ];
