@@ -2,10 +2,11 @@ import "./CompassNavbar.css";
 import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CompassNavbar() {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleCompass = () => {
     setOpen(!open);
   };
@@ -38,10 +39,12 @@ function CompassNavbar() {
               style={{
                 transitionDelay: open ? `${index * 0.08}s` : "0s",
               }}
+              onClick={() => {
+                setOpen(false);
+                navigate(item.path);
+              }}
             >
-              <Link to={item.path} onClick={() => setOpen(false)}>
-                {item.name}
-              </Link>
+            {item.name}
             </li>
           ))}
       </ul>
