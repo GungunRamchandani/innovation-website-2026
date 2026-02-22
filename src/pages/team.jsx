@@ -43,7 +43,7 @@ export default function Team() {
               <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
             </div>
             <p className="text-muted-foreground text-sm font-mono tracking-wider">
-              // CORE_SYSTEM_ARCHITECTS
+              // ARCHITECTS_OF_INNOVATION
             </p>
           </div>
 
