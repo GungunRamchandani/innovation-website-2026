@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import Events from "./pages/Events";
+import Aboutus from "./pages/aboutus";
 import Homepage from "./pages/homepage";
 import Initiative from "./pages/initiative";
 import Speakers1 from "./pages/speakers";
@@ -15,26 +16,26 @@ function App() {
   const isHomePage = location.pathname === "/";
 
   return (
-  <div className="app-layout">
-    <Header />
+    <div className="app-layout">
+      <Header />
 
-    <main className="app-content">
-      {!isHomePage && <CompassNavbar />}
+      <main className="app-content">
+        {!isHomePage && <CompassNavbar />}
 
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/sponsors" element={<Sponsors />} />
-        <Route path="/initiative" element={<Initiative />} />
-        <Route path="/teams" element={<Team />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/speakers" element={<Speakers1 />} />
-        <Route path="/events/*" element={<Events />} />
-        <Route path="/aboutus" element={<Speakers1 />} />
-      </Routes>
-    </main>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/initiative" element={<Initiative />} />
+          <Route path="/teams" element={<Team />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/speakers" element={<Speakers1 />} />
+          <Route path="/events/*" element={<Events />} />
+          <Route path="/aboutus" element={<Aboutus />} />
+        </Routes>
+      </main>
 
-    <Footer />
-  </div>
+      <Footer />
+    </div>
   );
 }
 
