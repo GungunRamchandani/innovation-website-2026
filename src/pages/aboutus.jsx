@@ -83,7 +83,7 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
       <section
         ref={sectionRef}
         id={sectionId}
-        className="hidden md:flex relative w-full h-screen items-center justify-center"
+        className="hidden md:flex relative w-full py-28 items-center justify-center"
       >
         <div className="container mx-auto px-4 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
@@ -249,7 +249,10 @@ const AboutUs = () => {
         }
       />
 
-      <MultiRingGallery />
+     
+       <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
+          IMAGE GALLERY 
+        </h2>
 
       {/* Globe Section */}
       <section className="w-full py-24 flex justify-center">
@@ -257,7 +260,7 @@ const AboutUs = () => {
           <Globe />
         </div>
       </section>
-
+ <MultiRingGallery />
 
       <footer className="py-8 border-t border-border/50 text-center">
         <p className="text-muted-foreground text-sm">
