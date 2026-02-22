@@ -1031,7 +1031,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/missiel.glb"
-          position={[-54, 21, -135]}
+          position={[-110, 21, -135]}
           scale={40}
           rotation={[0, Math.PI, 0]}
         />
@@ -1155,7 +1155,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/def_veh.glb"
-          position={[-89, 9, -130]}
+          position={[-75, 9, -130]}
           scale={20}
           rotation={[0, Math.PI / 4, 0]}
         />
@@ -1673,9 +1673,9 @@ export default function City({
                 const pages = {
                   0: "/events",
                   1: "/speakers",
-                  2: "/teams",
+                  2: "/team",
                   3: "/timeline",
-                  4: "/aboutus",
+                  4: "/about",
                   5: "/sponsors",
                   6: "/initiative",
                 };
