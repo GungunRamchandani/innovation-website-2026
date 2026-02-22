@@ -1,9 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Eye, Lightbulb, Sparkles, Target } from "lucide-react";
 import { useRef } from "react";
-import "../components/Aboutus/Globe.jsx";
+import Globe from "../components/Aboutus/Globe";
 import WaveBackground from '../components/team/WaveBackground';
 import "./aboutus.css";
+
 
 /* ---------------- RevealCard Component ---------------- */
 
@@ -51,7 +52,7 @@ const RevealCard = ({
           {title}
         </h3>
 
-        <p className="text-muted-foreground leading-relaxed text-sm">
+        <p className="leading-relaxed text-base md:text-xl text-muted-foreground">
           {content}
         </p>
       </div>
@@ -249,6 +250,14 @@ const AboutUs = () => {
       />
 
       <MultiRingGallery />
+
+      {/* Globe Section */}
+      <section className="w-full py-24 flex justify-center">
+        <div className="w-full max-w-6xl">
+          <Globe />
+        </div>
+      </section>
+
 
       <footer className="py-8 border-t border-border/50 text-center">
         <p className="text-muted-foreground text-sm">
