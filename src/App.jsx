@@ -27,6 +27,7 @@ function App() {
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/speakers" element={<Speakers1 />} />
+        <Route path="/aboutus" element={<Speakers1 />} />
 
       </Routes>
     </>
