@@ -862,17 +862,17 @@ function AllRoadTrees({ radius }) {
           rot = Math.random() * Math.PI * 2;
         trees.push({
           pos: [
-            cosA * (radius + 6) - sinA * z,
+            cosA * (radius + 4) - sinA * z,
             1,
-            sinA * (radius + 6) + cosA * z,
+            sinA * (radius + 4) + cosA * z,
           ],
           rot,
         });
         trees.push({
           pos: [
-            cosA * (radius - 6) - sinA * z,
+            cosA * (radius - 4) - sinA * z,
             1,
-            sinA * (radius - 6) + cosA * z,
+            sinA * (radius - 4) + cosA * z,
           ],
           rot,
         });
@@ -893,7 +893,7 @@ function HexPerimeterRoad({ angle, radius }) {
     <group rotation={[0, angle, 0]}>
       <mesh position={[radius, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[12, radius * 1.15]} />
-        <meshStandardMaterial color="#1a1a1a" />
+        <meshStandardMaterial color="#3a3a3a" />
       </mesh>
     </group>
   );
@@ -975,7 +975,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/ground.glb"
-          position={[-64, 5.9, 150]}
+          position={[-20, 5.9, 135]}
           scale={43}
           rotation={[0, Math.PI, 0]}
         />
@@ -991,17 +991,17 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/hospitals.glb"
-          position={[30, 12, 132]}
+          position={[17, 12, 132]}
           scale={30}
-          rotation={[0, Math.PI / 1.2, 0]}
+          rotation={[0, -Math.PI / 1.2, 0]}
         />
       </Suspense>
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/hospital_2.glb"
-          position={[90, 6, 125]}
+          position={[105, 6, 125]}
           scale={20}
-          rotation={[0, -Math.PI / 2, 0]}
+          rotation={[0, Math.PI / 1.2, 0]}
         />
       </Suspense>
       <Suspense fallback={null}>
@@ -1031,7 +1031,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/missiel.glb"
-          position={[-54, 21, -135]}
+          position={[-110, 21, -135]}
           scale={40}
           rotation={[0, Math.PI, 0]}
         />
@@ -1069,7 +1069,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/farmhouse.glb"
-          position={[-70 + cp3[0], -4, -70 + cp3[2]]}
+          position={[-60 + cp3[0], -4, -70 + cp3[2]]}
           scale={15}
         />
       </Suspense>
@@ -1155,7 +1155,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/def_veh.glb"
-          position={[-89, 9, -130]}
+          position={[-75, 9, -130]}
           scale={20}
           rotation={[0, Math.PI / 4, 0]}
         />
@@ -1163,7 +1163,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/helicopter.glb"
-          position={[35, 28, 140]}
+          position={[17, 28, 140]}
           scale={20}
           rotation={[-0.2, Math.PI / 6, 0.1]}
         />
@@ -1171,7 +1171,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/ambulance.glb"
-          position={[84, 5, 60]}
+          position={[80, 5, 60]}
           scale={15}
           rotation={[0, Math.PI / 3, 0]}
         />
@@ -1179,7 +1179,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/slide.glb"
-          position={[-54, 11, 150]}
+          position={[-20, 11, 135]}
           scale={15}
           rotation={[0, Math.PI, 0]}
         />
@@ -1187,7 +1187,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/Swings.glb"
-          position={[-70, 6, 150]}
+          position={[-20, 6, 125]}
           scale={8}
           rotation={[0, Math.PI, 0]}
         />
@@ -1195,7 +1195,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/seesaw.glb"
-          position={[-66, 3.5, 137]}
+          position={[-10, 3.5, 130]}
           scale={8}
           rotation={[0, Math.PI, 0]}
         />
@@ -1237,7 +1237,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/rikshaw.glb"
-          position={[-3, 3.5, -99]}
+          position={[-8, 3.5, -102]}
           scale={12}
           rotation={[0, Math.PI, 0]}
         />
@@ -1269,7 +1269,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/school_boys.glb"
-          position={[-105, 6, 150]}
+          position={[-105, 7, 150]}
           scale={20}
           rotation={[0, -Math.PI / 1.2, 0]}
         />
@@ -1277,7 +1277,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/boys.glb"
-          position={[-65, 4, 165]}
+          position={[-28, 6, 125]}
           scale={8}
           rotation={[0, Math.PI / 2, 0]}
         />
@@ -1294,9 +1294,9 @@ function Layer3Scene({
         <group position={getCornerPos(0)}>
           <Model
             path="/homepage/models/AIboard.glb"
-            position={[-10, 3, -50]}
+            position={[40, 3, -50]}
             scale={18}
-            rotation={[0, -Math.PI / 6, 0]}
+            rotation={[0, Math.PI / 6, 0]}
           />
         </group>
       </Suspense>
@@ -1313,7 +1313,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/plus.glb"
-          position={[89, 12, 127]}
+          position={[105, 12, 127]}
           scale={5}
         />
       </Suspense>
@@ -1413,30 +1413,30 @@ export default function City({
 
   const carsData = useMemo(
     () => [
-      { position: [38.5, 1, 20], rotation: [0, Math.PI / 2, 0], scale: 12 },
-      { position: [38.5, 1, 27], rotation: [0, Math.PI / 2, 0], scale: 12 },
-      { position: [25.5, 1, 27], rotation: [0, Math.PI / 2, 0], scale: 12 },
-      { position: [25.5, 1, 34], rotation: [0, Math.PI / 2, 0], scale: 12 },
-      { position: [38.5, 1, 34], rotation: [0, Math.PI / 2, 0], scale: 12 },
+      { position: [42.5, 1, 20], rotation: [0, Math.PI / 2, 0], scale: 12 },
+      { position: [42.5, 1, 27], rotation: [0, Math.PI / 2, 0], scale: 12 },
+      { position: [30.5, 1, 27], rotation: [0, Math.PI / 2, 0], scale: 12 },
+      { position: [30.5, 1, 34], rotation: [0, Math.PI / 2, 0], scale: 12 },
+      { position: [42.5, 1, 34], rotation: [0, Math.PI / 2, 0], scale: 12 },
     ],
     [],
   );
   const buildingData = useMemo(
     () => [
-      { position: [55, 5, 5], scale: 25, rotation: [0, 0, 0] },
-      { position: [55, 5, 25], scale: 25, rotation: [0, 0, 0] },
-      { position: [35, 6, 50], scale: 25, rotation: [0, 0, 0] },
-      { position: [50, 6, 45], scale: 25, rotation: [0, 0, 0] },
+      { position: [63, 5, 5], scale: 25, rotation: [0, 0, 0] },
+      { position: [63, 5, 25], scale: 25, rotation: [0, 0, 0] },
+      { position: [43, 6, 50], scale: 25, rotation: [0, 0, 0] },
+      { position: [58, 6, 45], scale: 25, rotation: [0, 0, 0] },
     ],
     [],
   );
   const resBuildingData = useMemo(
     () => [
-      { position: [60, 12, -25], scale: 28, rotation: [0, Math.PI / 2, 0] },
-      { position: [36, 8, -30], scale: 16, rotation: [0, 0, 0] },
-      { position: [20, 8, -35], scale: 16, rotation: [0, 0, 0] },
-      { position: [38.5, 8, -10], scale: 16, rotation: [0, Math.PI / 2, 0] },
-      { position: [38.5, 8, 7], scale: 16, rotation: [0, Math.PI / 2, 0] },
+      { position: [68, 12, -25], scale: 28, rotation: [0, Math.PI / 2, 0] },
+      { position: [42, 8, -30], scale: 16, rotation: [0, 0, 0] },
+      { position: [27, 8, -35], scale: 16, rotation: [0, 0, 0] },
+      { position: [42.5, 8, -10], scale: 16, rotation: [0, Math.PI / 2, 0] },
+      { position: [42.5, 8, 7], scale: 16, rotation: [0, Math.PI / 2, 0] },
     ],
     [],
   );
@@ -1476,8 +1476,8 @@ export default function City({
   );
   const roboData = useMemo(
     () => [
-      { position: [15, 7, 140], scale: 8, rotation: [0, -0.6, 0] },
-      { position: [77, 3, 130], scale: 7, rotation: [0, -0.6, 0] },
+      { position: [5, 7, 120], scale: 8, rotation: [0, 0.2, 0] },
+      { position: [120, 3, 125], scale: 7, rotation: [0, -0.6, 0] },
     ],
     [],
   );
@@ -1514,9 +1514,9 @@ export default function City({
         scale: 12,
         rotation: [Math.PI / 4 + 1, 11.5, 1.9],
       },
-      { position: [0, 1, -40], scale: 18, rotation: [Math.PI / 8, 0, 0] },
+      { position: [20, 1, -50], scale: 18, rotation: [Math.PI / 8, 0, 0] },
       { position: [10, 9, -131], scale: 8, rotation: [0, Math.PI / 2, 0] },
-      { position: [-10, 1, -40], scale: 18, rotation: [Math.PI / 8, 0, 0] },
+      { position: [15, 1, -50], scale: 18, rotation: [Math.PI / 8, 0, 0] },
     ],
     [],
   );
@@ -1541,12 +1541,12 @@ export default function City({
   const cropsData = useMemo(
     () => [
       {
-        position: [-40 + cp3[0], 4, -40 + cp3[2]],
+        position: [-45 + cp3[0], 4, -50 + cp3[2]],
         scale: 35,
         rotation: [0, Math.PI, 0],
       },
       {
-        position: [-50 + cp3[0], 4, 20 + cp3[2]],
+        position: [-60 + cp3[0], 4, 20 + cp3[2]],
         scale: 35,
         rotation: [0, Math.PI, 0],
       },
@@ -1556,7 +1556,7 @@ export default function City({
   const farmsData = useMemo(
     () => [
       {
-        position: [55 + cp5[0], 5, 5 + cp5[2]],
+        position: [50 + cp5[0], 5, 5 + cp5[2]],
         scale: 40,
         rotation: [0, 0, 0],
       },
@@ -1673,9 +1673,9 @@ export default function City({
                 const pages = {
                   0: "/events",
                   1: "/speakers",
-                  2: "/team",
+                  2: "/teams",
                   3: "/timeline",
-                  4: "/about",
+                  4: "/aboutus",
                   5: "/sponsors",
                   6: "/initiative",
                 };
