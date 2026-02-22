@@ -2,186 +2,194 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 function Globe() {
-  const containerRef = useRef(null);
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 768;
 
-    // SCENE
-    const scene = new THREE.Scene();
-   // scene.background = new THREE.Color(0xffffff);
+    // SCENE
+    const scene = new THREE.Scene();
 
-    // CAMERA
-    const camera = new THREE.PerspectiveCamera(
-      isMobile ? 70 : 55,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = isMobile ? 8 : 10;
+    // CAMERA
+    const camera = new THREE.PerspectiveCamera(
+      isMobile ? 70 : 55,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = isMobile ? 8 : 16  ;
 
-    // RENDERER
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true ,
+    // RENDERER
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
       alpha: true
-    });
+    });
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
 
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1;
 
-    container.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 1));
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
 
-    // GLOBE
-    const globe = new THREE.Group();
-    scene.add(globe);
+    // GLOBE GROUP
+    const globe = new THREE.Group();
+    scene.add(globe);
 
-    const images = [
-  "/assets/gallery/imagegallery1.jpg",
-  "/assets/gallery/imagegallery2.jpg",
-  "/assets/gallery/imagegallery3.jpg"
-];
+    // IMAGE PATHS (must be inside public folder)
+    const imageModules = import.meta.glob(
+      "/src/assets/gallery/*.{jpg,JPG,png,jpeg,webp}",
+      { eager: true }
+    );
 
-    const loader = new THREE.TextureLoader();
+    const images = Object.values(imageModules).map(
+      (mod) => mod.default
+    );
 
-    // Responsive radius
-    const minDimension = Math.min(window.innerWidth, window.innerHeight);
-    const radius = (minDimension / window.innerWidth) * (isMobile ? 3.2 : 4.5);
+    const loader = new THREE.TextureLoader();
 
-    const arcWidth = Math.PI / 8;
+    // RESPONSIVE RADIUS
+    const minDimension = Math.min(
+      container.clientWidth,
+      container.clientHeight
+    );
+    const radius = isMobile ? 2 : 6.5;
 
-    // =========================
-    // 3 MAIN BANDS
-    // =========================
-    const bands = [
-      { lat: Math.PI / 2 + 0.45, arc: Math.PI / 9, opacity: 0.75 },
-      { lat: Math.PI / 2, arc: Math.PI / 7, opacity: 1 },
-      { lat: Math.PI / 2 - 0.45, arc: Math.PI / 9, opacity: 0.75 }
-    ];
+    //const arcWidth = Math.PI / 8;
+    const segmentCount = images.length; // use all images
+    const gapFactor = 0.9; // 0.8 more gap, 1 = no gap
+    const arcWidth = ((Math.PI * 2) / segmentCount) * gapFactor;
 
-    bands.forEach((band, bandIndex) => {
-      images.forEach((_, i) => {
-        const imgIndex = (i + bandIndex * 2) % images.length;
-        const texture = loader.load(images[imgIndex]);
+    // 3 MAIN BANDS
+    const bands = [
+      { lat: Math.PI / 2 + 0.45, arc: Math.PI / 9, opacity: 0.75 },
+      { lat: Math.PI / 2, arc: Math.PI / 7, opacity: 1 },
+      { lat: Math.PI / 2 - 0.45, arc: Math.PI / 9, opacity: 0.75 }
+    ];
 
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        texture.minFilter = THREE.LinearMipmapLinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-        texture.generateMipmaps = true;
+    bands.forEach((band, bandIndex) => {
+      for (let i = 0; i < segmentCount; i++) {
+        const imgIndex = (i + bandIndex * 2) % images.length;
+        //const imgIndex = i % images.length;
+        const texture = loader.load(images[imgIndex]);
 
-        const material = new THREE.MeshBasicMaterial({
-          map: texture,
-          side: THREE.FrontSide,
-          transparent: bandIndex !== 1,
-          opacity: band.opacity
-        });
+        texture.anisotropy =
+          renderer.capabilities.getMaxAnisotropy();
 
-        const theta = (i / images.length) * Math.PI * 2;
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.FrontSide,
+          transparent: bandIndex !== 1,
+          opacity: band.opacity
+        });
 
-        const geometry = new THREE.SphereGeometry(
-          radius,
-          32,
-          32,
-          theta,
-          arcWidth,
-          band.lat - band.arc / 2,
-          band.arc
-        );
+        //const theta = (i / images.length) * Math.PI * 2;
+        const theta = (i / segmentCount) * Math.PI * 2;
+        
+        const geometry = new THREE.SphereGeometry(
+          radius,
+          32,
+          32,
+          theta,
+          arcWidth,
+          band.lat - band.arc / 2,
+          band.arc
+        );
 
-        globe.add(new THREE.Mesh(geometry, material));
-      });
-    });
+        globe.add(new THREE.Mesh(geometry, material));
+      }
+    });
 
-    // =========================
-    // POLAR RINGS (VISIBLE)
-    // =========================
-    function createPolarRing(phiCenter) {
-      const count = 6;
-      const width = Math.PI / 16;
-      const height = Math.PI / 6;
+    // POLAR RINGS
+    function createPolarRing(phiCenter) {
+      const count = 6;
+      const width = Math.PI / 16;
+      const height = Math.PI / 6;
 
-      for (let i = 0; i < count; i++) {
-        const texture = loader.load(images[i % images.length]);
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      for (let i = 0; i < count; i++) {
+        const texture = loader.load(
+          images[i % images.length]
+        );
 
-        const material = new THREE.MeshBasicMaterial({
-          map: texture,
-          side: THREE.FrontSide,
-          transparent: true,
-          opacity: 0.8
-        });
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.FrontSide,
+          transparent: true,
+          opacity: 0.8
+        });
 
-        const theta = (i / count) * Math.PI * 2;
+        const theta = (i / count) * Math.PI * 2;
 
-        const geometry = new THREE.SphereGeometry(
-          radius,
-          32,
-          32,
-          theta,
-          width,
-          phiCenter - height / 2,
-          height
-        );
+        const geometry = new THREE.SphereGeometry(
+          radius,
+          32,
+          32,
+          theta,
+          width,
+          phiCenter - height / 2,
+          height
+        );
 
-        globe.add(new THREE.Mesh(geometry, material));
-      }
-    }
+        globe.add(new THREE.Mesh(geometry, material));
+      }
+    }
 
-    // Move away from exact poles
-    createPolarRing(0.55);
-    createPolarRing(Math.PI - 0.55);
+    createPolarRing(0.55);
+    createPolarRing(Math.PI - 0.55);
 
-    // =========================
-    // ANIMATION
-    // =========================
-    const animate = () => {
-      requestAnimationFrame(animate);
-      globe.rotation.y += 0.0015;
-      renderer.render(scene, camera);
-    };
+    // ANIMATION
+    let animationId;
 
-    animate();
+    const animate = () => {
+      animationId = requestAnimationFrame(animate);
+      globe.rotation.y += 0.0015;
+      renderer.render(scene, camera);
+    };
 
-    // =========================
-    // RESIZE
-    // =========================
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768;
+    animate();
 
-      camera.fov = mobile ? 70 : 55;
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
+    // RESIZE
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
 
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+      camera.fov = mobile ? 70 : 55;
+      camera.aspect =
+        container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
 
-    window.addEventListener("resize", handleResize);
+      renderer.setSize(
+        container.clientWidth,
+        container.clientHeight
+      );
+    };
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      container.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
-  }, []);
+    window.addEventListener("resize", handleResize);
 
-  return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        height: "100dvh",
-        overflow: "hidden"
-      }}
-    />
-  );
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", handleResize);
+      container.removeChild(renderer.domElement);
+      renderer.dispose();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: "100%",
+        height: "60vh",
+        overflow: "hidden"
+      }}
+    />
+  );
 }
 
-export default Globe;
+export default Globe; 
