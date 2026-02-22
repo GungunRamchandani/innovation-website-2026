@@ -15,26 +15,26 @@ function App() {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className="app-layout">
-      <Header />
+  <div className="app-layout">
+    <Header />
 
-      <main className="app-content">
-        {!isHomePage && <CompassNavbar />}
+    <main className="app-content">
+      {!isHomePage && <CompassNavbar />}
 
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/initiative" element={<Initiative />} />
-          <Route path="/teams" element={<Team />} />
-          <Route path="/timeline" element={<Timeline />} />
-          <Route path="/speakers" element={<Speakers1 />} />
-          <Route path="/events/*" element={<Events />} />
-          <Route path="/aboutus" element={<Events />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/sponsors" element={<Sponsors />} />
+        <Route path="/initiative" element={<Initiative />} />
+        <Route path="/teams" element={<Team />} />
+        <Route path="/timeline" element={<Timeline />} />
+        <Route path="/speakers" element={<Speakers1 />} />
+        <Route path="/events/*" element={<Events />} />
+        <Route path="/aboutus" element={<Speakers1 />} />
+      </Routes>
+    </main>
 
-      <Footer />
-    </div>
+    <Footer />
+  </div>
   );
 }
 
