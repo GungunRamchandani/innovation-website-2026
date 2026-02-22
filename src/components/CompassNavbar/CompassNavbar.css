@@ -12,7 +12,7 @@
   right: 2%; /* adjust */
   width: 120px;
   height: 120px;
-  z-index: 1000; /* above footer */
+  z-index: 9999;
 }
 
 /* Compass Button */
