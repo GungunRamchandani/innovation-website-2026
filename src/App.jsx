@@ -5,25 +5,31 @@ import Team from "./pages/team";
 import Timeline from "./pages/timeline";
 import Homepage from "./pages/homepage";
 import Speakers1 from "./pages/speakers";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
+
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
+
   return (
-    <BrowserRouter>
-      <CompassNavbar />
+    <>
+      {!isHomePage && <CompassNavbar />}
 
       <Routes>
-        {/* Homepage */}
+
         <Route path="/" element={<Homepage />} />
 
-        {/* Other Pages */}
         <Route path="/sponsors" element={<Sponsors />} />
         <Route path="/initiative" element={<Initiative />} />
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/speakers" element={<Speakers1 />} />
+
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
