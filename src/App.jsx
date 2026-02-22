@@ -1,29 +1,40 @@
+import { Route, Routes } from "react-router-dom";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
-import Sponsors from "./pages/sponsors";
+import Aboutus from "./pages/aboutus";
+import Homepage from "./pages/homepage";
 import Initiative from "./pages/initiative";
+import Speakers1 from "./pages/speakers";
+import Sponsors from "./pages/sponsors";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
-import Homepage from "./pages/homepage";
-import Speakers1 from "./pages/speakers";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { useLocation } from "react-router-dom";
 
 function App() {
+
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
+
   return (
-    <BrowserRouter>
-      <CompassNavbar />
+    <>
+      {!isHomePage && <CompassNavbar />}
 
       <Routes>
-        {/* Homepage */}
+
         <Route path="/" element={<Homepage />} />
 
-        {/* Other Pages */}
         <Route path="/sponsors" element={<Sponsors />} />
         <Route path="/initiative" element={<Initiative />} />
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
+        <Route path="/aboutus" element={<Aboutus />} />
+
         <Route path="/speakers" element={<Speakers1 />} />
+        <Route path="/aboutus" element={<Speakers1 />} />
+
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
