@@ -51,14 +51,17 @@ function getResponsiveConfig() {
       cameraEndPos: new THREE.Vector3(0.3, 0.7, 1.2),
       cameraStartFov: 50,
       cameraEndFov: 25,
-      textSize: 0.04,
-      textHeight: 0.008,
+      textSize: 0.028,
+      textHeight: 0.006,
       textYOffset: 0.32,
+      subtitleSize: 0.011,
+      subtitleHeight: 0.003,
       landingZoneScale: 1.0,
       startAlt: 0.0,
       peakAlt: 0.4,
       endAlt: 0.05,
-      isStacked: true
+      isStacked: true,
+      stackMainTitle: true // Stack INNOVATION and 2026
     };
   } else if (isTablet) {
     return {
@@ -69,14 +72,17 @@ function getResponsiveConfig() {
       cameraEndPos: new THREE.Vector3(0.3, 0.7, 1.2),
       cameraStartFov: 50,
       cameraEndFov: 25,
-      textSize: 0.06,
-      textHeight: 0.01,
+      textSize: 0.04,
+      textHeight: 0.008,
       textYOffset: 0.36,
+      subtitleSize: 0.016,
+      subtitleHeight: 0.003,
       landingZoneScale: 0.8,
       startAlt: 0.0,
       peakAlt: 1.2,
       endAlt: 0.05,
-      isStacked: true
+      isStacked: true,
+      stackMainTitle: true // Stack INNOVATION and 2026
     };
   } else {
     // Desktop
@@ -88,14 +94,17 @@ function getResponsiveConfig() {
       cameraEndPos: new THREE.Vector3(0.3, 0.7, 1.2),
       cameraStartFov: 50,
       cameraEndFov: 25,
-      textSize: 0.085,
-      textHeight: 0.015,
+      textSize: 0.07,
+      textHeight: 0.012,
       textYOffset: 0.38,
+      subtitleSize: 0.035,
+      subtitleHeight: 0.006,
       landingZoneScale: 1.0,
       startAlt: 0.0,
       peakAlt: 1.2,
       endAlt: 0.05,
-      isStacked: false
+      isStacked: false,
+      stackMainTitle: false // Keep INNOVATION 2026 on one line
     };
   }
 }
@@ -771,10 +780,10 @@ fontLoader.load(
   function (font) {
     console.log('Font loaded successfully');
 
-    if (responsiveConfig.isStacked) {
-      // Stacked text for mobile/tablet
-      const textGroup = new THREE.Group();
-      
+    const textGroup = new THREE.Group();
+    
+    if (responsiveConfig.stackMainTitle) {
+      // Mobile/Tablet: 3 lines (INNOVATION, 2026, subtitle)
       // Create INNOVATION
       const geo1 = new TextGeometry('INNOVATION', {
         font: font,
@@ -786,13 +795,13 @@ fontLoader.load(
       geo1.center();
       
       const mat1 = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+        color: 0xffffff,
         transparent: true,
         opacity: 0
       });
       
       const mesh1 = new THREE.Mesh(geo1, mat1);
-      mesh1.position.y = responsiveConfig.textSize * 0.6;
+      mesh1.position.y = responsiveConfig.textSize * 0.65;
       
       // Create 2026
       const geo2 = new TextGeometry('2026', {
@@ -805,36 +814,79 @@ fontLoader.load(
       geo2.center();
       
       const mat2 = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+        color: 0xffffff,
         transparent: true,
         opacity: 0
       });
       
       const mesh2 = new THREE.Mesh(geo2, mat2);
-      mesh2.position.y = -responsiveConfig.textSize * 0.6;
+      mesh2.position.y = -responsiveConfig.textSize * 0.55;
       
-      textGroup.add(mesh1, mesh2);
-      textMesh = textGroup;
-      textMesh.isGroup = true;
+      // Create EQUINOX: POWERED BY PURPOSE
+      const geo3 = new TextGeometry('EQUINOX: POWERED BY PURPOSE', {
+        font: font,
+        size: responsiveConfig.subtitleSize,
+        depth: responsiveConfig.subtitleHeight,
+        curveSegments: 8,
+        bevelEnabled: false
+      });
+      geo3.center();
+      
+      const mat3 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0
+      });
+      
+      const mesh3 = new THREE.Mesh(geo3, mat3);
+      mesh3.position.y = -responsiveConfig.textSize * 1.5;
+      
+      textGroup.add(mesh1, mesh2, mesh3);
     } else {
-      // Single line for desktop
-      const textGeometry = new TextGeometry('INNOVATION 2026', {
+      // Desktop: 2 lines (INNOVATION 2026, subtitle)
+      // Create INNOVATION 2026 (single line)
+      const geo1 = new TextGeometry('INNOVATION 2026', {
         font: font,
         size: responsiveConfig.textSize,
         depth: responsiveConfig.textHeight,
         curveSegments: 8,
         bevelEnabled: false
       });
-      textGeometry.center();
+      geo1.center();
       
-      const textMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+      const mat1 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
         transparent: true,
         opacity: 0
       });
       
-      textMesh = new THREE.Mesh(textGeometry, textMaterial);
+      const mesh1 = new THREE.Mesh(geo1, mat1);
+      mesh1.position.y = responsiveConfig.textSize * 0.6;
+      
+      // Create EQUINOX: POWERED BY PURPOSE
+      const geo2 = new TextGeometry('EQUINOX: POWERED BY PURPOSE', {
+        font: font,
+        size: responsiveConfig.subtitleSize,
+        depth: responsiveConfig.subtitleHeight,
+        curveSegments: 8,
+        bevelEnabled: false
+      });
+      geo2.center();
+      
+      const mat2 = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0
+      });
+      
+      const mesh2 = new THREE.Mesh(geo2, mat2);
+      mesh2.position.y = -responsiveConfig.textSize * 0.8;
+      
+      textGroup.add(mesh1, mesh2);
     }
+    
+    textMesh = textGroup;
+    textMesh.isGroup = true;
 
     textMesh.position.set(0, 2, 0);
     textMesh.scale.set(0, 0, 0);
@@ -1262,10 +1314,10 @@ window.addEventListener('resize', function () {
 
       const fontLoader = new FontLoader();
       fontLoader.load('/fonts/TT_Supermolot_Neue.json', function (font) {
-        if (responsiveConfig.isStacked) {
-          // Stacked text for mobile/tablet
-          const textGroup = new THREE.Group();
-          
+        const textGroup = new THREE.Group();
+        
+        if (responsiveConfig.stackMainTitle) {
+          // Mobile/Tablet: 3 lines (INNOVATION, 2026, subtitle)
           // Create INNOVATION
           const geo1 = new TextGeometry('INNOVATION', {
             font: font,
@@ -1277,13 +1329,13 @@ window.addEventListener('resize', function () {
           geo1.center();
           
           const mat1 = new THREE.MeshBasicMaterial({
-            color: 0x00ffff,
+            color: 0xffffff,
             transparent: true,
             opacity: 1
           });
           
           const mesh1 = new THREE.Mesh(geo1, mat1);
-          mesh1.position.y = responsiveConfig.textSize * 0.6;
+          mesh1.position.y = responsiveConfig.textSize * 0.65;
           
           // Create 2026
           const geo2 = new TextGeometry('2026', {
@@ -1296,36 +1348,79 @@ window.addEventListener('resize', function () {
           geo2.center();
           
           const mat2 = new THREE.MeshBasicMaterial({
-            color: 0x00ffff,
+            color: 0xffffff,
             transparent: true,
             opacity: 1
           });
           
           const mesh2 = new THREE.Mesh(geo2, mat2);
-          mesh2.position.y = -responsiveConfig.textSize * 0.6;
+          mesh2.position.y = -responsiveConfig.textSize * 0.55;
           
-          textGroup.add(mesh1, mesh2);
-          textMesh = textGroup;
-          textMesh.isGroup = true;
+          // Create EQUINOX: POWERED BY PURPOSE
+          const geo3 = new TextGeometry('EQUINOX: POWERED BY PURPOSE', {
+            font: font,
+            size: responsiveConfig.subtitleSize,
+            depth: responsiveConfig.subtitleHeight,
+            curveSegments: 8,
+            bevelEnabled: false
+          });
+          geo3.center();
+          
+          const mat3 = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 1
+          });
+          
+          const mesh3 = new THREE.Mesh(geo3, mat3);
+          mesh3.position.y = -responsiveConfig.textSize * 1.5;
+          
+          textGroup.add(mesh1, mesh2, mesh3);
         } else {
-          // Single line for desktop
-          const textGeometry = new TextGeometry('INNOVATION 2026', {
+          // Desktop: 2 lines (INNOVATION 2026, subtitle)
+          // Create INNOVATION 2026 (single line)
+          const geo1 = new TextGeometry('INNOVATION 2026', {
             font: font,
             size: responsiveConfig.textSize,
             depth: responsiveConfig.textHeight,
             curveSegments: 8,
             bevelEnabled: false
           });
-          textGeometry.center();
+          geo1.center();
           
-          const textMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00ffff,
+          const mat1 = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
             transparent: true,
             opacity: 1
           });
           
-          textMesh = new THREE.Mesh(textGeometry, textMaterial);
+          const mesh1 = new THREE.Mesh(geo1, mat1);
+          mesh1.position.y = responsiveConfig.textSize * 0.6;
+          
+          // Create EQUINOX: POWERED BY PURPOSE
+          const geo2 = new TextGeometry('EQUINOX: POWERED BY PURPOSE', {
+            font: font,
+            size: responsiveConfig.subtitleSize,
+            depth: responsiveConfig.subtitleHeight,
+            curveSegments: 8,
+            bevelEnabled: false
+          });
+          geo2.center();
+          
+          const mat2 = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 1
+          });
+          
+          const mesh2 = new THREE.Mesh(geo2, mat2);
+          mesh2.position.y = -responsiveConfig.textSize * 0.8;
+          
+          textGroup.add(mesh1, mesh2);
         }
+        
+        textMesh = textGroup;
+        textMesh.isGroup = true;
 
         textMesh.position.set(0, 0.4, 0);
         scene.add(textMesh);
