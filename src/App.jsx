@@ -31,7 +31,7 @@ function App() {
         <Route path="/aboutus" element={<Aboutus />} />
 
         <Route path="/speakers" element={<Speakers1 />} />
-        <Route path="/aboutus" element={<Speakers1 />} />
+
 
       </Routes>
     </>
