@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import Events from "./pages/Events";
 import Homepage from "./pages/homepage";
@@ -9,7 +9,6 @@ import Team from "./pages/team";
 import Timeline from "./pages/timeline";
 
 
-import { useLocation } from "react-router-dom";
 
 function App() {
 
@@ -32,6 +31,8 @@ function App() {
         <Route path="/speakers" element={<Speakers1 />} />
         <Route path="/events/*" element={<Events />} />
 
+        <Route path="/aboutus" element={<Events />} />
+        
       </Routes>
     </>
   );
