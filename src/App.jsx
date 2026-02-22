@@ -19,7 +19,6 @@ function App() {
       <Header />
 
       <main className="app-content">
-        {/* Hide Compass on homepage */}
         {!isHomePage && <CompassNavbar />}
 
         <Routes>
@@ -30,6 +29,7 @@ function App() {
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/speakers" element={<Speakers1 />} />
           <Route path="/events/*" element={<Events />} />
+          <Route path="/aboutus" element={<Events />} />
         </Routes>
       </main>
 
