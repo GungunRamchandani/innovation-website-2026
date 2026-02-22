@@ -623,7 +623,6 @@
   background: linear-gradient(135deg, rgba(0, 245, 255, 0.15) 0%, rgba(0, 255, 136, 0.15) 100%);
   border: 2px solid var(--accent);
   border-radius: var(--radius-sm);
-  color: var(--accent);
   font-size: 1.25rem;
   transition: all 0.3s ease;
 }

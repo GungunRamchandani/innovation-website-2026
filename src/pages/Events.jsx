@@ -1,15 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useCallback, useRef, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import CardGrid from "../components/events/CardGrid";
 import Drone from '../components/events/Drone';
 import EnergySeed from '../components/events/EnergySeed';
 import EnergyTrail from '../components/events/EnergyTrail';
 import InfoCard from '../components/events/InfoCard';
-import IntroSequence from '../components/events/IntroSequence';
-//import CardGrid from './components/CardGrid'; // ✅ import the component, not the file path as a string
-//import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CardGrid from "../components/events/CardGrid";
 import InfoPage from "../components/events/InfoPage";
+import IntroSequence from '../components/events/IntroSequence';
 
 const categories = [
   {
@@ -387,7 +385,14 @@ const Home = () => {
                   border: '2px solid rgba(0,255,136,0.5)'
                 }}
               >
-                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="#00ff88" strokeWidth="2">
+                <svg 
+  viewBox="0 0 24 24"
+  width="20"
+  height="20"
+  fill="none"
+  stroke="#00ff88"
+  strokeWidth="2"
+>
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />
                   <path d="M2 17l10 5 10-5" />
                   <path d="M2 12l10 5 10-5" />
@@ -498,7 +503,6 @@ const Home = () => {
           <div className="flex items-center justify-center gap-6 md:gap-8">
             <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span>6 Active Categories</span>
             </div>
             <div className="h-4 w-px bg-gray-700" />
             <div className="text-xs md:text-sm text-gray-500">Click a seed to explore</div>

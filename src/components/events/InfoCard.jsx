@@ -197,10 +197,7 @@ const InfoCard = ({
 
           {/* Flip hint */}
           <div className="relative mt-4 flex items-center justify-center gap-2 text-xs text-gray-500">
-            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-              <path d="M3 3v5h5" />
-            </svg>
+            
            <span style={{ fontSize: "20px", color: "white" }}>
         <b>Click to explore events</b>
           </span>
@@ -276,10 +273,7 @@ const InfoCard = ({
 
           {/* Flip back hint */}
           <div className="relative mt-3 flex items-center justify-center gap-2 text-xs text-gray-500">
-            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-              <path d="M3 3v5h5" />
-            </svg>
+            
             <span>Click to flip back</span>
           </div>
         </motion.div>
