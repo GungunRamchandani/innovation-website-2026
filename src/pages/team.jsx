@@ -94,7 +94,9 @@ export default function Team() {
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: '1.5rem',
-              rowGap: '2.5rem'
+              rowGap: '2.5rem',
+              width: 'fit-content',
+              margin: '0 auto'
             }}
           >
             {developmentTeam.map((member, idx) => (
