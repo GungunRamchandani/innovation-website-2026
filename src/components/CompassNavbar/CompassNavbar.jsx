@@ -3,6 +3,8 @@ import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Events from "./pages/Events";
+
 
 function CompassNavbar() {
   const [open, setOpen] = useState(false);
@@ -26,7 +28,7 @@ function CompassNavbar() {
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
           { name: "Home", path: "/" },
-          { name: "Events", path: "/speakers" },
+          { name: "Events", path: "/Events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },
           { name: "Initiative", path: "/initiative" },

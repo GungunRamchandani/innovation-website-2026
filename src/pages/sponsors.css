@@ -5,11 +5,10 @@
 }
 
 body {
-  background: #000;
   font-family: sans-serif;
 }
 
-.page {
+.sponsor-page {
   padding: 80px;
   display: flex;
   flex-direction: column;
