@@ -5,6 +5,8 @@ import Homepage from "./pages/homepage";
 import Initiative from "./pages/initiative";
 import Speakers1 from "./pages/speakers";
 import Sponsors from "./pages/sponsors";
+
+import Aboutus from "./pages/aboutus";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
 
@@ -28,10 +30,12 @@ function App() {
         <Route path="/initiative" element={<Initiative />} />
         <Route path="/teams" element={<Team />} />
         <Route path="/timeline" element={<Timeline />} />
+        <Route path="/aboutus" element={<Aboutus />} />
+
         <Route path="/speakers" element={<Speakers1 />} />
         <Route path="/events/*" element={<Events />} />
 
-        <Route path="/aboutus" element={<Events />} />
+       
         
       </Routes>
     </>
