@@ -83,7 +83,7 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
       <section
         ref={sectionRef}
         id={sectionId}
-        className="hidden md:flex relative w-full py-28 items-center justify-center"
+        className="flex relative w-full py-28 items-center justify-center"
       >
         <div className="container mx-auto px-4 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
@@ -134,14 +134,7 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
         </div>
       </section>
 
-      {/* Mobile */}
-      <section className="flex flex-col md:hidden items-center gap-12 py-16">
-        {[leftContent, rightContent].map((content, idx) => (
-          <div key={idx} className="w-11/12">
-            {content}
-          </div>
-        ))}
-      </section>
+     
     </>
   );
 };
@@ -203,6 +196,7 @@ const MultiRingGallery = () => {
 
 const AboutUs = () => {
   return (
+    
    
     <div className="min-h-screen overflow-x-hidden">
         <br></br>
@@ -262,11 +256,7 @@ const AboutUs = () => {
       </section>
  <MultiRingGallery />
 
-      <footer className="py-8 border-t border-border/50 text-center">
-        <p className="text-muted-foreground text-sm">
-          © 2026 Innovation — MKSSS's Cummins College of Engineering for Women, Pune
-        </p>
-      </footer>
+  
     </div>
   );
 };
