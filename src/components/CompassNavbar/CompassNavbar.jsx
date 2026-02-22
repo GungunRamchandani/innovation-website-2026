@@ -1,6 +1,7 @@
 import "./CompassNavbar.css";
 import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CompassNavbar() {
   const [open, setOpen] = useState(false);
@@ -22,18 +23,27 @@ function CompassNavbar() {
       </button>
 
       <ul id="nav-menu" className={open ? "show" : ""}>
-        {["Events", "Timeline", "Speakers", "Sponsors", "Team", "About Us"].map(
-          (item, index) => (
+        {[
+          { name: "Home", path: "/" },
+          { name: "Events", path: "/events" },
+          { name: "Timeline", path: "/timeline" },
+          { name: "Speakers", path: "/speakers" },
+          { name: "Initiative", path: "/initiative" },
+          { name: "Sponsors", path: "/sponsors" },
+          { name: "Team", path: "/teams" },
+          { name: "About Us", path: "/aboutus" },
+        ].map((item, index) => (
             <li
-              key={item}
+              key={item.name}
               style={{
                 transitionDelay: open ? `${index * 0.08}s` : "0s",
               }}
             >
-              {item}
+              <Link to={item.path} onClick={() => setOpen(false)}>
+                {item.name}
+              </Link>
             </li>
-          )
-        )}
+          ))}
       </ul>
     </div>
   );

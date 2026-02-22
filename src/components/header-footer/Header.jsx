@@ -71,26 +71,24 @@ function Header() {
       // Draw lines
       const isMobile = window.innerWidth <= 768;
       const maxDistance = isMobile ? 100 : 200;
-for (let i = 0; i < scaled.length; i++) {
-  for (let j = i + 1; j < scaled.length; j++) {
-    const dx = scaled[i].x - scaled[j].x;
-    const dy = scaled[i].y - scaled[j].y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+      for (let i = 0; i < scaled.length; i++) {
+        for (let j = i + 1; j < scaled.length; j++) {
+          const dx = scaled[i].x - scaled[j].x;
+          const dy = scaled[i].y - scaled[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < maxDistance) {
-      ctx.strokeStyle = isMobile
-        ? "rgba(0,240,255,0.12)"   // mobile
-        : "rgba(0,240,255,0.25)";  // desktop
+          if (distance < maxDistance) {
+            ctx.strokeStyle = "rgba(0,240,255,0.25)"
 
-      ctx.lineWidth = isMobile ? 0.8 : 1;
+            ctx.lineWidth = isMobile ? 0.8 : 1;
 
-      ctx.beginPath();
-      ctx.moveTo(scaled[i].x, scaled[i].y);
-      ctx.lineTo(scaled[j].x, scaled[j].y);
-      ctx.stroke();
-    }
-  }
-}
+            ctx.beginPath();
+            ctx.moveTo(scaled[i].x, scaled[i].y);
+            ctx.lineTo(scaled[j].x, scaled[j].y);
+            ctx.stroke();
+          }
+        }
+      }
       // Draw dots
       scaled.forEach((point, i) => {
         const original = points[i];
