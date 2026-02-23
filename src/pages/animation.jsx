@@ -906,6 +906,7 @@ function Animation({ onComplete = null }) {
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    let landingHoldStartTime = null;
     // Main render function
     let render = function () {
       earth.getObjectByName('surface').rotation.y += 1 / 128 * 0.015;
@@ -1247,21 +1248,24 @@ function Animation({ onComplete = null }) {
         }
       }
 
-      // End animation after shockwave completes (2 seconds) plus brief display time
-      const shockwaveDuration = 1500; // 2 seconds for shockwave expansion
-      const additionalDisplayTime = 500; // Show text briefly after shockwave completes
-      const totalAnimationDuration = shockwaveDuration + additionalDisplayTime;
-
-      if (shockwaveStartTime && (Date.now() - shockwaveStartTime) > totalAnimationDuration) {
-        console.log('Animation sequence complete - shockwave finished');
-        renderer.render(scene, camera);
-        // Trigger transition to App.jsx
-        if (onComplete) {
-          setTimeout(onComplete, 5000); // Small delay before transition
-        }
-        return; // Stop the animation loop
+      // INSERT THIS REPLACEMENT
+      if (drone.userData.isFlightComplete && !landingHoldStartTime) {
+        landingHoldStartTime = Date.now();
+        console.log('Drone landed. Starting 5-second hold...');
       }
 
+      if (landingHoldStartTime) {
+        const elapsedSinceLanding = Date.now() - landingHoldStartTime;
+        const holdDuration = 5000; // 5 seconds
+
+        if (elapsedSinceLanding > holdDuration) {
+          console.log('5-second hold complete - triggering transition');
+          if (onComplete) {
+            onComplete(); // Transition to the next part of your app
+          }
+          return; // Finally stop the animation loop
+        }
+      }
       requestAnimationFrame(render);
       renderer.render(scene, camera);
     };
