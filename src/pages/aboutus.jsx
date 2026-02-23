@@ -210,7 +210,7 @@ const AboutUs = () => {
         <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
           ABOUT US
         </h2>
-       <WaveBackground />
+       
       <DoubleRingSection
         sectionId="innovation-cummins"
         leftContent={
@@ -250,23 +250,19 @@ const AboutUs = () => {
       />
 
      
-       <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
+       <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-1 text-center text-gradient ">
           IMAGE GALLERY 
         </h2>
 
       {/* Globe Section */}
-      <section className="w-full py-24 flex justify-center">
+      <section className="w-full py-2 md:py-8  flex justify-center">
+        <WaveBackground />
         <div className="w-full max-w-6xl">
           <Globe />
         </div>
       </section>
  <MultiRingGallery />
 
-      <footer className="py-8 border-t border-border/50 text-center">
-        <p className="text-muted-foreground text-sm">
-          © 2026 Innovation — MKSSS's Cummins College of Engineering for Women, Pune
-        </p>
-      </footer>
     </div>
   );
 };
