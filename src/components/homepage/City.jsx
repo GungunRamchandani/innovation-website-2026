@@ -40,40 +40,58 @@ useTexture.preload("/homepage/images/icon_6.png");
 //  Calls onReady() when progress >= 100 OR after 15 s max.
 //  City canvas is rendering behind it but hidden by the black bg.
 // ─────────────────────────────────────────────────────────────
-export function CityLoaderScreen({ onReady }) {
-  const { progress, loaded, total } = useProgress();
-  const [pct, setPct] = useState(0);
+export function CityLoaderScreen({ allDone }) {
+  const { loaded, total } = useProgress();
+
+  // 1. Internal simulated state
+  const [visualPct, setVisualPct] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
   const [hidden, setHidden] = useState(false);
   const doneRef = useRef(false);
 
-  // Keep displayed % always moving forward
+  // 2. Asset Logic
+  const realLoaded = loaded || 0;
+  // Ensure total is at least 196 (your specific count) or the real total
+  const displayTotal = Math.max(total || 0, realLoaded, 196);
+
+  // 3. Forced Simulation Effect
   useEffect(() => {
-    setPct((p) => Math.max(p, Math.round(progress)));
-  }, [progress]);
+    // Start at 0 every time this mounts
+    setVisualPct(0);
+
+    const interval = setInterval(() => {
+      setVisualPct((prev) => {
+        if (prev < 100) {
+          return prev + 1;
+        }
+        clearInterval(interval);
+        return 100;
+      });
+    }, 30); // ~3 seconds total duration
+
+    return () => clearInterval(interval);
+  }, []);
 
   const hide = useCallback(() => {
     if (doneRef.current) return;
     doneRef.current = true;
     setFadeOut(true);
-    setTimeout(() => {
-      setHidden(true);
-      onReady?.();
-    }, 800);
-  }, [onReady]);
+    setTimeout(() => setHidden(true), 800);
+  }, []);
 
+  // 4. Exit Guard: Wait for Simulation AND actual assets
   useEffect(() => {
-    if (progress >= 100) hide();
-  }, [progress, hide]);
-  // Hard cap — never stuck beyond 15 s
-  useEffect(() => {
-    const t = setTimeout(hide, 15000);
-    return () => clearTimeout(t);
-  }, [hide]);
+    if (allDone && visualPct >= 100) {
+      hide();
+    }
+  }, [allDone, visualPct, hide]);
 
   if (hidden) return null;
 
-  const bars = Math.floor((pct / 100) * 20);
+  // MATH: Fake the asset count based on the current percentage
+  // If visualPct is 50%, it will show (0.5 * 196) = 98 assets loaded.
+  const simulatedLoaded = Math.floor((visualPct / 100) * displayTotal);
+  const barsFilled = Math.floor((visualPct / 100) * 20);
 
   return (
     <div
@@ -85,105 +103,28 @@ export function CityLoaderScreen({ onReady }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background:
-          "radial-gradient(ellipse at 60% 40%, #0a1a0a 0%, #000d00 60%, #000 100%)",
+        background: "radial-gradient(ellipse at 60% 40%, #0a1a0a 0%, #000d00 60%, #000 100%)",
         transition: "opacity 0.8s ease",
         opacity: fadeOut ? 0 : 1,
         pointerEvents: fadeOut ? "none" : "all",
       }}
     >
       {/* Grid */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          backgroundImage:
-            "linear-gradient(rgba(0,255,80,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,80,0.04) 1px,transparent 1px)",
-          backgroundSize: "40px 40px",
-          animation: "lsGridPulse 4s ease-in-out infinite",
-        }}
-      />
-      {/* Glow orb */}
-      <div
-        style={{
-          position: "absolute",
-          width: 600,
-          height: 600,
-          borderRadius: "50%",
-          pointerEvents: "none",
-          background:
-            "radial-gradient(circle,rgba(0,255,80,0.06) 0%,transparent 70%)",
-          animation: "lsOrbPulse 3s ease-in-out infinite",
-        }}
-      />
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(0,255,80,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,80,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px", animation: "lsGridPulse 4s ease-in-out infinite" }} />
 
-      {/* Hex spinner */}
+      {/* Hex Spinner */}
       <div style={{ position: "relative", marginBottom: 44 }}>
-        <svg
-          width="120"
-          height="120"
-          viewBox="0 0 120 120"
-          style={{ animation: "lsSpin 6s linear infinite", display: "block" }}
-        >
-          <polygon
-            points="60,8 104,34 104,86 60,112 16,86 16,34"
-            fill="none"
-            stroke="rgba(0,255,80,0.6)"
-            strokeWidth="2"
-            strokeDasharray="8 4"
-          />
-          <polygon
-            points="60,20 94,39 94,81 60,100 26,81 26,39"
-            fill="none"
-            stroke="rgba(0,255,80,0.22)"
-            strokeWidth="1"
-          />
+        <svg width="120" height="120" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
+          <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(0,255,80,0.6)" strokeWidth="2" strokeDasharray="8 4" />
+          <polygon points="60,20 94,39 94,81 60,100 26,81 26,39" fill="none" stroke="rgba(0,255,80,0.22)" strokeWidth="1" />
         </svg>
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 36,
-            filter: "drop-shadow(0 0 14px rgba(0,255,80,0.9))",
-            animation: "lsIconPulse 2s ease-in-out infinite",
-          }}
-        >
-          🏙️
-        </div>
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, filter: "drop-shadow(0 0 14px rgba(0,255,80,0.9))", animation: "lsIconPulse 2s ease-in-out infinite" }}>🏙️</div>
       </div>
 
-      <div
-        style={{
-          fontFamily: "'Courier New',monospace",
-          fontSize: 12,
-          letterSpacing: "0.5em",
-          color: "rgba(0,255,80,0.5)",
-          textTransform: "uppercase",
-          marginBottom: 8,
-        }}
-      >
-        Initializing World
-      </div>
-      <div
-        style={{
-          fontFamily: "'Courier New',monospace",
-          fontSize: 26,
-          fontWeight: 700,
-          letterSpacing: "0.18em",
-          color: "#00ff50",
-          textShadow: "0 0 20px rgba(0,255,80,0.7)",
-          marginBottom: 44,
-          textTransform: "uppercase",
-        }}
-      >
-        City Loading
-      </div>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(0,255,80,0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 26, fontWeight: 700, letterSpacing: "0.18em", color: "#00ff50", textShadow: "0 0 20px rgba(0,255,80,0.7)", marginBottom: 44 }}>CITY LOADING</div>
 
-      {/* Progress bars */}
+      {/* Bars */}
       <div style={{ display: "flex", gap: 3, marginBottom: 18 }}>
         {Array.from({ length: 20 }, (_, i) => (
           <div
@@ -192,50 +133,32 @@ export function CityLoaderScreen({ onReady }) {
               width: 14,
               height: 28,
               borderRadius: 2,
-              background:
-                i < bars ? "rgba(0,255,80,0.9)" : "rgba(0,255,80,0.07)",
+              background: i < barsFilled ? "rgba(0,255,80,0.9)" : "rgba(0,255,80,0.07)",
               border: "1px solid rgba(0,255,80,0.18)",
-              transition: "background 0.25s ease",
-              boxShadow: i < bars ? "0 0 8px rgba(0,255,80,0.55)" : "none",
+              transition: "background 0.2s ease",
+              boxShadow: i < barsFilled ? "0 0 8px rgba(0,255,80,0.55)" : "none",
             }}
           />
         ))}
       </div>
 
-      <div
-        style={{
-          fontFamily: "'Courier New',monospace",
-          fontSize: 40,
-          fontWeight: 700,
-          color: "#00ff50",
-          textShadow: "0 0 28px rgba(0,255,80,0.8)",
-          lineHeight: 1,
-          marginBottom: 10,
-        }}
-      >
-        {pct}
-        <span style={{ fontSize: 17, color: "rgba(0,255,80,0.55)" }}>%</span>
+      {/* Percentage */}
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 10 }}>
+        {visualPct}<span style={{ fontSize: 17, color: "rgba(0,255,80,0.55)" }}>%</span>
       </div>
-      <div
-        style={{
-          fontFamily: "'Courier New',monospace",
-          fontSize: 10,
-          color: "rgba(0,255,80,0.38)",
-          letterSpacing: "0.22em",
-          marginBottom: 28,
-        }}
-      >
-        {loaded} / {total} ASSETS
+
+      {/* FAKE ASSET COUNT - Closes the loop on the simulation */}
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 10, color: "rgba(0,255,80,0.38)", letterSpacing: "0.22em", marginBottom: 28 }}>
+        {simulatedLoaded} / {displayTotal} ASSETS
       </div>
-      <LoaderTicker progress={pct} />
+
+      <LoaderTicker progress={visualPct} />
 
       <style>{`
         @keyframes lsGridPulse  { 0%,100%{opacity:.6} 50%{opacity:1} }
-        @keyframes lsOrbPulse   { 0%,100%{transform:scale(1);opacity:.5} 50%{transform:scale(1.13);opacity:1} }
         @keyframes lsSpin       { to{transform:rotate(360deg)} }
         @keyframes lsIconPulse  { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
-        @keyframes lsTicker     { 0%{opacity:0;transform:translateY(6px)} 15%{opacity:1;transform:translateY(0)} 85%{opacity:1} 100%{opacity:0} }
-        @keyframes bannerDot    { 0%,80%,100%{transform:scaleY(.35)} 40%{transform:scaleY(1)} }
+        @keyframes lsTicker     { 0%{opacity:0;transform:translateY(4px)} 15%{opacity:1;transform:translateY(0)} 85%{opacity:1} 100%{opacity:0} }
       `}</style>
     </div>
   );
@@ -1616,80 +1539,82 @@ export default function City({
     return () => cancelAnimationFrame(id);
   }, [scene, gl, camera]);
 
-  const handleAllLoaded = useCallback(() => onAllLoaded?.(), [onAllLoaded]);
-
+  const handleAllLoaded = useCallback(() => {
+    onAllLoaded?.(); // This tells Homepage to set phase to "ready"
+  }, [onAllLoaded]);
   return (
-    <group>
-      <ambientLight intensity={0.6} />
-      <directionalLight
-        position={[50, 100, 50]}
-        intensity={1.2}
-        color="#ffffff"
-      />
-
-      <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -0.1, 0]}
-        onClick={() => {
-          if (activeDome !== null) resetView();
-        }}
-      >
-        <planeGeometry args={[500, 500]} />
-        <meshStandardMaterial color="#0a2b02" roughness={0.8} metalness={0.2} />
-      </mesh>
-
-      {/* ── Layer 1 ── */}
-      <InstancedMountains mountains={mountainData} />
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <HexPerimeterRoad
-          key={i}
-          angle={(i * Math.PI) / 3 + Math.PI / 6}
-          radius={hexRadius - 8}
+    <>
+      <group>
+        <ambientLight intensity={0.6} />
+        <directionalLight
+          position={[50, 100, 50]}
+          intensity={1.2}
+          color="#ffffff"
         />
-      ))}
-      <AllRoadTrees radius={hexRadius - 8} />
-      <AllTreeClusters clusters={treeClusters} />
-      <InstancedBlueBase bases={blueBasesData} />
-      <InstancedWindmills windmills={windmillsData} />
-      <InstancedCrops crops={cropsData} />
-      <InstancedFarms farms={farmsData} />
-      <InstancedCabins cabins={cabinsData} />
-      <SkyLogoI position={[0, -200, -2200]} size={90} />
 
-      {/* ── Domes ── */}
-      {[0, 1, 2, 3, 4, 5, 6].map((i) => {
-        const pos = i === 6 ? [0, 1, 0] : getCornerPos(i);
-        return (
-          <group key={i} position={pos}>
-            <Dome
-              index={i}
-              position={[0, 0, 0]}
-              iconPath={`/homepage/images/icon_${i}.png`}
-              isZoomed={activeDome !== null}
-              isSelected={activeDome === i}
-              isRotating={rotatingDome === i}
-              onRotationComplete={() => setRotatingDome(null)}
-              onClick={() => handleDomeClick(i, pos)}
-              onBack={resetView}
-              onGo={(idx) => {
-                const pages = {
-                  0: "/events",
-                  1: "/speakers",
-                  2: "/teams",
-                  3: "/timeline",
-                  4: "/aboutus",
-                  5: "/sponsors",
-                  6: "/initiative",
-                };
-                navigate(pages[idx]);
-              }}
-            />
-          </group>
-        );
-      })}
+        <mesh
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, -0.1, 0]}
+          onClick={() => {
+            if (activeDome !== null) resetView();
+          }}
+        >
+          <planeGeometry args={[500, 500]} />
+          <meshStandardMaterial color="#0a2b02" roughness={0.8} metalness={0.2} />
+        </mesh>
 
-      {/* ── Layers 2 & 3 — mount after loader hides, load behind banner ── */}
-      {showLayers && (
+        {/* ── Layer 1 ── */}
+        <InstancedMountains mountains={mountainData} />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <HexPerimeterRoad
+            key={i}
+            angle={(i * Math.PI) / 3 + Math.PI / 6}
+            radius={hexRadius - 8}
+          />
+        ))}
+        <AllRoadTrees radius={hexRadius - 8} />
+        <AllTreeClusters clusters={treeClusters} />
+        <InstancedBlueBase bases={blueBasesData} />
+        <InstancedWindmills windmills={windmillsData} />
+        <InstancedCrops crops={cropsData} />
+        <InstancedFarms farms={farmsData} />
+        <InstancedCabins cabins={cabinsData} />
+        <SkyLogoI position={[0, -200, -2200]} size={90} />
+
+        {/* ── Domes ── */}
+        {[0, 1, 2, 3, 4, 5, 6].map((i) => {
+          const pos = i === 6 ? [0, 1, 0] : getCornerPos(i);
+          return (
+            <group key={i} position={pos}>
+              <Dome
+                index={i}
+                position={[0, 0, 0]}
+                iconPath={`/homepage/images/icon_${i}.png`}
+                isZoomed={activeDome !== null}
+                isSelected={activeDome === i}
+                isRotating={rotatingDome === i}
+                onRotationComplete={() => setRotatingDome(null)}
+                onClick={() => handleDomeClick(i, pos)}
+                onBack={resetView}
+                onGo={(idx) => {
+                  const pages = {
+                    0: "/events",
+                    1: "/speakers",
+                    2: "/teams",
+                    3: "/timeline",
+                    4: "/aboutus",
+                    5: "/sponsors",
+                    6: "/initiative",
+                  };
+                  navigate(pages[idx]);
+                }}
+              />
+            </group>
+          );
+        })}
+
+        {/* ── Layers 2 & 3 — mount after loader hides, load behind banner ── */}
+
         <>
           <Layer2Scene
             getCornerPos={getCornerPos}
@@ -1709,9 +1634,10 @@ export default function City({
             bicyclesData={bicyclesData}
           />
           {/* Watches active — calls onAllLoaded when every GLTF is done */}
-          <LoadTracker enabled={showLayers} onDone={handleAllLoaded} />
+          <LoadTracker enabled={true} onDone={handleAllLoaded} />
         </>
-      )}
-    </group>
+
+      </group>
+    </>
   );
 }

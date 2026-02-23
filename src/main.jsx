@@ -45,7 +45,8 @@ function Main() {
         overflow: "hidden"
       }}>
         <BrowserRouter>
-          <App />
+          <App isAnimationDone={showApp} />
+
         </BrowserRouter>
       </div>
     </>

@@ -35,7 +35,7 @@ const ToggleViewButton = () => {
   );
 };
 
-function App() {
+function App({ isAnimationDone }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isOverviewPage = location.pathname === "/overview";
@@ -51,7 +51,7 @@ function App() {
         {!isHomePage && !isOverviewPage && <CompassNavbar />}
 
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage isAnimationDone={isAnimationDone} />} />
           <Route path="/overview" element={<Overview />} />
 
           <Route path="/sponsors" element={<Sponsors />} />
