@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { X } from "react-bootstrap-icons";
 import TrackVisibility from "react-on-screen";
+import speaker1 from "../assets/speakers/prathamkohli.jpeg";
+import unknown from "../assets/speakers/unknown.jpg";
 import NeuralBackground from "./NeuralBackground";
 import "./speaker.css";
-import speaker1 from "../photos/images.jpg";
-import speaker2 from "../photos/images1.jpg";
 
 
 const Speakers1 = () => {
@@ -36,25 +36,25 @@ const Speakers1 = () => {
     const speakersData = [
         {
             id: 1,
-            name: "Dr. Sarah Johnson",
+            name: "Pratham Kohli",
             photo: speaker1,
-            role: "Quantum Computing Researcher",
+            role: "AI Engineer at Salesforce",
             about:
-                "Dr. Sarah Johnson is a leading researcher in quantum computing with over 15 years of experience. She has published numerous papers on quantum algorithms and error correction, and currently leads the quantum research division at TechCorp.",
-            date: "March 1, 2026",
-            time: "10:00 AM - 11:30 AM",
-            venue: "Main Auditorium, Hall A",
+                "Pratham Kohli is an AI Engineer at Salesforce and has previously worked with top organizations including Amazon, ServiceNow, and ISRO. He is also one of the fastest-growing tech educators, impacting 100,000+ learners online. With expertise in AI, full-stack development, and career guidance, he has helped countless students prepare for and secure roles in leading tech companies. His session offers real-world insights, practical guidance, and proven strategies to help you achieve your dream tech career",
+            date: "April 9, 2026",
+            time: "5:00 PM - 7:00 PM",
+            venue: "Main Building Quadrangle",
         },
         {
             id: 2,
-            name: "Prof. Michael Chen",
-            photo: speaker2,
-            role: "Quantum Information Pioneer",
+            name: "Revealing Soon",
+            photo: unknown,
+            role: "To Be Announced",
             about:
-                "Professor Michael Chen is a renowned expert in quantum information theory and quantum cryptography. He has founded three successful startups and advises major corporations on quantum technology integration strategies.",
-            date: "March 1, 2026",
-            time: "2:00 PM - 3:30 PM",
-            venue: "Tech Hub, Room 203",
+                "We are bringing another exceptional speaker from the tech industry. Stay tuned for the official reveal. This session will feature real-world insights, career guidance, and experiences from one of the leading minds in technology. The announcement is coming very soon.",
+            date: "To Be Announced",
+            time: "To Be Announced",
+            venue: "To Be Announced",
         },
     ];
 
