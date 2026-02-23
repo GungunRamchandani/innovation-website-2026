@@ -4,17 +4,19 @@
   box-sizing: border-box;
 }
 
+
 body {
-  background: #000;
   font-family: sans-serif;
 }
 
-.page {
+
+.sponsor-page {
   padding: 80px;
   display: flex;
   flex-direction: column;
   gap: 120px;
 }
+
 
 /* GLOWING TITLES */
 .title {
@@ -31,6 +33,7 @@ body {
     0 0 40px rgba(0, 255, 231, 0.45);
 }
 
+
 /* GOLD — GOLDEN */
 .title.gold {
   color: #ffd54f;
@@ -39,13 +42,23 @@ body {
     0 0 40px rgba(255, 193, 7, 0.45);
 }
 
+
 /* EVENT — SILVER */
 .title.event {
-  color: #e0e0e0;
+  color: #b4c8ff;
   text-shadow:
-    0 0 14px rgba(220, 220, 220, 0.7),
-    0 0 40px rgba(220, 220, 220, 0.45);
+    0 0 14px rgba(180, 200, 255, 0.75),
+    0 0 40px rgba(180, 200, 255, 0.45);
 }
+
+
+.title.silver {
+  color: #d2d2d2;
+  text-shadow:
+    0 0 14px rgba(210, 210, 210, 0.7),
+    0 0 40px rgba(210, 210, 210, 0.45);
+}
+
 
 /* PLATFORM — ORANGE */
 .title.platform {
@@ -55,14 +68,14 @@ body {
     0 0 40px rgba(255, 140, 0, 0.45);
 }
 
+
 /* KNOWLEDGE — WHITE */
 .title.knowledge {
-  color: #ffffff;
+  color: #c8b4ff;
   text-shadow:
-    0 0 16px rgba(255, 255, 255, 0.75),
-    0 0 45px rgba(255, 255, 255, 0.55);
+    0 0 16px rgba(200, 180, 255, 0.75),
+    0 0 45px rgba(200, 180, 255, 0.55);
 }
-
 
 /* GRID */
 .grid {

@@ -2,14 +2,16 @@ import SponsorCard from "../components/sponsors/SponsorCard";
 import { sponsors } from "../components/sponsors/sponsorsData";
 import "../pages/sponsors.css";
 
+
 function Sponsors() {
   return (
-    <div className="page">
+    <div className="sponsor-page">
       {Object.entries(sponsors).map(([category, list]) => (
         <section key={category}>
           <h2 className={`title ${category.toLowerCase()}`}>
             {category} Sponsors
           </h2>
+
 
           <div className="grid">
             {list.map((item, i) => (
@@ -17,6 +19,7 @@ function Sponsors() {
                 key={i}
                 logo={item.logo}
                 name={item.name}
+                url={item.url}
                 category={category.toLowerCase()}
               />
             ))}
@@ -26,5 +29,6 @@ function Sponsors() {
     </div>
   );
 }
+
 
 export default Sponsors;
