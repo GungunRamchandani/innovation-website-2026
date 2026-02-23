@@ -38,7 +38,8 @@ export default function MemberCard({ member, index, variant = "large" }) {
         <img
           src={member.imageUrl}
           alt={member.name}
-          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+          style={{ objectPosition: member.objectPosition || 'center' }}
+          className="w-full h-full object-cover grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
         />
 
         {/* Overlay Content */}
@@ -46,7 +47,7 @@ export default function MemberCard({ member, index, variant = "large" }) {
           {/* Role badge */}
           <div className="flex items-center gap-2 mb-2">
             <div className="h-[2px] w-8 bg-primary shadow-[0_0_10px_#0FB9B1]" />
-            <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
+            <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase font-extrabold">
               {member.role}
             </span>
           </div>
