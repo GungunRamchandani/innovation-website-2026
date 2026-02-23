@@ -4,6 +4,7 @@ import MouseLight from '../components/team/MouseLight';
 import CursorTrail from '../components/team/CursorTrail';
 import GlitchHeader from '../components/team/GlitchHeader';
 import { technicalPanel, developmentTeam } from '../components/team/team-data';
+import './team.css';
 
 export default function Team() {
   return (
@@ -20,20 +21,16 @@ export default function Team() {
         <header className="text-center mb-20 space-y-6">
           <div className="flex items-center justify-center gap-2 mb-4 opacity-70">
             <div className="w-2 h-2 bg-primary rounded-full animate-ping" />
-            <span className="font-mono text-xs text-primary uppercase tracking-[0.3em]">
-              System Online
-            </span>
+           
           </div>
 
           <GlitchHeader text="Meet The Team" />
 
-          <p className="max-w-2xl mx-auto text-muted-foreground text-lg leading-relaxed font-light">
-            Architects of the future. We are the digital vanguard pushing the boundaries of what is possible.
-          </p>
+        
         </header>
 
         {/* ================= TECHNICAL PANEL ================= */}
-        <section className="mb-24">
+        <section className="mb-24 w-full">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary" />
@@ -42,20 +39,11 @@ export default function Team() {
               </h2>
               <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
             </div>
-            <p className="text-muted-foreground text-sm font-mono tracking-wider">
-              // CORE_SYSTEM_ARCHITECTS
-            </p>
+           
           </div>
 
-          {/* 🔥 4 Cards Per Row */}
-          <div 
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '2rem',
-              rowGap: '3rem'
-            }}
-          >
+          {/* 🔥 Responsive Grid */}
+          <div className="team-grid">
             {technicalPanel.map((member, idx) => (
               <MemberCard
                 key={member.id}
@@ -68,7 +56,7 @@ export default function Team() {
         </section>
 
         {/* ================= DEVELOPMENT TEAM ================= */}
-        <section className="mb-16">
+        <section className="mb-16 w-full">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-4 mb-4">
               <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-purple-500" />
@@ -88,15 +76,8 @@ export default function Team() {
             </p>
           </div>
 
-          {/* 🔥 4 Cards Per Row */}
-          <div 
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '1.5rem',
-              rowGap: '2.5rem'
-            }}
-          >
+          {/* 🔥 Responsive Grid */}
+          <div className="team-grid">
             {developmentTeam.map((member, idx) => (
               <MemberCard
                 key={member.id}
