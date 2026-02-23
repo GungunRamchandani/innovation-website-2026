@@ -43,7 +43,7 @@ export default function Team() {
               <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
             </div>
             <p className="text-muted-foreground text-sm font-mono tracking-wider">
-              // CORE_SYSTEM_ARCHITECTS
+              // ARCHITECTS_OF_INNOVATION
             </p>
           </div>
 
@@ -94,7 +94,9 @@ export default function Team() {
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: '1.5rem',
-              rowGap: '2.5rem'
+              rowGap: '2.5rem',
+              width: 'fit-content',
+              margin: '0 auto'
             }}
           >
             {developmentTeam.map((member, idx) => (

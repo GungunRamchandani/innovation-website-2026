@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, GeoAlt, People, Heart, Lightbulb, Trophy, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 import "./initiative.css";
 
-// Import event photos
-import eventPhoto1 from "../photos/images.jpg";
-import eventPhoto2 from "../photos/images1.jpg";
-import eventPhoto3 from "../photos/images2.jpg";
-import eventPhoto4 from "../photos/images3.jpg";
-import eventPhoto5 from "../photos/images4.jpg";
-import eventPhoto6 from "../photos/images5.jpg";
+// Event photos from Unsplash
+const eventPhoto1 = "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000";
+const eventPhoto2 = "https://images.unsplash.com/photo-1540575467063-178f50002099?auto=format&fit=crop&q=80&w=1000";
+const eventPhoto3 = "https://images.unsplash.com/photo-1505373549930-ceb656dc1904?auto=format&fit=crop&q=80&w=1000";
+const eventPhoto4 = "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000";
+const eventPhoto5 = "https://images.unsplash.com/photo-1540575467063-178f50002099?auto=format&fit=crop&q=80&w=1000";
+const eventPhoto6 = "https://images.unsplash.com/photo-1505373549930-ceb656dc1904?auto=format&fit=crop&q=80&w=1000";
 
 const Initiative = () => {
     const [activeSection, setActiveSection] = useState(0);

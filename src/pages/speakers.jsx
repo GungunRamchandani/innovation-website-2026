@@ -4,8 +4,7 @@ import { X } from "react-bootstrap-icons";
 import TrackVisibility from "react-on-screen";
 import NeuralBackground from "./NeuralBackground";
 import "./speaker.css";
-import speaker1 from "../photos/images.jpg";
-import speaker2 from "../photos/images1.jpg";
+import speaker1 from "../assets/speakers/prathamkohli.png";
 
 
 const Speakers1 = () => {
@@ -36,11 +35,11 @@ const Speakers1 = () => {
     const speakersData = [
         {
             id: 1,
-            name: "Dr. Sarah Johnson",
+            name: "Pratham Kohli",
             photo: speaker1,
-            role: "Quantum Computing Researcher",
+            role: "AI Engineer at Salesforce | Ex-Amazon, ServiceNow, ISRO",
             about:
-                "Dr. Sarah Johnson is a leading researcher in quantum computing with over 15 years of experience. She has published numerous papers on quantum algorithms and error correction, and currently leads the quantum research division at TechCorp.",
+                "Pratham Kohli is an AI Engineer and one of the fastest-growing tech educators, impacting 100,000+ learners online. From working at top tech giants to mentoring students on cracking dream companies, his journey is packed with real-world insights.\n\nHe specializes in AI, full-stack development, and career growth, and is passionate about helping students achieve their dream tech roles.\n\nDon't miss this chance to learn directly from someone who has done it.",
             date: "March 1, 2026",
             time: "10:00 AM - 11:30 AM",
             venue: "Main Auditorium, Hall A",
@@ -48,7 +47,7 @@ const Speakers1 = () => {
         {
             id: 2,
             name: "Prof. Michael Chen",
-            photo: speaker2,
+            photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=500",
             role: "Quantum Information Pioneer",
             about:
                 "Professor Michael Chen is a renowned expert in quantum information theory and quantum cryptography. He has founded three successful startups and advises major corporations on quantum technology integration strategies.",
