@@ -493,7 +493,7 @@ function Animation({ onComplete = null }) {
     drone.position.set(0, 3, -2); // Start from space, behind and above Earth
     drone.userData.flightStarted = false;
     drone.userData.flightTime = 200; // Skip first second (60 frames at 60fps)
-    drone.userData.flightDuration = 900; // Faster flight duration for quicker landing
+    drone.userData.flightDuration = 500; // Faster flight duration for quicker landing
     drone.userData.isFlightComplete = false;
 
     // Camera animation state (responsive)
@@ -954,7 +954,7 @@ function Animation({ onComplete = null }) {
           : 1 - Math.pow(-2 * progress + 2, 3) / 2; // Reduced power to 3 for a much slower, visible finish
 
         // Ensure a longer overall flight duration for slower motion
-        drone.userData.flightDuration = 900;
+        drone.userData.flightDuration = 500;
 
         // Mark as complete when animation finishes (no break, just flag)
         if (progress >= 0.98) {
