@@ -28,21 +28,26 @@ function Main() {
   return (
 
     <>
-
-      {!showApp ? (
-
-        <Animation onComplete={handleAnimationComplete} />
-
-      ) : (
-
-        <BrowserRouter>
-
-          <App />
-
-        </BrowserRouter>
-
+      {/* Always render Animation if not shown yet; it stays on top */}
+      {!showApp && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 10000 }}>
+          <Animation onComplete={handleAnimationComplete} />
+        </div>
       )}
 
+      {/* The App is always rendered now. 
+        visibility: hidden ensures it doesn't block the animation, 
+        but it still "mounts" so the City assets start downloading immediately.
+    */}
+      <div style={{
+        visibility: showApp ? "visible" : "hidden",
+        height: showApp ? "auto" : "0",
+        overflow: "hidden"
+      }}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </div>
     </>
 
   );

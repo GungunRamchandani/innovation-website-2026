@@ -14,6 +14,26 @@ import { SkeletonUtils } from "three-stdlib";
 import Dome from "./Dome";
 import { useNavigate } from "react-router-dom";
 
+
+// ─────────────────────────────────────────────
+// PRELOADS — Layer 1 only (tracked by loader screen)
+// Layer 2 & 3 load on-demand after loader hides
+// ─────────────────────────────────────────────
+useGLTF.preload("/homepage/models/tree.glb");
+useGLTF.preload("/homepage/models/mountain.glb");
+useGLTF.preload("/homepage/models/blue_base.glb");
+useGLTF.preload("/homepage/models/windmill.glb");
+useGLTF.preload("/homepage/models/crops.glb");
+useGLTF.preload("/homepage/models/farm.glb");
+useGLTF.preload("/homepage/models/Cabin.glb");
+useTexture.preload("/homepage/images/icon_0.png");
+useTexture.preload("/homepage/images/icon_1.png");
+useTexture.preload("/homepage/images/icon_2.png");
+useTexture.preload("/homepage/images/icon_3.png");
+useTexture.preload("/homepage/images/icon_4.png");
+useTexture.preload("/homepage/images/icon_5.png");
+useTexture.preload("/homepage/images/icon_6.png");
+
 // ─────────────────────────────────────────────────────────────
 //  PHASE 1 — FULL-SCREEN LOADER
 //  Shown while the first layer of assets loads.
@@ -932,24 +952,6 @@ function SkyLogoI({ position = [0, 140, -80], size = 700 }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// PRELOADS — Layer 1 only (tracked by loader screen)
-// Layer 2 & 3 load on-demand after loader hides
-// ─────────────────────────────────────────────
-useGLTF.preload("/homepage/models/tree.glb");
-useGLTF.preload("/homepage/models/mountain.glb");
-useGLTF.preload("/homepage/models/blue_base.glb");
-useGLTF.preload("/homepage/models/windmill.glb");
-useGLTF.preload("/homepage/models/crops.glb");
-useGLTF.preload("/homepage/models/farm.glb");
-useGLTF.preload("/homepage/models/Cabin.glb");
-useTexture.preload("/homepage/images/icon_0.png");
-useTexture.preload("/homepage/images/icon_1.png");
-useTexture.preload("/homepage/images/icon_2.png");
-useTexture.preload("/homepage/images/icon_3.png");
-useTexture.preload("/homepage/images/icon_4.png");
-useTexture.preload("/homepage/images/icon_5.png");
-useTexture.preload("/homepage/images/icon_6.png");
 
 // ─────────────────────────────────────────────
 // LAYER 2 — mounts after loader hides
