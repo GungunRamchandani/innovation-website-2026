@@ -3,7 +3,6 @@ import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Events from "./pages/Events";
 
 
 function CompassNavbar() {
