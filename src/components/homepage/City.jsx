@@ -49,16 +49,9 @@ export function CityLoaderScreen({ allDone }) {
   const [hidden, setHidden] = useState(false);
   const doneRef = useRef(false);
 
-  // 2. Asset Logic
-  const realLoaded = loaded || 0;
-  // Ensure total is at least 196 (your specific count) or the real total
-  const displayTotal = Math.max(total || 0, realLoaded, 196);
-
-  // 3. Forced Simulation Effect
+  // 2. Forced Simulation Effect
   useEffect(() => {
-    // Start at 0 every time this mounts
     setVisualPct(0);
-
     const interval = setInterval(() => {
       setVisualPct((prev) => {
         if (prev < 100) {
@@ -67,7 +60,7 @@ export function CityLoaderScreen({ allDone }) {
         clearInterval(interval);
         return 100;
       });
-    }, 30); // ~3 seconds total duration
+    }, 30);
 
     return () => clearInterval(interval);
   }, []);
@@ -79,7 +72,7 @@ export function CityLoaderScreen({ allDone }) {
     setTimeout(() => setHidden(true), 800);
   }, []);
 
-  // 4. Exit Guard: Wait for Simulation AND actual assets
+  // 3. Exit Guard
   useEffect(() => {
     if (allDone && visualPct >= 100) {
       hide();
@@ -88,9 +81,6 @@ export function CityLoaderScreen({ allDone }) {
 
   if (hidden) return null;
 
-  // MATH: Fake the asset count based on the current percentage
-  // If visualPct is 50%, it will show (0.5 * 196) = 98 assets loaded.
-  const simulatedLoaded = Math.floor((visualPct / 100) * displayTotal);
   const barsFilled = Math.floor((visualPct / 100) * 20);
 
   return (
@@ -109,10 +99,8 @@ export function CityLoaderScreen({ allDone }) {
         pointerEvents: fadeOut ? "none" : "all",
       }}
     >
-      {/* Grid */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(0,255,80,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,80,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px", animation: "lsGridPulse 4s ease-in-out infinite" }} />
 
-      {/* Hex Spinner */}
       <div style={{ position: "relative", marginBottom: 44 }}>
         <svg width="120" height="120" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
           <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(0,255,80,0.6)" strokeWidth="2" strokeDasharray="8 4" />
@@ -124,7 +112,6 @@ export function CityLoaderScreen({ allDone }) {
       <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(0,255,80,0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>
       <div style={{ fontFamily: "'Courier New',monospace", fontSize: 26, fontWeight: 700, letterSpacing: "0.18em", color: "#00ff50", textShadow: "0 0 20px rgba(0,255,80,0.7)", marginBottom: 44 }}>CITY LOADING</div>
 
-      {/* Bars */}
       <div style={{ display: "flex", gap: 3, marginBottom: 18 }}>
         {Array.from({ length: 20 }, (_, i) => (
           <div
@@ -142,14 +129,8 @@ export function CityLoaderScreen({ allDone }) {
         ))}
       </div>
 
-      {/* Percentage */}
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 10 }}>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 28 }}>
         {visualPct}<span style={{ fontSize: 17, color: "rgba(0,255,80,0.55)" }}>%</span>
-      </div>
-
-      {/* FAKE ASSET COUNT - Closes the loop on the simulation */}
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 10, color: "rgba(0,255,80,0.38)", letterSpacing: "0.22em", marginBottom: 28 }}>
-        {simulatedLoaded} / {displayTotal} ASSETS
       </div>
 
       <LoaderTicker progress={visualPct} />

@@ -73,9 +73,9 @@ function App({ isAnimationDone }) {
           transform: translateX(-50%);
           z-index: 9999;
           padding: 10px 25px;
-          background: rgba(0, 255, 80, 0.1);
-          color: #00ff50;
-          border: 1px solid #00ff50;
+          background: rgba(58, 159, 192, 0.1);
+          color: #74e5f9;
+          border: 2px solid #78c4e4;
           border-radius: 5px;
           cursor: pointer;
           font-weight: bold;
@@ -84,9 +84,9 @@ function App({ isAnimationDone }) {
           transition: all 0.3s ease;
         }
         .view-toggle-btn:hover {
-          background: #00ff50;
+          background: #a6c2ce;
           color: #000;
-          box-shadow: 0 0 15px #00ff50;
+          box-shadow: 0 0 15px #acbec8;
         }
       `}</style>
     </div>
