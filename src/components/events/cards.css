@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap");
 
-
 :root {
   --bg: #0a0c10;
   --card-bg: rgba(20, 25, 35, 0.9);
@@ -473,10 +472,13 @@ body.info-page-open {
   }
 
   .card-inner {
-    width: 280px;
-    min-height: 400px;
+    width: 320px;        /* increased from 280px */
+    min-height: 500px;   /* increased height */
   }
 
+  .carousel {
+    height: 520px;       /* increase container height too */
+  }
   .carousel-item.left {
     transform: translateX(-180px) scale(0.8);
   }

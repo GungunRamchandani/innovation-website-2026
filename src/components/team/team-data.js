@@ -16,7 +16,7 @@ import vidhishaThool from "../../assets/team/vidishathool.jpeg";
 // =======================
 // Development Team Images
 // =======================
-import aadyaSingh from "../../assets/team/aadyasingh.jfif";
+import aadyaSingh from "../../assets/team/aadyasingh.jpeg";
 import aditiMahadik from "../../assets/team/aditimahadik.jpg";
 import anushaKinikar from "../../assets/team/anushakinikar.jpg";
 import anushkaAhirrao from "../../assets/team/anushkaahirrao.jpg";
