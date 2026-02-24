@@ -14,6 +14,104 @@ const DOME_DATA = {
   6: { title: "Initiative" },
 };
 
+function SignpostWithPulse({ localSignpostPos, signpostRef, onBack, onGo, index }) {
+  const backBorderRef = useRef();
+  const enterBorderRef = useRef();
+  const backBtnRef = useRef();
+  const enterBtnRef = useRef();
+
+  useFrame((state) => {
+    const time = state.clock.elapsedTime;
+
+
+    // Sync pulses for both buttons
+    const basePulse = 1 + Math.sin(time * 3) * 0.02;
+    const borderPulse = 1 + Math.sin(time * 3) * 0.05;
+
+    // Apply to main buttons
+    if (backBtnRef.current && enterBtnRef.current) {
+      backBtnRef.current.scale.set(basePulse, basePulse, basePulse);
+      enterBtnRef.current.scale.set(basePulse, basePulse, basePulse);
+    }
+
+    // Apply to opaque borders
+    if (backBorderRef.current && enterBorderRef.current) {
+      backBorderRef.current.scale.set(borderPulse, borderPulse, 1);
+      enterBorderRef.current.scale.set(borderPulse, borderPulse, 1);
+    }
+  });
+
+  return (
+    <group position={localSignpostPos} ref={signpostRef}>
+      {/* Support Pillar */}
+      <mesh position={[0, 10, 0]}>
+        <boxGeometry args={[0.6, 20, 0.6]} />
+        <meshStandardMaterial color="#050505" metalness={1} roughness={0} />
+      </mesh>
+
+      {/* --- BACK BUTTON GROUP --- */}
+      <group
+        position={[-6, 17, 0]}
+        onClick={(e) => { e.stopPropagation(); onBack(); }}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "auto")}
+      >
+        {/* OPAQUE BORDER (Backing Layer) */}
+        <mesh ref={backBorderRef} position={[0, 0, -0.2]}>
+          <boxGeometry args={[9.8, 4.8, 0.3]} />
+          <meshBasicMaterial color="#c4bebe" />
+        </mesh>
+
+        {/* MAIN SOLID BUTTON */}
+        <mesh ref={backBtnRef}>
+          <boxGeometry args={[9, 4, 0.6]} />
+          <meshStandardMaterial color="#220000" emissive="#da3e3e" emissiveIntensity={0.3} />
+          <Text
+            position={[0, 0, 0.35]}
+            fontSize={1.1}
+            color="#ffffff"
+            fontWeight="bold"
+            anchorX="center"
+            anchorY="middle"
+          >
+            {"< CITY"}
+          </Text>
+        </mesh>
+      </group>
+
+      {/* --- ENTER BUTTON GROUP --- */}
+      <group
+        position={[6, 14, 0]}
+        onClick={(e) => { e.stopPropagation(); onGo(index); }}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "auto")}
+      >
+        {/* OPAQUE BORDER (Backing Layer) */}
+        <mesh ref={enterBorderRef} position={[0, 0, -0.2]}>
+          <boxGeometry args={[10.8, 5.8, 0.3]} />
+          <meshBasicMaterial color="#9facaa" />
+        </mesh>
+
+        {/* MAIN SOLID BUTTON */}
+        <mesh ref={enterBtnRef}>
+          <boxGeometry args={[10, 5, 0.6]} />
+          <meshStandardMaterial color="#001a14" emissive="#2cd434" emissiveIntensity={0.4} />
+          <Text
+            position={[0, 0, 0.35]}
+            fontSize={1.4}
+            color="#ffffff"
+            fontWeight="bold"
+            anchorX="center"
+            anchorY="middle"
+          >
+            {"ENTER >"}
+          </Text>
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
 export default function Dome({
   index,
   position,
@@ -175,80 +273,15 @@ export default function Dome({
 
       {/* THE WAYFINDING SIGNPOST (UI) */}
       {showSignpost && (
-        <group position={localSignpostPos} ref={signpostRef}>
-          {/* Main Support Pillar */}
-          <mesh position={[0, 10, 0]}>
-            <boxGeometry args={[1, 20, 1]} />
-            <meshStandardMaterial color="#222222" metalness={0.8} />
-          </mesh>
-
-          {/* BACK BUTTON SCREEN */}
-          <group
-            position={[-5, 16, 0]}
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent floor click
-              onBack(); // Reset view
-            }}
-            onPointerOver={() => (document.body.style.cursor = "pointer")}
-            onPointerOut={() => (document.body.style.cursor = "auto")}
-          >
-            <mesh>
-              <planeGeometry args={[9, 4]} />
-              <meshBasicMaterial
-                color="#ff3333"
-                transparent
-                opacity={0.5}
-                depthTest={false}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-            <Text
-              position={[0, 0, 0.1]}
-              fontSize={1.2}
-              color="#ffffff"
-              fontWeight="bold"
-              depthTest={false}
-              renderOrder={11}
-            >
-              {"< CITY"}
-            </Text>
-          </group>
-
-          {/* ENTER BUTTON SCREEN */}
-          <group
-            position={[5, 13, 0]}
-            onClick={(e) => {
-              e.stopPropagation(); // 1. STOP the click from hitting the floor
-              console.log("Navigation triggered");
-              onGo(index);
-            }}
-            onPointerOver={() => (document.body.style.cursor = "pointer")}
-            onPointerOut={() => (document.body.style.cursor = "auto")}
-          >
-            <mesh>
-              <planeGeometry args={[10, 5]} />{" "}
-              {/* Made slightly larger for easier clicking */}
-              <meshBasicMaterial
-                color="#00ffcc"
-                transparent
-                opacity={0.7}
-                depthTest={false}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-            <Text
-              position={[0, 0, 0.5]}
-              fontSize={1.5}
-              color="#000000"
-              fontWeight="bold"
-              depthTest={false}
-              renderOrder={11}
-            >
-              {"ENTER >"}
-            </Text>
-          </group>
-        </group>
+        <SignpostWithPulse
+          localSignpostPos={localSignpostPos}
+          signpostRef={signpostRef}
+          onBack={onBack}
+          onGo={onGo}
+          index={index}
+        />
       )}
     </group>
   );
 }
+

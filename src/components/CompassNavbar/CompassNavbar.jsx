@@ -25,7 +25,7 @@ function CompassNavbar() {
       <h3 className="menu-heading">MENU</h3>
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
-          { name: "Home", path: "/" },
+          { name: "Home", path: "/overview" },
           { name: "Events", path: "/Events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },
@@ -34,19 +34,19 @@ function CompassNavbar() {
           { name: "Team", path: "/teams" },
           { name: "About Us", path: "/aboutus" },
         ].map((item, index) => (
-            <li
-              key={item.name}
-              style={{
-                transitionDelay: open ? `${index * 0.08}s` : "0s",
-              }}
-              onClick={() => {
-                setOpen(false);
-                navigate(item.path);
-              }}
-            >
+          <li
+            key={item.name}
+            style={{
+              transitionDelay: open ? `${index * 0.08}s` : "0s",
+            }}
+            onClick={() => {
+              setOpen(false);
+              navigate(item.path);
+            }}
+          >
             {item.name}
-            </li>
-          ))}
+          </li>
+        ))}
       </ul>
     </div>
   );

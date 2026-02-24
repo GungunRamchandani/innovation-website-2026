@@ -11,6 +11,33 @@ import eventPhoto4 from "../photos/images3.jpg";
 import eventPhoto5 from "../photos/images4.jpg";
 import eventPhoto6 from "../photos/images5.jpg";
 
+const GlobalBackButton = ({ destinationUrl, label = "RETURN TO HOME" }) => {
+    const handleBackClick = () => {
+        // This will send the user to the same URL every time
+        window.location.href = destinationUrl;
+    };
+
+    return (
+        <button
+            onClick={handleBackClick}
+            style={{
+                position: 'fixed',
+                top: '20px',
+                left: '20px',
+                padding: '10px 20px',
+                backgroundColor: '#111',
+                color: '#af3c28', // Matches your drone/neon theme
+                border: '2px solid #93131d',
+                cursor: 'pointer',
+                zIndex: 1000,
+                fontWeight: 'bold'
+            }}
+        >
+            ← {label}
+        </button>
+    );
+};
+
 const Initiative = () => {
     const [activeSection, setActiveSection] = useState(0);
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -183,7 +210,11 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
     // ─── JSX ──────────────────────────────────────────────────────────────────
     return (
         <div className="initiative-page" ref={containerRef}>
-
+            {/* THIS IS THE REDIRECT BUTTON */}
+            <GlobalBackButton
+                destinationUrl="/overview" // This redirects to your overview page
+                label="BACK TO HOME"
+            />
             {/* ── Animated Gradient Background ── */}
             <div className="gradient-bg">
                 <div className="g1" />

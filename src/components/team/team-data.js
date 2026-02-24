@@ -101,7 +101,7 @@ export const developmentTeam = [
     id: 4,
     name: "Sneha Mukane",
     role: "Developer",
-    imageUrl: "/src/assets/team/snehamukane.jpeg",
+    imageUrl: "/src/assets/team/snehamukane.png",
     instagram: "https://www.instagram.com/sneha_mukane?igsh=MW81bzEzMHF1ZXYyMg==",
     linkedin: "https://www.linkedin.com/in/sneha-mukane-9132532a2",
     github: "",
@@ -205,7 +205,8 @@ export const developmentTeam = [
     imageUrl: "/src/assets/team/radhakulkarni.png",
     instagram: "https://www.instagram.com/radhask_7?igsh=YzNwejE4aHo2ZHFj",
     linkedin: "https://www.linkedin.com/in/radha-kulkarni-291127338?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    github: "",    objectPosition: "center top",  },
+    github: "", objectPosition: "center top",
+  },
   {
     id: 16,
     name: "Harshada Dhas",

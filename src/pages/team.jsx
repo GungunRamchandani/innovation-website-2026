@@ -6,27 +6,58 @@ import { developmentTeam, technicalPanel } from '../components/team/team-data';
 import WaveBackground from '../components/team/WaveBackground';
 import './team.css';
 
+const GlobalBackButton = ({ destinationUrl, label = "RETURN TO HOME" }) => {
+  const handleBackClick = () => {
+    // This will send the user to the same URL every time
+    window.location.href = destinationUrl;
+  };
+
+  return (
+    <button
+      onClick={handleBackClick}
+      style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        padding: '10px 20px',
+        backgroundColor: '#111',
+        color: '#12c4be', // Matches your drone/neon theme
+        border: '2px solid #0f6e7d',
+        cursor: 'pointer',
+        zIndex: 1000,
+        fontWeight: 'bold'
+      }}
+    >
+      ← {label}
+    </button>
+  );
+};
+
 export default function Team() {
   return (
     <div className="min-h-screen relative overflow-x-hidden text-foreground selection:bg-primary selection:text-black">
-      
+      {/* THIS IS THE REDIRECT BUTTON */}
+      <GlobalBackButton
+        destinationUrl="/overview" // This redirects to your overview page
+        label="BACK TO HOME"
+      />
       {/* Background Effects */}
       <WaveBackground />
       <MouseLight />
       <CursorTrail />
 
       <main className="relative z-10 container mx-auto px-4 py-20 min-h-screen flex flex-col">
-        
+
         {/* ================= HEADER ================= */}
         <header className="text-center mb-20 space-y-6">
           <div className="flex items-center justify-center gap-2 mb-4 opacity-70">
             <div className="w-2 h-2 bg-primary rounded-full animate-ping" />
-           
+
           </div>
 
           <GlitchHeader text="Meet The Team" />
 
-        
+
         </header>
 
         {/* ================= TECHNICAL PANEL ================= */}
@@ -39,7 +70,7 @@ export default function Team() {
               </h2>
               <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
             </div>
-           
+
           </div>
 
           {/* 🔥 Responsive Grid */}

@@ -5,6 +5,32 @@ import Globe from "../components/Aboutus/Globe";
 import WaveBackground from '../components/team/WaveBackground';
 import "./aboutus.css";
 
+const GlobalBackButton = ({ destinationUrl, label = "RETURN TO HOME" }) => {
+  const handleBackClick = () => {
+    // This will send the user to the same URL every time
+    window.location.href = destinationUrl;
+  };
+
+  return (
+    <button
+      onClick={handleBackClick}
+      style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        padding: '10px 20px',
+        backgroundColor: '#111',
+        color: '#334bd5', // Matches your drone/neon theme
+        border: '2px solid #082d84',
+        cursor: 'pointer',
+        zIndex: 1000,
+        fontWeight: 'bold'
+      }}
+    >
+      ← {label}
+    </button>
+  );
+};
 
 /* ---------------- RevealCard Component ---------------- */
 
@@ -85,6 +111,11 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
         id={sectionId}
         className="flex relative w-full py-28 items-center justify-center"
       >
+        {/* THIS IS THE REDIRECT BUTTON */}
+        <GlobalBackButton
+          destinationUrl="/overview" // This redirects to your overview page
+          label="BACK TO HOME"
+        />
         <div className="container mx-auto px-4 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
             <motion.div
@@ -134,7 +165,7 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
         </div>
       </section>
 
-     
+
     </>
   );
 };
@@ -196,8 +227,8 @@ const MultiRingGallery = () => {
 
 const AboutUs = () => {
   return (
-    
-   
+
+
     <div className="min-h-screen overflow-x-hidden">
         <br></br>
         <br></br>

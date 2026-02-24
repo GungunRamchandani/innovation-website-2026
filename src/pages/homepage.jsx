@@ -21,10 +21,17 @@ function ScenePrecompiler() {
   return null;
 }
 
-export default function Homepage() {
+export default function Homepage({ isAnimationDone }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [selectedPos, setSelectedPos] = useState(null);
-  const [phase, setPhase] = useState("loader");
+  const [phase, setPhase] = useState("waiting");
+
+  useEffect(() => {
+    // If animation is done and we are still waiting, show the loader
+    if (isAnimationDone && phase === "waiting") {
+      setPhase("loader");
+    }
+  }, [isAnimationDone, phase]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,8 +43,8 @@ export default function Homepage() {
   }, []);
 
   const domsLocked = phase !== "ready";
-  const showLayers = phase !== "loader";
-  const bannerDone = phase === "ready";
+  const showLayers = true
+
 
   return (
     <div
@@ -53,10 +60,11 @@ export default function Homepage() {
       ) : (
         <>
           {/* Loader */}
-          <CityLoaderScreen onReady={() => setPhase("banner")} />
 
-          {/* Banner */}
-          {phase !== "loader" && <CityLoadingBanner done={bannerDone} />}
+          {/* Only render the loader if we aren't in the 'ready' phase */}
+          {phase !== "ready" && (
+            <CityLoaderScreen allDone={phase === "ready"} />
+          )}
 
           {/* 3D Canvas */}
           <Canvas
@@ -92,7 +100,7 @@ export default function Homepage() {
               <City
                 onSelectDome={(pos) => setSelectedPos(pos)}
                 showLayers={showLayers}
-                domsLocked={domsLocked}
+                domsLocked={phase !== "ready"}
                 onAllLoaded={() => setPhase("ready")}
               />
 

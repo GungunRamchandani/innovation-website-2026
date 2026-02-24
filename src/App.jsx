@@ -1,8 +1,9 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import Events from "./pages/Events";
 import Homepage from "./pages/homepage";
 import Initiative from "./pages/initiative";
+import Overview from "./pages/Overview"; // You will create this file
 import Speakers1 from "./pages/speakers";
 import Sponsors from "./pages/sponsors";
 
@@ -12,40 +13,82 @@ import Aboutus from "./pages/aboutus";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
 
-
-
-function App() {
-
+// Toggle Button Component
+const ToggleViewButton = () => {
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const isHomePage = location.pathname === "/";
+  const isHome = location.pathname === "/";
+  const isOverview = location.pathname === "/overview";
+
+  // Only show the button on Home or Overview
+  if (!isHome && !isOverview) return null;
 
   return (
-      <div className="app-layout">
-        <Header />
-          <main className="app-content">
-          {!isHomePage && <CompassNavbar />}
+    <button
+      onClick={() => navigate(isHome ? "/overview" : "/")}
+      className="view-toggle-btn"
+    >
+      {isHome ? "2D VIEW" : "3D VIEW"}
+    </button>
+  );
+};
 
-            <Routes>
+function App({ isAnimationDone }) {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const isOverviewPage = location.pathname === "/overview";
 
-              <Route path="/" element={<Homepage />} />
+  return (
+    <div className="app-layout">
+      <Header />
+      <main className="app-content">
+        {/* Toggle button appears on both Home and Overview */}
+        <ToggleViewButton />
 
-              <Route path="/sponsors" element={<Sponsors />} />
-              <Route path="/initiative" element={<Initiative />} />
-              <Route path="/teams" element={<Team />} />
-              <Route path="/timeline" element={<Timeline />} />
-              <Route path="/aboutus" element={<Aboutus />} />
+        {/* Hide CompassNavbar on both Home and Overview per your logic */}
+        {!isHomePage && !isOverviewPage && <CompassNavbar />}
 
-        <Route path="/speakers" element={<Speakers1 />} />
+        <Routes>
+          <Route path="/" element={<Homepage isAnimationDone={isAnimationDone} />} />
+          <Route path="/overview" element={<Overview />} />
 
-        <Route path="/events/*" element={<Events />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/initiative" element={<Initiative />} />
+          <Route path="/teams" element={<Team />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/speakers" element={<Speakers1 />} />
+          <Route path="/events/*" element={<Events />} />
+        </Routes>
+      </main>
+      <Footer />
 
-
-
-            </Routes>
-          </main>
-        <Footer/>
-      </div>
+      <style>{`
+        .view-toggle-btn {
+          position: fixed;
+          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 9999;
+          padding: 10px 25px;
+          background: rgba(58, 159, 192, 0.1);
+          color: #74e5f9;
+          border: 2px solid #78c4e4;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+          letter-spacing: 2px;
+          backdrop-filter: blur(5px);
+          transition: all 0.3s ease;
+        }
+        .view-toggle-btn:hover {
+          background: #a6c2ce;
+          color: #000;
+          box-shadow: 0 0 15px #acbec8;
+        }
+      `}</style>
+    </div>
   );
 }
 
