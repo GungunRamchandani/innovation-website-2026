@@ -78,7 +78,7 @@ const Timeline = () => {
   // Simplified: Only IDs and Coordinates
   // Vertical Coordinates (Stripped for dynamic sheet mapping)
 const verticalLocs = [
-  { id: 2,  x: 85, y: 140 },
+  { id: 2,  x: 78, y: 140 },
   { id: 3,  x: 88, y: 132 },
   { id: 5,  x: 85, y: 120 },
   { id: 8,  x: 65, y: 115 },
@@ -188,7 +188,7 @@ const horizontalLocs = [
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
-            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒Time {activePoint.time}</p>}
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8, fontWeight: 'bold'}}>Time: {activePoint.time}</p>}
            
             <button className="register-btn2">More info</button>
           </div>

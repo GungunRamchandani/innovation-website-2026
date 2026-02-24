@@ -196,7 +196,7 @@ const horizontalLocs = [
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
-            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒Time {activePoint.time}</p>}
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8, fontWeight: 'bold'}}>Time: {activePoint.time}</p>}
            
             <button className="register-btn2">More info</button>
           </div>
