@@ -1,12 +1,11 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import CompassNavbar from "./components/CompassNavbar/CompassNavbar";
 import Events from "./pages/Events";
 import Homepage from "./pages/homepage";
 import Initiative from "./pages/initiative";
+import Overview from "./pages/Overview"; // You will create this file
 import Speakers1 from "./pages/speakers";
 import Sponsors from "./pages/sponsors";
-import Overview from "./pages/Overview"; // You will create this file
 
 import Footer from "./components/header-footer/Footer";
 import Header from "./components/header-footer/Header";

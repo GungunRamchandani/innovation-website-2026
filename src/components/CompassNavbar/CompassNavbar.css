@@ -8,7 +8,7 @@
 /* Compass Container */
 .compass-container {
   position: fixed;
-  bottom: 0.5%; /* adjust */
+  bottom: 3%; /* adjust */
   right: 2%; /* adjust */
   width: 120px;
   height: 120px;
@@ -29,6 +29,7 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.4s ease;
+  filter: drop-shadow(0 0 14px rgba(0, 255, 255, 0.7));
 }
 
 #compass-btn img {
@@ -76,6 +77,15 @@
   0% { opacity: 0.6; }
   50% { opacity: 1; }
   100% { opacity: 0.6; }
+}
+
+.menu-heading {
+  margin-top: 8px;
+  margin-left: 21px;
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
 }
 
 /* Nav Menu */
@@ -150,38 +160,43 @@
     bottom: 20px;
     filter: blur(4px);
   }
+  .menu-heading {
+    margin-left: 14px;
+    font-size: 0.85rem;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  }
 
-    #nav-menu {
-        position: fixed;
-        bottom: 150px;
-        right: 14px;
+  #nav-menu {
+      position: fixed;
+      bottom: 150px;
+      right: 14px;
 
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
 
-        width: auto;   
-    }
+      width: auto;   
+  }
 
 
-    #nav-menu li {
-        height: 6vh;
-        font-size: 0.85rem;
-        font-weight: bold;
-        padding: 3px 10px;
-        margin: 4px 0;
+  #nav-menu li {
+      height: 6vh;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 3px 10px;
+      margin: 4px 0;
 
-        border-radius: 10px;
+      border-radius: 10px;
 
-        width: 100%;  
-        line-height:1;        
-        text-align: center;
+      width: 100%;  
+      line-height:1;        
+      text-align: center;
 
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-        background-color: rgba(0, 246, 255, 0.8);  /* soft teal */
-    }
+      background-color: rgba(0, 246, 255, 0.8);  /* soft teal */
+  }
 
 }
