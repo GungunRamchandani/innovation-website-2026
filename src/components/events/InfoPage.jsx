@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import Papa from 'papaparse';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/InfoPage.css';
-import { useParams } from "react-router-dom";
-
 
 
 function InfoPage() {
@@ -13,21 +11,7 @@ function InfoPage() {
   //const { title, description, backgroundClass } = location.state || {};
   
 
-// const title = location.state?.title || "Events";
-const { eventName } = useParams();
-
-const formatTitle = (slug) => {
-  if (!slug) return "Events";
-  return slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-};
-
-const title =
-  formatTitle(eventName) ||
-  location.state?.title ||
-  "Events";
-  
+const title = location.state?.title || "Events";
 const description = location.state?.description || "";
 const backgroundClass = location.state?.backgroundClass || "";
   
@@ -49,10 +33,10 @@ const backgroundClass = location.state?.backgroundClass || "";
     return 'long';
   };
 
-  const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
-  const handleBackClick = () => {
-    window.location.href = destinationUrl;
-  };
+  const GlobalBackButton = ({ label = "Back to Events" }) => { 
+ const handleBackClick = () => {
+  navigate(-1);
+};
 
   return (
     <>
@@ -675,15 +659,6 @@ useEffect(() => {
                       </div>
                     )}
                   </div>
-                   {/* Buttons */}
-            <div className="hero-buttons">
-              <button className="btn btn-primary">
-                <span>Register Now</span>
-                <i className="fas fa-arrow-right"></i>
-                <div className="btn-shine"></div>
-              </button>
-             
-            </div>
                   
                   {/* Decorative elements */}
                   <div className="block-glow"></div>
@@ -692,13 +667,22 @@ useEffect(() => {
                   <div className="block-corner bottom-left"></div>
                   <div className="block-corner bottom-right"></div>
                 </div>
-
-                
               )
             )}
           </div>
-        </div>
+       
+        <div className="hero-buttons">
+              <button className="btn btn-primary">
+                <span>Register Now</span>
+                <i className="fas fa-arrow-right"></i>
+                <div className="btn-shine"></div>
+              </button>
+             
+            </div>
+             </div>
       </section>
+       {/* Buttons */}
+            
     </div>
   );
 }

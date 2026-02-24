@@ -8,11 +8,7 @@ import hackathon from "../photos/hackathon.png";
 import "./initiative.css";
 
 
-// Import event photos
-import { default as eventPhoto1, default as eventPhoto5 } from "../photos/image10.jpg";
-import eventPhoto2 from "../photos/image11.jpg";
-import { default as eventPhoto3, default as eventPhoto4 } from "../photos/image12.jpg";
-import eventPhoto6 from "../photos/images5.jpg";
+
 
 
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
