@@ -1,9 +1,7 @@
-import "./CompassNavbar.css";
-import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Events from "../../pages/Events";
+import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
+import "./CompassNavbar.css";
 
 
 function CompassNavbar() {
@@ -24,7 +22,7 @@ function CompassNavbar() {
       >
         <img src={compassImg} alt="Compass" />
       </button>
-
+      <h3 className="menu-heading">MENU</h3>
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
           { name: "Home", path: "/overview" },
