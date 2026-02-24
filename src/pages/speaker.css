@@ -24,7 +24,7 @@ body:has(.speakers1) #root {
 
 .speakers1 {
     min-height: 100vh;
-    padding: 80px 0;
+    padding: 30px 0;
     position: relative;
     overflow: hidden;
     background: transparent;
@@ -991,7 +991,7 @@ body:has(.speakers1) #root {
         justify-content: center;
         /* Center vertically if content is short */
         /* Center horizontally */
-        padding-right: 10px;
+        /* padding-right: 5px; */
         padding-left: 0px;
     }
 
