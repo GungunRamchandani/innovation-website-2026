@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const EnergySeed = ({ 
   category, 
@@ -25,7 +25,7 @@ const EnergySeed = ({
   const angle = (index * 360) / totalSeeds - 90;
 
   // ✅ Smaller circle on mobile
-  const radius = isMobile ? 140 : 230;
+  const radius = isMobile ? 140 : 240;
 
   // ✅ Removed hard -50 offset ONLY on mobile so circle stays centered
   const offset = isMobile ? 0 : 50;
@@ -39,17 +39,28 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   //const x = Math.cos((angle * Math.PI) / 180) * radius - offset;
   //const y = Math.sin((angle * Math.PI) / 180) * radius - offset;
 
-  const seedColors = {
-    'Workshops': '#00ff88',
-    'AI for Social Impact': '#00ffff',
-    'Healthcare Innovation': '#4ade80',
-    'Smart Cities & Mobility': '#0088ff',
-    'Education & Accessibility': '#22d3ee',
-    'Cybersecurity for Good': '#34d399'
+  /*const seedColors = {
+    'Workshops': '#f9770c',
+    'AI for Social Impact': '#f8f81a',
+    'Healthcare Innovation': '#23914b',
+    'Smart Cities & Mobility': '#341779',
+    'Education & Accessibility': '#901af8',
+    'Cybersecurity for Good': '#f00d0d'
   };
+*/
+  //const color = seedColors[category] || '#00ff88';
+const colors = [
+  '#f9770c',
+  '#2fa1ff',
+  '#23914b',
+  '#f8f81a',
+  
+  '#f00d0d',
+  '#901af8'
+  
+];
 
-  const color = seedColors[category] || '#00ff88';
-
+const color = colors[index % colors.length];
   return (
     <motion.div
       className="absolute cursor-pointer"
@@ -124,7 +135,13 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
 
       {/* Seed container */}
       <motion.div
-        className={`relative ${isMobile ? "w-14 h-14" : "w-20 h-20"}`}
+        //className={`relative ${isMobile ? "w-14 h-14" : "w-20 h-20"}`}
+        //className="relative w-16 h-16 md:w-32 md:h-32"
+        className="relative"
+style={{
+  width: isMobile ? "60px" : "100px",
+  height: isMobile ? "60px" : "100px"
+}}
         animate={{ y: isActive ? 0 : [0, -10, 0] }}
         transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
       >
@@ -174,8 +191,8 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   style={{
     //top: isMobile ? "58px" : "85px",   // 👈 distance below seed
     //transform: "translateX(-50%)"
-    left: "-6%",
-  top: isMobile ? "58px" : "70px",
+    left: "-8%",
+  top: isMobile ? "58px" : "96px",
   transform: isMobile
     ? "translate(-70%, -50%)"
     : "translate(-60%, -50%)"
@@ -185,8 +202,10 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   transition={{ duration: 0.3 }}
 >
   <span 
-    className="text-xs font-medium tracking-wider uppercase"
-    style={{ color, textShadow: `0 0 10px ${color}80` }}
+    //className="text-lg font-medium tracking-wider uppercase"
+    className="text-[11px] md:text-lg font-medium tracking-wider uppercase"
+    style={{ color: "#ffffff" }}
+    //style={{ color, textShadow: `0 0 10px ${color}80` }}
   >
     {category}
   </span>

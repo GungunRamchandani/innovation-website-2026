@@ -1342,3 +1342,38 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ============================= */
+/* MOBILE: Move Venue Below Button */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  /* Stack everything vertically */
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main content first */
+  .hero-content {
+    order: 1;
+  }
+
+  /* Buttons stay after stats */
+  .hero-buttons {
+    order: 2;
+  }
+
+  /* Move right-side venue/monitor AFTER button */
+  .hero-visual {
+    order: 3;
+    margin-top: 2rem;
+  }
+
+  /* If initiative image exists (left block), push it after button */
+  .professional-info-block.left-side-block {
+    order: 3;
+  }
+
+}

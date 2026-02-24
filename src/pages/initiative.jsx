@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Calendar, Clock, GeoAlt, People, Heart, Lightbulb, Trophy, ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Clock, GeoAlt, Heart, Lightbulb, People, Trophy } from 'react-bootstrap-icons';
+import WaveBackground from "../components/team/WaveBackground";
 import "./initiative.css";
 
+
 // Import event photos
-import eventPhoto1 from "../photos/images.jpg";
-import eventPhoto2 from "../photos/images1.jpg";
-import eventPhoto3 from "../photos/images2.jpg";
-import eventPhoto4 from "../photos/images3.jpg";
-import eventPhoto5 from "../photos/images4.jpg";
+import { default as eventPhoto1, default as eventPhoto5 } from "../photos/image10.jpg";
+import eventPhoto2 from "../photos/image11.jpg";
+import { default as eventPhoto3, default as eventPhoto4 } from "../photos/image12.jpg";
 import eventPhoto6 from "../photos/images5.jpg";
 
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
@@ -96,14 +96,15 @@ const Initiative = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const containerRef = useRef(null);
 
+
     // Sections for side navigation
     const sections = [
         { id: "hero", label: "Home" },
         { id: "introduction", label: "Why" },
         { id: "impact", label: "Impact" },
         { id: "events", label: "Events" },
-        { id: "gallery", label: "Gallery" },
     ];
+
 
     // Gallery photos for slider
     const galleryPhotos = [
@@ -115,6 +116,7 @@ const Initiative = () => {
         { src: eventPhoto6, alt: "Community Gathering", caption: "Stronger Together" },
     ];
 
+
     // Auto-slide for gallery
     useEffect(() => {
         const interval = setInterval(() => {
@@ -122,6 +124,7 @@ const Initiative = () => {
         }, 4000);
         return () => clearInterval(interval);
     }, [galleryPhotos.length]);
+
 
     // Interactive bubble background — follows mouse
     useEffect(() => {
@@ -144,11 +147,13 @@ const Initiative = () => {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
+
     // Track active section on scroll
     useEffect(() => {
         const handleScroll = () => {
             const sectionElements = sections.map((s) => document.getElementById(s.id));
             const scrollPosition = window.scrollY + window.innerHeight / 3;
+
 
             sectionElements.forEach((section, index) => {
                 if (section) {
@@ -161,37 +166,81 @@ const Initiative = () => {
             });
         };
 
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [sections]);
 
+    // Ensure the CSS variable --header-offset matches the real header height.
+    useEffect(() => {
+        const setHeaderOffset = () => {
+            // Try several common header selectors used across the site
+            const headerEl = document.querySelector('header') || document.querySelector('.site-header') || document.querySelector('.header');
+            const height = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 0;
+            // Fallback to 120 if no header found
+            const offset = height || 120;
+            document.documentElement.style.setProperty('--header-offset', `${offset}px`);
+        };
+
+        setHeaderOffset();
+        window.addEventListener('resize', setHeaderOffset);
+
+        // watch for DOM changes that might affect header height (e.g., sticky class toggles)
+        const obs = new MutationObserver(setHeaderOffset);
+        obs.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+        return () => {
+            window.removeEventListener('resize', setHeaderOffset);
+            obs.disconnect();
+        };
+    }, []);
+
+
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
+            // Only apply the header offset when we're on the home page.
+            // Detect common home page paths or body class.
+            const path = window.location.pathname || '';
+            const isHome = path === '/' || path === '/index.html' || path.toLowerCase().includes('homepage') || document.body.classList.contains('home');
+            // also treat the initiative route as a home-like page for header offset
+            const isInitiative = path.toLowerCase().includes('initiative') || document.body.classList.contains('initiative');
+
+
+            if (isHome) {
+                // calculate header height dynamically so the target lands below the header
+                const headerEl = document.querySelector('header.hero');
+                const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')) || 120;
+                const elementTop = element.getBoundingClientRect().top + window.scrollY;
+                const scrollTarget = Math.max(0, elementTop - headerHeight - 8); // small breathing room
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            } else {
+                // Default behavior on other pages: native scrollIntoView
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     };
+
 
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % galleryPhotos.length);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + galleryPhotos.length) % galleryPhotos.length);
 
+
     // ─── Initiative Data ──────────────────────────────────────────────────────
     const initiativeData = {
-        title: "Women in Tech Initiative",
-        tagline: "Empowering Women Through Technology & Innovation",
+        title: "Navira",
+        tagline: "Empowering through digital inclusion",
         introduction: {
             title: "Why This Initiative?",
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`,
+            content: `In today's digital age, access to technology is not just a convenience but a necessity. However, many women, especially in underserved communities, lack the awareness and skills to navigate the digital world safely and effectively. Navira was born out of the need to bridge this digital divide and empower women with the tools and knowledge they need to thrive in the digital world.`,
         },
         impactGoals: {
             title: "Impact & Goals",
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.
+            content: `Navira is committed to reducing the digital divide by making technology accessible, understandable, and empowering for women across generations.
 
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec lacinia eros non enim mattis.`,
+In an increasingly digital world, lack of awareness can limit opportunities and create vulnerability. Navira addresses this gap by equipping women with practical digital skills, financial technology awareness, and exposure to emerging innovations.
+
+Our impact goes beyond teaching tools — we build confidence, encourage curiosity, and create safe spaces where women feel empowered to participate actively in the digital ecosystem.`,
             stats: [
                 { number: "500+", label: "Women Impacted", icon: People },
                 { number: "50+", label: "Sessions", icon: Lightbulb },
@@ -199,37 +248,33 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
                 { number: "25+", label: "Awards", icon: Trophy },
             ],
             goals: [
-                "Bridge the digital divide for underserved women communities",
-                "Provide hands-on technology training and mentorship",
-                "Create sustainable pathways for career development",
-                "Foster a supportive community of women in technology",
+                "Create awareness about digital fraud, UPI safety, and secure online practices",
+                "Encourage early career exploration in STEM and technology fields",
+                "Foster intergenerational learning environments that support inclusivity",
+                "Build long-term digital confidence and independence among women",
             ],
         },
         events: {
             sessions: [
                 {
                     id: 1,
-                    title: "Adivasi Girls Tech Workshop",
+                    title: "School Girls Career Guidance Session",
                     subtitle: "Digital Literacy & Coding Fundamentals",
-                    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta.
-
-Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero.`,
+                    description: `Hands-on learning on emerging technologies in the college laboratories to build foundational digital skills and confidence.`,
                     date: "March 15, 2026",
                     time: "10:00 AM - 4:00 PM",
-                    venue: "Community Center, Tribal Area",
+                    venue: "Cummins College of Engineering, Pune",
                     registrationLink: "",
                     image: eventPhoto1,
                 },
                 {
                     id: 2,
-                    title: "Old Age Home Women Program",
+                    title: "Senior Citizens Digital Awareness Program",
                     subtitle: "Technology for Daily Life",
-                    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-
-Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vestibulum ac diam sit amet quam vehicula elementum.`,
+                    description: `Interactive and hands-on sessions designed to help senior citizens navigate digital tools for communication, financial transactions, and accessing essential services safely.`,
                     date: "March 22, 2026",
                     time: "2:00 PM - 5:00 PM",
-                    venue: "Sunshine Old Age Home",
+                    venue: "Cummins College of Engineering, Pune",
                     registrationLink: "",
                     image: eventPhoto2,
                 },
@@ -237,18 +282,16 @@ Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vestibulum ac
             hackathon: {
                 title: "All-Women Hackathon",
                 subtitle: "Code for Change: Women Edition",
-                description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Sed porttitor lectus nibh.
-
-Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed.`,
+                description: `Hackathon focused on creating innovative solutions that address challenges faced by women in technology.Open to all women, regardless of coding experience, with mentorship and workshops leading up to the event to ensure everyone can participate and contribute meaningfully.`,
                 date: "April 5-6, 2026",
-                time: "24-Hour Hackathon",
-                venue: "Innovation Hub, Main Campus",
-                prizes: ["1st Place: $5000", "2nd Place: $3000", "3rd Place: $1500"],
+                time: "See in description",
+                venue: "Cummins College of Engineering, Pune",
                 registrationLink: "",
                 image: eventPhoto3,
             },
         },
     };
+
 
     // ─── Framer Motion Variants ───────────────────────────────────────────────
     const fadeInUp = {
@@ -256,18 +299,18 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
     };
 
+
     const staggerChildren = {
         visible: { transition: { staggerChildren: 0.1 } },
     };
 
+
     // ─── JSX ──────────────────────────────────────────────────────────────────
     return (
         <div className="initiative-page" ref={containerRef}>
-            {/* THIS IS THE REDIRECT BUTTON */}
-            <GlobalBackButton
-                destinationUrl="/overview" // This redirects to your overview page
-                label="BACK TO HOME"
-            />
+            <WaveBackground />
+            
+
             {/* ── Animated Gradient Background ── */}
             <div className="gradient-bg">
                 <div className="g1" />
@@ -278,6 +321,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 <div className="interactive" />
             </div>
 
+
             {/* ── Side Navigation HUD ── */}
             <nav className="side-nav">
                 <div className="nav-line">
@@ -286,6 +330,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         style={{ height: `${((activeSection + 1) / sections.length) * 100}%` }}
                     />
                 </div>
+
 
                 {sections.map((section, index) => (
                     <button
@@ -300,9 +345,11 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 ))}
             </nav>
 
+
             {/* ── Hero ── */}
             <section id="hero" className="hero-section">
                 <div className="hero-bg-pattern" />
+
 
                 <motion.div
                     className="hero-content"
@@ -310,11 +357,14 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <span className="hero-badge">Women Empowerment Initiative</span>
                     <h1 className="hero-title" data-text={initiativeData.title}>
                         {initiativeData.title}
                     </h1>
+                    <br></br>
+                    <span className="hero-badge">Women Empowerment Initiative</span>
+                    
                     <p className="hero-tagline">{initiativeData.tagline}</p>
+
 
                     <div className="hero-cta">
                         <a href="#events" className="cta-btn primary">
@@ -326,11 +376,13 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     </div>
                 </motion.div>
 
+
                 <div className="hero-scroll-indicator">
                     <span>Scroll</span>
                     <div className="scroll-line" />
                 </div>
             </section>
+
 
             {/* ── Introduction ── */}
             <section id="introduction" className="content-section intro-section">
@@ -346,6 +398,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <h2>{initiativeData.introduction.title}</h2>
                     </motion.div>
 
+
                     <motion.div
                         className="intro-content"
                         initial="hidden"
@@ -359,6 +412,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     </motion.div>
                 </div>
             </section>
+
 
             {/* ── Impact & Goals ── */}
             <section id="impact" className="content-section impact-section">
@@ -374,6 +428,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <h2>{initiativeData.impactGoals.title}</h2>
                     </motion.div>
 
+
                     <motion.div
                         className="impact-text"
                         initial="hidden"
@@ -385,6 +440,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             <p key={i}>{p}</p>
                         ))}
                     </motion.div>
+
 
                     {/* Stats */}
                     <motion.div
@@ -402,6 +458,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             </motion.div>
                         ))}
                     </motion.div>
+
 
                     {/* Goals list */}
                     <motion.div
@@ -424,6 +481,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 </div>
             </section>
 
+
             {/* ── Events ── */}
             <section id="events" className="content-section events-section">
                 <div className="section-container">
@@ -438,11 +496,13 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <h2>Our Events</h2>
                     </motion.div>
 
+
                     {/* Sessions */}
                     <div className="events-subsection">
                         <h3 className="subsection-title">
                             <Calendar /> Sessions
                         </h3>
+
 
                         {initiativeData.events.sessions.map((session, idx) => (
                             <motion.div
@@ -458,16 +518,19 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                     <div className="event-overlay" />
                                 </div>
 
+
                                 <div className="event-content">
                                     <span className="event-tag">Session {idx + 1}</span>
                                     <h4>{session.title}</h4>
                                     <p className="event-subtitle">{session.subtitle}</p>
+
 
                                     <div className="event-description">
                                         {session.description.split("\n\n").map((p, i) => (
                                             <p key={i}>{p}</p>
                                         ))}
                                     </div>
+
 
                                     <div className="event-meta">
                                         <div className="meta-item">
@@ -484,6 +547,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                         </div>
                                     </div>
 
+
                                     <a href={session.registrationLink || "#"} className="register-btn">
                                         Register Now <ArrowRight size={14} />
                                     </a>
@@ -492,11 +556,13 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         ))}
                     </div>
 
+
                     {/* Hackathon */}
                     <div className="events-subsection hackathon-subsection">
                         <h3 className="subsection-title">
                             <Trophy /> Hackathon
                         </h3>
+
 
                         <motion.div
                             className="hackathon-card"
@@ -517,12 +583,14 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                 </div>
                             </div>
 
+
                             <div className="hackathon-body">
                                 <div className="hackathon-description">
                                     {initiativeData.events.hackathon.description.split("\n\n").map((p, i) => (
                                         <p key={i}>{p}</p>
                                     ))}
                                 </div>
+
 
                                 <div className="hackathon-info">
                                     <div className="hackathon-meta">
@@ -540,21 +608,9 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                                         </div>
                                     </div>
 
-                                    <div className="prizes">
-                                        <h5>Prizes</h5>
-                                        <div className="prize-list">
-                                            {initiativeData.events.hackathon.prizes.map((prize, i) => (
-                                                <div
-                                                    key={i}
-                                                    className={`prize-item rank-${i + 1}`}
-                                                >
-                                                    <Trophy size={16} />
-                                                    <span>{prize}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+
                                 </div>
+
 
                                 <a
                                     href={initiativeData.events.hackathon.registrationLink || "#"}
@@ -567,6 +623,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                     </div>
                 </div>
             </section>
+
 
             {/* ── Gallery ── */}
             <section id="gallery" className="content-section gallery-section">
@@ -582,11 +639,13 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                         <h2>Event Gallery</h2>
                     </motion.div>
 
+
                     <div className="gallery-slider">
                         <div className="slider-container">
                             {/* Corner accents */}
                             <span className="corner-accent tl" />
                             <span className="corner-accent br" />
+
 
                             <AnimatePresence mode="wait">
                                 <motion.div
@@ -608,12 +667,14 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             </AnimatePresence>
                         </div>
 
+
                         <button className="slider-btn prev" onClick={prevSlide} aria-label="Previous slide">
                             <ChevronLeft />
                         </button>
                         <button className="slider-btn next" onClick={nextSlide} aria-label="Next slide">
                             <ChevronRight />
                         </button>
+
 
                         <div className="slider-dots">
                             {galleryPhotos.map((_, i) => (
@@ -626,6 +687,7 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                             ))}
                         </div>
 
+
                         {/* Slide counter (hidden via CSS by default) */}
                         <div className="slider-counter">
                             <span className="current">{String(currentSlide + 1).padStart(2, "0")}</span>
@@ -636,32 +698,15 @@ Pellentesque in ipsum id orci porta dapibus. Donec sollicitudin molestie malesua
                 </div>
             </section>
 
-            {/* ── CTA ── */}
-            <section className="cta-section">
-                <div className="section-container">
-                    <motion.div
-                        className="cta-content"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                    >
-                        <h2>Be Part of the Change</h2>
-                        <p>Join our mission to empower women through technology</p>
-                        <div className="cta-buttons">
-                            <a href="#" className="cta-btn primary large">
-                                Get Involved <ArrowRight />
-                            </a>
-                            <a href="#" className="cta-btn secondary large">
-                                Contact Us
-                            </a>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
 
+            {/* ── CTA ── */}
         </div>
     );
 };
 
+
 export default Initiative;
+
+
+
+

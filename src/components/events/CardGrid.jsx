@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WaveBackground from "../team/WaveBackground";
 import Card from "./Card";
 import "./cards.css";
@@ -12,6 +12,13 @@ function CardGrid() {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  
+    const handleBackClick = (e) => {
+    e.stopPropagation(); // prevent background click
+    navigate(-1); // go back one page
+  };
 
   // Your working CSV link (the one that downloads)
   const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvwQiV77nS4flE63dZnbIEWo6aZVeuDA5cgxUSqCn0I9vA_hFktZJU-GPjXMzZpnUbSAyukHZEpWhq/pub?gid=0&single=true&output=csv";
@@ -220,6 +227,11 @@ function CardGrid() {
       <div className="carousel-wrapper">
         <WaveBackground />
         <button className="nav-btn left" onClick={prev}>‹</button>
+        <button className="back-btn-glass" onClick={handleBackClick}>
+          <i className="fas fa-arrow-left"></i>
+          <span>Back to Events</span>
+          <span className="shine"></span>
+        </button>
 
         <div className="carousel">
           {cards.map((card, i) => {
