@@ -3,6 +3,7 @@ import compassImg from "../../assets/CompassNavbar/compass-iii.jpeg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Events from "../../pages/Events";
 
 
 function CompassNavbar() {
@@ -26,7 +27,7 @@ function CompassNavbar() {
 
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
-          { name: "Home", path: "/" },
+          { name: "Home", path: "/overview" },
           { name: "Events", path: "/Events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },
@@ -35,19 +36,19 @@ function CompassNavbar() {
           { name: "Team", path: "/teams" },
           { name: "About Us", path: "/aboutus" },
         ].map((item, index) => (
-            <li
-              key={item.name}
-              style={{
-                transitionDelay: open ? `${index * 0.08}s` : "0s",
-              }}
-              onClick={() => {
-                setOpen(false);
-                navigate(item.path);
-              }}
-            >
+          <li
+            key={item.name}
+            style={{
+              transitionDelay: open ? `${index * 0.08}s` : "0s",
+            }}
+            onClick={() => {
+              setOpen(false);
+              navigate(item.path);
+            }}
+          >
             {item.name}
-            </li>
-          ))}
+          </li>
+        ))}
       </ul>
     </div>
   );

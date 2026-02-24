@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useProgress } from "@react-three/drei";
 
-export function CityLoaderScreen({ onReady }) {
+export function CityLoaderScreen({ allDone }) {
   const { progress, loaded, total } = useProgress();
   const [pct, setPct] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
@@ -19,18 +19,22 @@ export function CityLoaderScreen({ onReady }) {
     setFadeOut(true);
     setTimeout(() => {
       setHidden(true);
-      onReady?.();
+
     }, 800);
-  }, [onReady]);
+  }, []);
 
   useEffect(() => {
-    if (progress >= 100) hide();
-  }, [progress, hide]);
-  // Hard cap — never stuck beyond 15 s
+    if (allDone && progress >= 100) {
+      hide();
+    }
+  }, [allDone, progress, hide]);
+
+  // Safety cap — 30s so user isn't stuck forever if a sheep model fails to load
   useEffect(() => {
-    const t = setTimeout(hide, 15000);
+    const t = setTimeout(hide, 30000);
     return () => clearTimeout(t);
   }, [hide]);
+
 
   if (hidden) return null;
 
