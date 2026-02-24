@@ -25,12 +25,17 @@
 }
 
 /* Container for the SVG to ensure it doesn't clip */
+/* Container for the SVG to ensure it doesn't clip */
 .map-wrapper2 {
   position: relative;
   width: 100%;
   max-width: 100%;
   display: flex;
   justify-content: center;
+  
+  /* ADD THESE TWO LINES */
+  flex: 1;              /* Grows to fill the remaining height of timeline-container2 */
+  align-items: center;  /* Keeps the map centered vertically if the screen is very tall */
 }
 
 .map-svg2 {
