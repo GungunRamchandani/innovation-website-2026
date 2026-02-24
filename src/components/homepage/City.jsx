@@ -105,14 +105,14 @@ export function CityLoaderScreen({ allDone }) {
       {/* Hexagon Spinner */}
       <div style={{ position: "relative", marginBottom: 44 }}>
         <svg width="120" height="120" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
-          <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(0,255,80,0.6)" strokeWidth="2" strokeDasharray="8 4" />
-          <polygon points="60,20 94,39 94,81 60,100 26,81 26,39" fill="none" stroke="rgba(0,255,80,0.22)" strokeWidth="1" />
+          <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(83, 188, 212, 0.6)" strokeWidth="2" strokeDasharray="8 4" />
+          <polygon points="60,20 94,39 94,81 60,100 26,81 26,39" fill="none" stroke="rgba(7, 68, 87, 0.22)" strokeWidth="1" />
         </svg>
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, filter: "drop-shadow(0 0 14px rgba(0,255,80,0.9))", animation: "lsIconPulse 2s ease-in-out infinite" }}>🏙️</div>
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, filter: "drop-shadow(0 0 14px rgba(18, 204, 233, 0.9))", animation: "lsIconPulse 2s ease-in-out infinite" }}>🅘</div>
       </div>
 
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(0,255,80,0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 26, fontWeight: 700, letterSpacing: "0.18em", color: "#00ff50", textShadow: "0 0 20px rgba(0,255,80,0.7)", marginBottom: 44 }}>CITY LOADING</div>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(80, 179, 233, 0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 26, fontWeight: 700, letterSpacing: "0.18em", color: "#49abcb", textShadow: "0 0 20px rgba(44, 175, 187, 0.7)", marginBottom: 44 }}>CITY LOADING</div>
 
       {/* Progress Bar Bars */}
       <div style={{ display: "flex", gap: 3, marginBottom: 18 }}>
@@ -123,18 +123,18 @@ export function CityLoaderScreen({ allDone }) {
               width: 14,
               height: 28,
               borderRadius: 2,
-              background: i < barsFilled ? "rgba(0,255,80,0.9)" : "rgba(0,255,80,0.07)",
-              border: "1px solid rgba(0,255,80,0.18)",
+              background: i < barsFilled ? "rgba(138, 209, 245, 0.9)" : "rgba(0,255,80,0.07)",
+              border: "1px solid rgba(0, 200, 255, 0.18)",
               transition: "background 0.2s ease",
-              boxShadow: i < barsFilled ? "0 0 8px rgba(0,255,80,0.55)" : "none",
+              boxShadow: i < barsFilled ? "0 0 8px rgba(0, 221, 255, 0.77)" : "none",
             }}
           />
         ))}
       </div>
 
       {/* Numerical Percentage */}
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 10 }}>
-        {visualPct}<span style={{ fontSize: 17, color: "rgba(0,255,80,0.55)" }}>%</span>
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#23dfe9", textShadow: "0 0 28px rgba(57, 211, 222, 0.91)", lineHeight: 1, marginBottom: 10 }}>
+        {visualPct}<span style={{ fontSize: 17, color: "rgba(92, 212, 226, 0.55)" }}>%</span>
       </div>
 
       {/* YOUR TICKER COMPONENT INTEGRATED HERE */}
@@ -168,7 +168,7 @@ function LoaderTicker({ progress }) {
       style={{
         fontFamily: "'Courier New',monospace",
         fontSize: 10,
-        color: "rgba(0,255,80,0.5)",
+        color: "rgba(0, 242, 255, 0.5)",
         letterSpacing: "0.18em",
         height: 18,
         overflow: "hidden",
