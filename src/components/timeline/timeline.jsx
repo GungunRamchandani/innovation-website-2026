@@ -197,7 +197,26 @@ const horizontalLocs = [
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8, fontWeight: 'bold'}}>Time: {activePoint.time}</p>}
-           <button className="register-btn2">More info</button>
+                       <button 
+  className="register-btn2"
+  onClick={() => {
+    // 1. Define your internal base URL
+    const baseUrl = "/events/info"; 
+    
+    // 2. Format the title for the URL (e.g., "Software Hackathon" -> "software-hackathon")
+    const eventSlug = activePoint.title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with dashes
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing dashes
+
+    // 3. Redirect to internal page
+    window.location.href = `${baseUrl}/${eventSlug}`;
+  }}
+>
+  More info
+</button>
           </div>
         )}
       </div>
