@@ -6,10 +6,10 @@ const isMobile = window.innerWidth < 768;
 const MOBILE_CARD_SHIFT_X = -160;  // ← adjust left/right
 const MOBILE_CARD_SHIFT_Y = -170;   // ↑↓ adjust up/down
 
-const InfoCard = ({ 
-  category, 
-  description, 
-  events, 
+const InfoCard = ({
+  category,
+  description,
+  events = [],   // ✅ add this default
   route,
   isVisible,
   color = '#00ff88',
@@ -27,14 +27,14 @@ const InfoCard = ({
     navigate("CardGrid", {
     state: {
       category,
-      events,
+      events: events || [] 
     },
   });
   };
 
   const handleClose = (e) => {
     e.stopPropagation();
-    onClose();
+    onClose && onClose();
   };
 
   if (!isVisible) return null;
@@ -234,7 +234,7 @@ const InfoCard = ({
           {/* Events list */}
           <div className="relative flex-grow overflow-y-auto pr-1">
             <ul className="space-y-2">
-              {events.map((event, index) => (
+              {Array.isArray(events) && events.map((event, index) => (
                 <motion.li
                   key={index}
                   className="text-sm text-gray-300 p-2 rounded-lg"

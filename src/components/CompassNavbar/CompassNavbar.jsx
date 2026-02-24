@@ -40,7 +40,7 @@ function CompassNavbar() {
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
           { name: "Home", path: "/overview" }, // This path is now the desktop default
-          { name: "Events", path: "/Events" },
+          { name: "Events", path: "/events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },
           { name: "Initiative", path: "/initiative" },
