@@ -13,42 +13,54 @@ const categories = [
   {
     name: 'Growth Grid',
     description: 'A series of hands-on workshops designed to provide practical skills, real-world exposure, and in-depth learning in emerging technologies and technical domains.',
-    events: ['ML Bootcamp', 'Analysis Workshop', 'ESP32 Workshop', 'Drone Workshop'],
+    events: ['AIML Bootcamp', 'Engineering Simulation', 'ESP32 Workshop', 'CyberSkills Workshop'],
     route: '/climate',
     color: '#00ff88'
   },
   {
     name: 'Hack Genesis',
     description: 'A series of competitive hackathons that challenge participants to innovate, collaborate, and build impactful software and hardware solutions within a limited time frame.',
-    events: ['Software Hackathon', 'Hardware Hackathon', 'NAVIRA'],
+    events: ['Software Hackathon', 'Mission: HARDWARE', 'NAVIRA Hackathon'],
     route: '/ai',
     color: '#00ffff'
   },
   {
     name: 'Play Field',
     description: 'A category of exciting games featuring interactive, skill-based, and strategy-driven events that combine technology, logic, teamwork, and competitive fun.',
+<<<<<<< Updated upstream
     events: ['AR Game', 'Structural Showdown', 'Escape Room', 'Tech Trial', 'Mini Carnival','Trailblazers', 'Algorithm: Human Bot', 'Esports', 'GridBid'],
+=======
+    events: ['The StARburst Theory', 'Structural Showdown', 'Chrono Escape', 'Tech Trials', 'Mini Carnival', 'QuadraClash', 'Algorithm Human-Bot', 'Esports Arena', 'Grid Bid'],
+>>>>>>> Stashed changes
     route: '/healthcare',
     color: '#4ade80'
   },
   {
     name: 'Skill Clash',
     description: 'A competitive category featuring skill-based challenges that test coding, innovation, problem-solving, design thinking, and technical expertise through high-intensity contests.',
+<<<<<<< Updated upstream
     events: ['Code Conquer', 'Zero UI Challenge', 'Sustainability Case Study Competition', 'EcoSprint', 'Buildathon','Ideathon','Protosprint'],
+=======
+    events: ['Code Conquer', 'Zero UI Challenge', 'E-Move', 'ProtoSprint', 'Buildathon', 'Ideathon', 'BotSprint'],
+>>>>>>> Stashed changes
     route: '/smartcities',
     color: '#0088ff'
   },
   {
     name: 'Tech Frontier',
     description: 'A forward-looking category showcasing cutting-edge technologies and innovation-driven events that explore AI, cloud computing, digital twins, data science, and open-source advancements.',
+<<<<<<< Updated upstream
     events: ['Open Source Competition', 'AAI Cloud Event', 'Vibe Coding', 'Project Exhibition', 'Digital Twin', 'Datasprint','Research Paper Competition','CTF'],
+=======
+    events: ['CommitVerse', 'AI Cloud Event', 'CodeNova', 'TechExpo', 'CTF', 'Datasprint', 'TechTangle'],
+>>>>>>> Stashed changes
     route: '/education',
     color: '#22d3ee'
   },
   {
     name: 'Equity Edge',
     description: 'A business-focused category featuring entrepreneurial, trade, and strategy-driven events that test innovation, financial acumen, leadership, and decision-making under real-world scenarios.',
-    events: ['Founder Forge', 'BeTrade', 'Founder Courtroom'],
+    events: ['Founder Courtroom', 'BeTrade', 'Idea Forge'],
     route: '/security',
     color: '#34d399'
   }
@@ -123,9 +135,15 @@ const Home = () => {
   let x = Math.cos((angle * Math.PI) / 180) * radius;
   let y = Math.sin((angle * Math.PI) / 180) * radius;
 
+<<<<<<< Updated upstream
   if (isMobile) {
     x = 70;   // now valid
   }
+=======
+    /*if (isMobile) {
+      x = 70;   // now valid
+    }*/
+>>>>>>> Stashed changes
 
   return { x, y };
 };
@@ -378,7 +396,11 @@ const Home = () => {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
+<<<<<<< Updated upstream
               <div 
+=======
+              {/*<div
+>>>>>>> Stashed changes
                 className="w-10 h-10 rounded-full flex items-center justify-center"
                 style={{
                   background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
@@ -397,8 +419,53 @@ const Home = () => {
                   <path d="M2 17l10 5 10-5" />
                   <path d="M2 12l10 5 10-5" />
                 </svg>
+<<<<<<< Updated upstream
               </div>
               <h1 
+=======
+              </div>*/}
+              <a
+  href="https://drive.google.com/drive/folders/1ffGlDJVEEePgJaHZnG11Koh6cKHSC_mI"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex flex-col items-center cursor-pointer"
+  style={{ textDecoration: "none" }}
+>
+  <div
+    className="w-10 h-10 rounded-full flex items-center justify-center"
+    style={{
+      background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
+      border: '2px solid rgba(0,255,136,0.5)'
+    }}
+  >
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="#00ff88"
+      strokeWidth="2"
+    >
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
+  </div>
+
+  <span
+    style={{
+      marginTop: "6px",
+      fontSize: "12px",
+      color: "#00ff88",
+      fontWeight: "600",
+      letterSpacing: "1px"
+    }}
+  >
+    RULEBOOK
+  </span>
+</a>
+              <h1
+>>>>>>> Stashed changes
                 className="text-lg md:text-xl font-bold"
                 style={{
                   background: 'linear-gradient(135deg, #00ff88, #00ffff)',
@@ -493,21 +560,7 @@ const Home = () => {
           )}
         </AnimatePresence>
 
-        {/* Footer */}
-        <motion.footer
-          className="absolute bottom-0 left-0 right-0 z-20 p-6 md:p-8"
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: introComplete ? 0 : 30, opacity: introComplete ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          <div className="flex items-center justify-center gap-6 md:gap-8">
-            <div className="flex items-center gap-2 text-xs md:text-sm text-gray-500">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            </div>
-            <div className="h-4 w-px bg-gray-700" />
-            <div className="text-xs md:text-sm text-gray-500">Click a seed to explore</div>
-          </div>
-        </motion.footer>
+        
       </motion.div>
     </div>
   );

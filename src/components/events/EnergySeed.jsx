@@ -124,7 +124,8 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
 
       {/* Seed container */}
       <motion.div
-        className={`relative ${isMobile ? "w-14 h-14" : "w-20 h-20"}`}
+        //className={`relative ${isMobile ? "w-14 h-14" : "w-20 h-20"}`}
+        className="relative w-16 h-16 md:w-32 md:h-32"
         animate={{ y: isActive ? 0 : [0, -10, 0] }}
         transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
       >
@@ -174,8 +175,8 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   style={{
     //top: isMobile ? "58px" : "85px",   // 👈 distance below seed
     //transform: "translateX(-50%)"
-    left: "-6%",
-  top: isMobile ? "58px" : "70px",
+    left: "5%",
+  top: isMobile ? "58px" : "120px",
   transform: isMobile
     ? "translate(-70%, -50%)"
     : "translate(-60%, -50%)"
@@ -185,7 +186,8 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   transition={{ duration: 0.3 }}
 >
   <span 
-    className="text-xs font-medium tracking-wider uppercase"
+    //className="text-lg font-medium tracking-wider uppercase"
+    className="text-[11px] md:text-lg font-medium tracking-wider uppercase"
     style={{ color, textShadow: `0 0 10px ${color}80` }}
   >
     {category}

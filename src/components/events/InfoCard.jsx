@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const isMobile = window.innerWidth < 768;
 // 🎛 MANUAL MOBILE CONTROLS
 const MOBILE_CARD_SHIFT_X = -160;  // ← adjust left/right
-const MOBILE_CARD_SHIFT_Y = -110;   // ↑↓ adjust up/down
+const MOBILE_CARD_SHIFT_Y = -170;   // ↑↓ adjust up/down
 
 const InfoCard = ({ 
   category, 
