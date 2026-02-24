@@ -12,6 +12,7 @@ import Header from "./components/header-footer/Header";
 import Aboutus from "./pages/aboutus";
 import Team from "./pages/team";
 import Timeline from "./pages/timeline";
+import React, { useState, useEffect } from "react";
 
 // Toggle Button Component
 const ToggleViewButton = () => {
@@ -36,23 +37,39 @@ const ToggleViewButton = () => {
 
 function App({ isAnimationDone }) {
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const isOverviewPage = location.pathname === "/overview";
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Track window size for responsive logic
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isHome = location.pathname === "/";
+  const isOverview = location.pathname === "/overview";
+  const isSpecialPage = isHome || isOverview;
+
+  // LOGIC RULES:
+  // 1. Header: Always on all pages (Desktop + Mobile)
+  const shouldShowHeader = true;
+
+  // 2. Footer: Always on all pages EXCEPT (Desktop AND Home/Overview)
+  // This means if it is Mobile, it shows. If it is a subpage, it shows.
+  const shouldShowFooter = !isSpecialPage || isMobile;
 
   return (
     <div className="app-layout">
-      <Header />
+      {shouldShowHeader && <Header />}
+
       <main className="app-content">
-        {/* Toggle button appears on both Home and Overview */}
         <ToggleViewButton />
 
-        {/* Hide CompassNavbar on both Home and Overview per your logic */}
-        {!isHomePage && !isOverviewPage && <CompassNavbar />}
+        {!isSpecialPage && <CompassNavbar />}
 
         <Routes>
           <Route path="/" element={<Homepage isAnimationDone={isAnimationDone} />} />
           <Route path="/overview" element={<Overview />} />
-
           <Route path="/sponsors" element={<Sponsors />} />
           <Route path="/initiative" element={<Initiative />} />
           <Route path="/teams" element={<Team />} />
@@ -62,14 +79,15 @@ function App({ isAnimationDone }) {
           <Route path="/events/*" element={<Events />} />
         </Routes>
       </main>
-      <Footer />
+
+      {shouldShowFooter && <Footer />}
 
       <style>{`
         .view-toggle-btn {
           position: fixed;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
+          top: 125px;
+          right: 10px;
+         // transform: translateX(-50%);
           z-index: 9999;
           padding: 10px 25px;
           background: rgba(58, 159, 192, 0.1);

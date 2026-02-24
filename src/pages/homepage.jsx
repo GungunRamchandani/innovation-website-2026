@@ -115,7 +115,7 @@ export default function Homepage({ isAnimationDone }) {
               enableDamping
               enabled={!selectedPos}
               maxPolarAngle={Math.PI / 2.1}
-              maxDistance={1000}
+              maxDistance={500}
             />
           </Canvas>
         </>
