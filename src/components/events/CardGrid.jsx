@@ -1,10 +1,9 @@
 import Papa from 'papaparse';
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WaveBackground from "../team/WaveBackground";
 import Card from "./Card";
 import "./cards.css";
-
 function CardGrid() {
   const location = useLocation();
   const selectedCategory = location.state?.category || null;
@@ -14,11 +13,12 @@ function CardGrid() {
   const [error, setError] = useState(null);
 
   
-const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
-    const handleBackClick = () => {
-        window.location.href = destinationUrl;
-    };
+const GlobalBackButton = ({ label = "Back to Events" }) => { 
+  const navigate = useNavigate();   // 👈 THIS WAS MISSING
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
     return (
         <>
           
