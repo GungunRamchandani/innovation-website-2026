@@ -14,7 +14,7 @@ import { SkeletonUtils } from "three-stdlib";
 import Dome from "./Dome";
 import { useNavigate } from "react-router-dom";
 //THREE.Cache.enabled = true;
-
+import logoImg from "/inlogo.png";
 // ─────────────────────────────────────────────
 // PRELOADS — Layer 1 only (tracked by loader screen)
 // Layer 2 & 3 load on-demand after loader hides
@@ -108,7 +108,16 @@ export function CityLoaderScreen({ allDone }) {
           <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(83, 188, 212, 0.6)" strokeWidth="2" strokeDasharray="8 4" />
           <polygon points="60,20 94,39 94,81 60,100 26,81 26,39" fill="none" stroke="rgba(7, 68, 87, 0.22)" strokeWidth="1" />
         </svg>
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, filter: "drop-shadow(0 0 14px rgba(18, 204, 233, 0.9))", animation: "lsIconPulse 2s ease-in-out infinite" }}>🅘</div>
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, filter: "drop-shadow(0 0 14px rgba(18, 204, 233, 0.9))", animation: "lsIconPulse 2s ease-in-out infinite" }}> <img
+          src={logoImg}
+          alt="Logo"
+          style={{
+            width: "55px", // Adjust size as needed
+            height: "auto",
+            filter: "drop-shadow(0 0 12px rgba(18, 204, 233, 0.8))",
+            objectFit: "contain"
+          }}
+        /></div>
       </div>
 
       <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(80, 179, 233, 0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>

@@ -87,6 +87,12 @@ function App({ isAnimationDone }) {
           color: #000;
           box-shadow: 0 0 15px #acbec8;
         }
+          /* Mobile View: Hide button on screens smaller than 768px */
+        @media (max-width: 768px) {
+          .view-toggle-btn {
+            display: none !important;
+          }
+        }
       `}</style>
     </div>
   );
