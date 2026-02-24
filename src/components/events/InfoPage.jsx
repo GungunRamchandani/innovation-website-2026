@@ -15,6 +15,10 @@ function InfoPage() {
 
 // const title = location.state?.title || "Events";
 const { eventName } = useParams();
+ if (!eventName) {
+  return <div className="info-page">Invalid Event</div>;
+}
+
 
 const formatTitle = (slug) => {
   if (!slug) return "Events";
@@ -23,13 +27,14 @@ const formatTitle = (slug) => {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 };
 
-const title =
-  formatTitle(eventName) ||
-  location.state?.title ||
-  "Events";
+// const title =
+//   formatTitle(eventName) ||
+//   location.state?.title ||
+//   "Events";
+const title = formatTitle(eventName);
   
-const description = location.state?.description || "";
-const backgroundClass = location.state?.backgroundClass || "";
+// const description = location.state?.description || "";
+// const backgroundClass = location.state?.backgroundClass || "";
   
   const canvasRef = useRef(null);
   const [eventDetails, setEventDetails] = useState(null);
@@ -54,6 +59,7 @@ const backgroundClass = location.state?.backgroundClass || "";
     window.location.href = destinationUrl;
   };
 
+ 
   return (
     <>
       {/* Media Query to hide on mobile (screens smaller than 768px) */}
@@ -131,8 +137,13 @@ const backgroundClass = location.state?.backgroundClass || "";
 
   // Fetch event details from Google Sheets
   useEffect(() => {
+    setLoading(true);
+    setEventDetails(null);
+    setError(null);
+    setInitiativeImage(null);
+
     const fetchEventDetails = async () => {
-      if (!title) {
+      if (!eventName) {
         setLoading(false);
         return;
       }
@@ -225,7 +236,7 @@ const event = results.data.find(row => {
                 registrationFee: event['Registration Fees/team'] || event['Registration_Fees/team'] || event['registration fees/team'] || "N/A",
                 studentCoordinator: event['Student Coordinator'] || event['Student_Coordinator'] || event['student coordinator'] || "N/A",
                 facultyCoordinator: event['Faculty Coordinator'] || event['Faculty_Coordinator'] || event['faculty coordinator'] || "N/A",
-                detailedDescription: event['Event Description'] || event['Event_Description'] || event['event description'] || description
+                detailedDescription: event['Event Description'] || event['Event_Description'] || event['event description']
               });
               setError(null);
             } else {
@@ -248,7 +259,7 @@ const event = results.data.find(row => {
     };
 
     fetchEventDetails();
-  }, [title, description]);
+  }, [eventName]);
 
   // Matrix animation effect
   useEffect(() => {
