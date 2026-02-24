@@ -106,15 +106,15 @@ const Timeline = () => {
   { id: 6,  x: 48,  y: 63, title: "CTF", venue: "Main Building 5th floor, 3 labs" },
   { id: 7,  x: 60,  y: 60, title: "Project Exhibition", venue: "Between IT and Main Building" },
   { id: 8,  x: 68,  y: 50, title: "Saksham Hackathon", venue: "Main Building 2nd floor classrooms" },
-  { id: 9,  x: 75,  y: 39, title: "Research Competition", venue: "Main Building 2nd floor- 1 classroom" },
+  { id: 9,  x: 65,  y: 39, title: "Research Competition", venue: "Main Building 2nd floor- 1 classroom" },
   { id: 10, x: 85,  y: 42, title: "Structural Showdown", venue: "5th floor mech or Danfoss lab" },
   { id: 11, x: 89,  y: 52, title: "Escape Room", venue: "Mech 2nd floor" },
   { id: 12, x: 87,  y: 62, title: "Mozilla Event", venue: "Instru green space" },
-  { id: 13, x: 94,  y: 74, title: "Hardware Hackathon", venue: "Any 2 labs from main building 4th floor" },
+  { id: 13, x: 94,  y: 71, title: "Hardware Hackathon", venue: "Any 2 labs from main building 4th floor" },
   { id: 14, x: 103, y: 76, title: "Botsprint", venue: "Instru Quad" },
   { id: 15, x: 115, y: 78, title: "Ideation", venue: "Main Quad" },
   { id: 16, x: 128, y: 78, title: "Trailblazers", venue: "Mechanical Circle" },
-  { id: 17, x: 142, y: 75, title: "The Algorithm Human Bot", venue: "Tutorial room IT building Ground floor" },
+  { id: 17, x: 142, y: 75, title: "Algorithm Human Bot", venue: "Tutorial room IT building Ground floor" },
   { id: 18, x: 155, y: 67, title: "Esports", venue: "BGMI - Instru quad" },
   { id: 19, x: 166, y: 60, title: "Math on Spot", venue: "Near Canteen" }
 ];
