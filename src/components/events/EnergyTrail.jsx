@@ -6,16 +6,24 @@ const EnergyTrail = ({ startX, startY, endX, endY, isVisible }) => {
   // Calculate control point for curved path
   const midX = (startX + endX) / 2;
   const midY = (startY + endY) / 2;
-  const controlX = midX + (endY - startY) * 0.2;
-  const controlY = midY - (endX - startX) * 0.2;
+  const curveStrength = window.innerWidth < 768 ? 0.1 : 0.2;
+
+const controlX = midX + (endY - startY) * curveStrength;
+const controlY = midY - (endX - startX) * curveStrength;
+  //const controlX = midX + (endY - startY) * 0.2;
+  //const controlY = midY - (endX - startX) * 0.2;
 
   // Create quadratic bezier path
   const pathD = `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`;
 
   return (
     <svg
+      //className="absolute inset-0 w-full h-full pointer-events-none"
+      //style={{ zIndex: 5 }}
       className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 5 }}
+      viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}
+      preserveAspectRatio="none"
     >
       <defs>
         <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
