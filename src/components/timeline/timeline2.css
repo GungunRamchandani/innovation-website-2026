@@ -4,10 +4,13 @@
 .timeline-container2 {
   --neon-blue: #00d2ff;
   --cyber-green: #00ff9f;
-  --dark-bg: rgba(10, 15, 30, 0.85);
+  --dark-bg: rgba(10, 15, 30, 0.95); /* Increased opacity for better readability */
   --dark-red: #8B0000;
   font-family: 'Rajdhani', sans-serif;
   position: relative;
+  width: 100vw;   /* Full Width */
+  height: 100vh;  /* Full Height */
+  overflow: hidden; 
 }
 
 /* Detail Card Styling - Futuristic Glassmorphism */
