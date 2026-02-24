@@ -17,9 +17,7 @@ export const sponsors = {
 
 
   Event: [
-    { name: "Codemetron", logo: "/sponsors/forbes.png" ,url: "https://www.codemetron.com/" },
     { name: "Rotary", logo: "/sponsors/Rotary.png" ,url:"https://www.rotary.org/en" },
-    { name: "Warwick University Technologies", logo: "/sponsors/linkcode.png" ,url:"https://warwick.ac.uk/services/innovations/" },
   ],
 
 

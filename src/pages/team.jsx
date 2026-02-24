@@ -92,7 +92,7 @@ export default function Team() {
       {/* THIS IS THE REDIRECT BUTTON */}
       <GlobalBackButton
         destinationUrl="/overview" // This redirects to your overview page
-        label="BACK TO HOME"
+        label="BACK"
       />
       {/* Background Effects */}
       <WaveBackground />

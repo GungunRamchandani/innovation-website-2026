@@ -167,7 +167,7 @@ const DoubleRingSection = ({ leftContent, rightContent, sectionId }) => {
         {/* THIS IS THE REDIRECT BUTTON */}
         <GlobalBackButton
           destinationUrl="/overview" // This redirects to your overview page
-          label="BACK TO HOME"
+          label="BACK"
         />
         <div className="container mx-auto px-4 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
