@@ -1,116 +1,29 @@
+import MemberCard from '../components/team/MemberCard';
+import WaveBackground from '../components/team/WaveBackground';
+import MouseLight from '../components/team/MouseLight';
 import CursorTrail from '../components/team/CursorTrail';
 import GlitchHeader from '../components/team/GlitchHeader';
-import MemberCard from '../components/team/MemberCard';
-import MouseLight from '../components/team/MouseLight';
-import { developmentTeam, technicalPanel } from '../components/team/team-data';
-import WaveBackground from '../components/team/WaveBackground';
+import { technicalPanel, developmentTeam } from '../components/team/team-data';
 import './team.css';
-
-const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
-  const handleBackClick = () => {
-    window.location.href = destinationUrl;
-  };
-
-  return (
-    <>
-      {/* Media Query to hide on mobile (screens smaller than 768px) */}
-      <style>{`
-        @media (max-width: 768px) {
-          .global-back-btn {
-            display: none !important;
-          }
-        }
-      `}</style>
-
-      <button
-        onClick={handleBackClick}
-        className="global-back-btn" // Added class name here
-        style={{
-          // Positioning
-          position: 'fixed',
-          top: '30px',
-          left: '30px',
-          zIndex: 9999,
-
-          // Layout & Shape
-          display: 'flex', // This is overridden by the media query on mobile
-          alignItems: 'center',
-          gap: '12px',
-          padding: '12px 28px',
-          borderRadius: '16px',
-
-          // Glassmorphism Styling
-          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#ffffff',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          cursor: 'pointer',
-
-          // Typography
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '16px',
-          fontWeight: '600',
-
-          // Effects
-          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'all 0.3s ease-in-out',
-          outline: 'none'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
-          e.currentTarget.style.transform = 'translateY(-2px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
-          e.currentTarget.style.transform = 'translateY(0)';
-        }}
-      >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-
-        <span>{label}</span>
-      </button>
-    </>
-  );
-};
 
 export default function Team() {
   return (
     <div className="min-h-screen relative overflow-x-hidden text-foreground selection:bg-primary selection:text-black">
-      {/* THIS IS THE REDIRECT BUTTON */}
-      <GlobalBackButton
-        destinationUrl="/overview" // This redirects to your overview page
-        label="BACK TO HOME"
-      />
+      
       {/* Background Effects */}
       <WaveBackground />
       <MouseLight />
       <CursorTrail />
 
       <main className="relative z-10 container mx-auto px-4 py-20 min-h-screen flex flex-col">
-
+        
         {/* ================= HEADER ================= */}
         <header className="text-center mb-20 space-y-6">
           <div className="flex items-center justify-center gap-2 mb-4 opacity-70">
             <div className="w-2 h-2 bg-primary rounded-full animate-ping" />
-
           </div>
 
           <GlitchHeader text="Meet The Team" />
-
-
         </header>
 
         {/* ================= TECHNICAL PANEL ================= */}
@@ -123,16 +36,30 @@ export default function Team() {
               </h2>
               <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary" />
             </div>
-
+            <p className="text-muted-foreground text-sm font-mono tracking-wider">
+              // ARCHITECTS_OF_INNOVATION
+            </p>
           </div>
 
-          {/* 🔥 Responsive Grid */}
+          {/* Kajal Israni - Centered Solo */}
+          <div className="team-centered-row">
+            <div className="team-centered-card">
+              <MemberCard
+                key={technicalPanel[0].id}
+                member={technicalPanel[0]}
+                index={0}
+                variant="large"
+              />
+            </div>
+          </div>
+
+          {/* 🔥 Responsive Grid - Remaining Members */}
           <div className="team-grid">
-            {technicalPanel.map((member, idx) => (
+            {technicalPanel.slice(1).map((member, idx) => (
               <MemberCard
                 key={member.id}
                 member={member}
-                index={idx}
+                index={idx + 1}
                 variant="large"
               />
             ))}
@@ -160,13 +87,26 @@ export default function Team() {
             </p>
           </div>
 
-          {/* 🔥 Responsive Grid */}
+          {/* First 3 cards - Centered Row */}
+          <div className="team-centered-row">
+            {developmentTeam.slice(0, 3).map((member, idx) => (
+              <div key={member.id} className="team-centered-card">
+                <MemberCard
+                  member={member}
+                  index={idx}
+                  variant="small"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* 🔥 Responsive Grid - Remaining Members */}
           <div className="team-grid">
-            {developmentTeam.map((member, idx) => (
+            {developmentTeam.slice(3).map((member, idx) => (
               <MemberCard
                 key={member.id}
                 member={member}
-                index={idx}
+                index={idx + 3}
                 variant="small"
               />
             ))}
@@ -174,7 +114,11 @@ export default function Team() {
         </section>
 
         {/* ================= FOOTER ================= */}
-
+        <footer className="mt-auto pt-20 pb-8 text-center border-t border-white/5">
+          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+            &copy; 2024 TechFest Core System • Version 2.0.4
+          </p>
+        </footer>
       </main>
     </div>
   );

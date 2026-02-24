@@ -586,7 +586,7 @@ function Events() {
         <Route path="/education" element={<PlaceholderPage title="Education & Accessibility" color="#22d3ee" />} />
         <Route path="/security" element={<PlaceholderPage title="Cybersecurity for Good" color="#34d399" />} />
         <Route path="/CardGrid" element={<CardGrid />} />
-        <Route path="/info" element={<InfoPage />} />
+        <Route path="/info/:eventName" element={<InfoPage />} />
       </Routes>
     </AnimatePresence>
   );
