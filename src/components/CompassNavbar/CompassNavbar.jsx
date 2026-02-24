@@ -7,8 +7,22 @@ import "./CompassNavbar.css";
 function CompassNavbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
   const toggleCompass = () => {
     setOpen(!open);
+  };
+
+  const handleNavigation = (item) => {
+    setOpen(false);
+
+    // Check if the item is "Home"
+    if (item.name === "Home") {
+      // If screen width is less than 768px (mobile), go to "/", else go to "/overview"
+      const path = window.innerWidth <= 768 ? "/" : "/overview";
+      navigate(path);
+    } else {
+      navigate(item.path);
+    }
   };
 
   return (
@@ -25,7 +39,7 @@ function CompassNavbar() {
       <h3 className="menu-heading">MENU</h3>
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
-          { name: "Home", path: "/overview" },
+          { name: "Home", path: "/overview" }, // This path is now the desktop default
           { name: "Events", path: "/Events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },
@@ -39,10 +53,7 @@ function CompassNavbar() {
             style={{
               transitionDelay: open ? `${index * 0.08}s` : "0s",
             }}
-            onClick={() => {
-              setOpen(false);
-              navigate(item.path);
-            }}
+            onClick={() => handleNavigation(item)}
           >
             {item.name}
           </li>
