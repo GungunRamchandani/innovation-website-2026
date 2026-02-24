@@ -23,7 +23,7 @@ function CompassNavbar() {
       >
         <img src={compassImg} alt="Compass" />
       </button>
-
+      <h3 className="menu-heading">MENU</h3>
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
           { name: "Home", path: "/" },
