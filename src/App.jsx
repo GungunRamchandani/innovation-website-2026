@@ -67,9 +67,9 @@ function App({ isAnimationDone }) {
       <style>{`
         .view-toggle-btn {
           position: fixed;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
+          top: 150px;
+          right: 10px;
+          //transform: translateX(-50%);
           z-index: 9999;
           padding: 10px 25px;
           background: rgba(58, 159, 192, 0.1);
