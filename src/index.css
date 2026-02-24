@@ -114,25 +114,26 @@
     scroll-behavior: smooth;
   }
 }
+
 :root {
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'Exo 2', sans-serif;
 
   --background: 222 47% 4%;
   --foreground: 210 40% 98%;
-  
+
   --primary: 177 85% 39%;
   --primary-foreground: 222 47% 11%;
-  
+
   --muted: 217 33% 17%;
   --muted-foreground: 215 20% 65%;
-  
+
   --card: 222 47% 6%;
   --card-foreground: 210 40% 98%;
-  
+
   --border: 177 85% 39%;
   --input: 217 33% 17%;
-  
+
   --radius: 0.5rem;
 }
 
@@ -143,7 +144,12 @@
     background: radial-gradient(circle at center, hsl(222, 47%, 8%), hsl(222, 47%, 2%));
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     @apply font-bold uppercase tracking-wider;
   }
@@ -153,7 +159,7 @@
   .text-glow {
     text-shadow: 0 0 10px rgba(15, 185, 177, 0.5), 0 0 20px rgba(15, 185, 177, 0.3);
   }
-  
+
   .box-glow {
     box-shadow: 0 0 15px rgba(15, 185, 177, 0.15), inset 0 0 15px rgba(15, 185, 177, 0.05);
   }
@@ -161,15 +167,15 @@
   .perspective-1000 {
     perspective: 1000px;
   }
-  
+
   .preserve-3d {
     transform-style: preserve-3d;
   }
-  
+
   .backface-hidden {
     backface-visibility: hidden;
   }
-  
+
   .rotate-y-180 {
     transform: rotateY(180deg);
   }
@@ -178,13 +184,24 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background)); 
+  background: hsl(var(--background));
 }
+
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.3); 
+  background: hsl(var(--primary) / 0.3);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.6); 
+  background: hsl(var(--primary) / 0.6);
+}
+
+@font-face {
+  font-family: 'OrbitronBold';
+  /* The browser looks in the public folder automatically */
+  src: url('/homepage/fonts/Orbitron-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
