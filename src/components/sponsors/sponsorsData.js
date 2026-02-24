@@ -5,10 +5,10 @@ export const sponsors = {
   ],
 
 
-  Gold: [
+  /*Gold: [
     { name: "Ansys", logo: "/sponsors/ansys.png" },
     { name: "UKG", logo: "/sponsors/ukg.png" },
-  ],
+  ],*/
 
 
   Silver: [
@@ -29,8 +29,8 @@ export const sponsors = {
   ],
 
 
-  Knowledge: [
+  /*Knowledge: [
     { name: "Mastercard", logo: "/sponsors/mastercard.png" },
     { name: "TiE", logo: "/sponsors/tie.png" },
-  ],
+  ],*/
 };

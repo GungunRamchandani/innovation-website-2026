@@ -1,9 +1,9 @@
-import MemberCard from '../components/team/MemberCard';
-import WaveBackground from '../components/team/WaveBackground';
-import MouseLight from '../components/team/MouseLight';
 import CursorTrail from '../components/team/CursorTrail';
 import GlitchHeader from '../components/team/GlitchHeader';
-import { technicalPanel, developmentTeam } from '../components/team/team-data';
+import MemberCard from '../components/team/MemberCard';
+import MouseLight from '../components/team/MouseLight';
+import { developmentTeam, technicalPanel } from '../components/team/team-data';
+import WaveBackground from '../components/team/WaveBackground';
 import './team.css';
 
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
@@ -163,11 +163,7 @@ export default function Team() {
         </section>
 
         {/* ================= FOOTER ================= */}
-        <footer className="mt-auto pt-20 pb-8 text-center border-t border-white/5">
-          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-            &copy; 2024 TechFest Core System • Version 2.0.4
-          </p>
-        </footer>
+
       </main>
     </div>
   );

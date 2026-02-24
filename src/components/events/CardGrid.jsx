@@ -1,6 +1,7 @@
 import Papa from 'papaparse';
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import WaveBackground from "../team/WaveBackground";
 import Card from "./Card";
 import "./cards.css";
 
@@ -171,6 +172,7 @@ function CardGrid() {
       <div className="page">
         <div className="loading-container">
           <div className="loading-spinner"></div>
+           <WaveBackground />
           <p>Loading Events...</p>
         </div>
       </div>
@@ -216,6 +218,7 @@ function CardGrid() {
   return (
     <div className="page">
       <div className="carousel-wrapper">
+        <WaveBackground />
         <button className="nav-btn left" onClick={prev}>‹</button>
 
         <div className="carousel">

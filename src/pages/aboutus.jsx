@@ -272,12 +272,12 @@ const AboutUs = () => {
 
 
     <div className="min-h-screen overflow-x-hidden">
-      <br></br>
-      <br></br>
-      <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
-        ABOUT US
-      </h2>
-      <WaveBackground />
+        <br></br>
+        <br></br>
+        <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
+          ABOUT US
+        </h2>
+       
       <DoubleRingSection
         sectionId="innovation-cummins"
         leftContent={
@@ -316,19 +316,19 @@ const AboutUs = () => {
         }
       />
 
-
-      <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-6 text-center text-gradient ">
-        IMAGE GALLERY
-      </h2>
+     
+       <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-1 text-center text-gradient ">
+          IMAGE GALLERY 
+        </h2>
 
       {/* Globe Section */}
-      <section className="w-full py-24 flex justify-center">
+      <section className="w-full py-2 md:py-8  flex justify-center">
+        <WaveBackground />
         <div className="w-full max-w-6xl">
           <Globe />
         </div>
       </section>
-      <MultiRingGallery />
-
+ <MultiRingGallery />
 
     </div>
   );
