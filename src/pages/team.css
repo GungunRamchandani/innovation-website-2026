@@ -100,3 +100,29 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Centered Row (solo/lead cards) ===== */
+.team-centered-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.team-centered-card {
+  width: calc((100% - 3 * 1.5rem) / 4);
+}
+
+/* Mobile: full-width centered cards */
+@media (max-width: 768px) {
+  .team-centered-card {
+    width: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (max-width: 480px) {
+  .team-centered-card {
+    width: 100%;
+  }
+}
