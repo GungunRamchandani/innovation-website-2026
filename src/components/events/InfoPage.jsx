@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import Papa from 'papaparse';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/InfoPage.css';
+import { useParams } from "react-router-dom";
+
 
 
 function InfoPage() {
@@ -11,7 +13,21 @@ function InfoPage() {
   //const { title, description, backgroundClass } = location.state || {};
   
 
-const title = location.state?.title || "Events";
+// const title = location.state?.title || "Events";
+const { eventName } = useParams();
+
+const formatTitle = (slug) => {
+  if (!slug) return "Events";
+  return slug
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
+const title =
+  formatTitle(eventName) ||
+  location.state?.title ||
+  "Events";
+  
 const description = location.state?.description || "";
 const backgroundClass = location.state?.backgroundClass || "";
   

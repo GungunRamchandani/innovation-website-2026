@@ -154,16 +154,22 @@ function Card({ frontClass, title, description }) {
   }, [isMobile]);
 
   const handleInfoClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate("../info", { 
-      state: { 
-        title, 
-        description, 
-        backgroundClass: frontClass 
-      } 
-    });
-  };
+  e.preventDefault();
+  e.stopPropagation();
+
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "") // remove special characters
+    .replace(/\s+/g, "-"); // replace spaces with -
+
+  navigate(`/events/info/${slug}`, {
+  state: {
+    title,
+    description,
+    backgroundClass: frontClass
+  }
+});
+};
 
   return (
     <div
