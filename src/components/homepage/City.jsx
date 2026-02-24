@@ -19,13 +19,13 @@ import logoImg from "/inlogo.png";
 // PRELOADS — Layer 1 only (tracked by loader screen)
 // Layer 2 & 3 load on-demand after loader hides
 // ─────────────────────────────────────────────
-useGLTF.preload("/homepage/models/tree.glb");
-useGLTF.preload("/homepage/models/mountain.glb");
-useGLTF.preload("/homepage/models/blue_base.glb");
-useGLTF.preload("/homepage/models/windmill.glb");
-useGLTF.preload("/homepage/models/crops.glb");
-useGLTF.preload("/homepage/models/farm.glb");
-useGLTF.preload("/homepage/models/Cabin.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/tree.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/mountain.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/blue_base.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/windmill.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/crops.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/farm.glb");
+useGLTF.preload("https://cdn.innovation2026.in/models/Cabin.glb");
 useTexture.preload("/homepage/images/icon_0.png");
 useTexture.preload("/homepage/images/icon_1.png");
 useTexture.preload("/homepage/images/icon_2.png");
@@ -334,7 +334,7 @@ function ProgressBar() {
 // SHARED TREE HOOK
 // ─────────────────────────────────────────────
 function useTreeAsset() {
-  const { nodes, materials } = useGLTF("/homepage/models/tree.glb");
+  const { nodes, materials } = useGLTF("https://cdn.innovation2026.in/models/tree.glb");
   const mesh = Object.values(nodes).find((n) => n.isMesh);
   return {
     geometry: mesh.geometry,
@@ -346,7 +346,7 @@ function useTreeAsset() {
 // INSTANCED COMPONENTS
 // ─────────────────────────────────────────────
 function InstancedRobos({ robos }) {
-  const { nodes } = useGLTF("/homepage/models/robo.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/robo.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -370,7 +370,7 @@ function InstancedRobos({ robos }) {
   );
 }
 function InstancedBicycles({ bikes }) {
-  const { nodes } = useGLTF("/homepage/models/bycycle.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/bycycle.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -394,7 +394,7 @@ function InstancedBicycles({ bikes }) {
   );
 }
 function InstancedSheep({ sheep }) {
-  const { nodes } = useGLTF("/homepage/models/sheep.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/sheep.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -418,7 +418,7 @@ function InstancedSheep({ sheep }) {
   );
 }
 function InstancedGoats({ goats }) {
-  const { nodes } = useGLTF("/homepage/models/goat.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/goat.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -442,7 +442,7 @@ function InstancedGoats({ goats }) {
   );
 }
 function InstancedCows({ cows }) {
-  const { nodes } = useGLTF("/homepage/models/Cow.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/Cow.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -466,7 +466,7 @@ function InstancedCows({ cows }) {
   );
 }
 function InstancedBuildings({ buildings }) {
-  const { nodes } = useGLTF("/homepage/models/building.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/building.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -490,7 +490,7 @@ function InstancedBuildings({ buildings }) {
   );
 }
 function InstancedSolarPanels({ panels }) {
-  const { nodes } = useGLTF("/homepage/models/solarpanels.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/solarpanels.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -514,7 +514,7 @@ function InstancedSolarPanels({ panels }) {
   );
 }
 function InstancedCars({ cars }) {
-  const { nodes } = useGLTF("/homepage/models/car.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/car.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -538,7 +538,7 @@ function InstancedCars({ cars }) {
   );
 }
 function InstancedChickens({ chickens }) {
-  const { nodes } = useGLTF("/homepage/models/chicken.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/chicken.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -562,7 +562,7 @@ function InstancedChickens({ chickens }) {
   );
 }
 function InstancedResBuildings({ buildings }) {
-  const { nodes } = useGLTF("/homepage/models/resbuilding.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/building.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -586,7 +586,7 @@ function InstancedResBuildings({ buildings }) {
   );
 }
 function InstancedHorses({ horses }) {
-  const { nodes } = useGLTF("/homepage/models/Horse.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/Horse.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -610,7 +610,7 @@ function InstancedHorses({ horses }) {
   );
 }
 function InstancedBlueBase({ bases }) {
-  const { nodes } = useGLTF("/homepage/models/blue_base.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/blue_base.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -634,7 +634,7 @@ function InstancedBlueBase({ bases }) {
   );
 }
 function InstancedWindmills({ windmills }) {
-  const { nodes } = useGLTF("/homepage/models/windmill.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/windmill.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -658,7 +658,7 @@ function InstancedWindmills({ windmills }) {
   );
 }
 function InstancedCrops({ crops }) {
-  const { nodes } = useGLTF("/homepage/models/crops.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/crops.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -682,7 +682,7 @@ function InstancedCrops({ crops }) {
   );
 }
 function InstancedFarms({ farms }) {
-  const { nodes } = useGLTF("/homepage/models/farm.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/farm.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -706,7 +706,7 @@ function InstancedFarms({ farms }) {
   );
 }
 function InstancedCabins({ cabins }) {
-  const { nodes } = useGLTF("/homepage/models/Cabin.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/Cabin.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -730,7 +730,7 @@ function InstancedCabins({ cabins }) {
   );
 }
 function InstancedMountains({ mountains }) {
-  const { nodes } = useGLTF("/homepage/models/mountain.glb");
+  const { nodes } = useGLTF("https://cdn.innovation2026.in/models/mountain.glb");
   const mesh = useMemo(
     () => Object.values(nodes).find((n) => n.isMesh),
     [nodes],
@@ -886,7 +886,7 @@ function Layer2Scene({
     <>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/circle_water.glb"
+          path="https://cdn.innovation2026.in/models/circle_water.glb"
           position={[0, -1.1, 0]}
           scale={150}
           rotation={[0, Math.PI / 2, 0]}
@@ -894,7 +894,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/ground.glb"
+          path="https://cdn.innovation2026.in/models/ground.glb"
           position={[-20, 5.9, 135]}
           scale={43}
           rotation={[0, Math.PI, 0]}
@@ -902,7 +902,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/tower.glb"
+          path="https://cdn.innovation2026.in/models/tower.glb"
           position={[-30, 0, -40]}
           scale={50}
           rotation={[0, Math.PI / 2, 0]}
@@ -910,7 +910,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/hospitals.glb"
+          path="https://cdn.innovation2026.in/models/hospitals.glb"
           position={[17, 12, 132]}
           scale={30}
           rotation={[0, -Math.PI / 1.2, 0]}
@@ -918,7 +918,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/hospital_2.glb"
+          path="https://cdn.innovation2026.in/models/hospital_2.glb"
           position={[105, 6, 125]}
           scale={20}
           rotation={[0, Math.PI / 1.2, 0]}
@@ -926,7 +926,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/school1.glb"
+          path="https://cdn.innovation2026.in/models/school1.glb"
           position={[-125, 7, 90]}
           scale={35}
           rotation={[0, Math.PI / 6, 0]}
@@ -934,7 +934,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/school_boundary.glb"
+          path="https://cdn.innovation2026.in/models/school_boundary.glb"
           position={[-125, 7, 90]}
           scale={60}
           rotation={[0, -Math.PI / 1.2, 0]}
@@ -942,7 +942,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/base_army.glb"
+          path="https://cdn.innovation2026.in/models/base_army.glb"
           position={[-5, 8, -135]}
           scale={50}
           rotation={[0, Math.PI, 0]}
@@ -950,7 +950,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/missiel.glb"
+          path="https://cdn.innovation2026.in/models/missiel.glb"
           position={[-110, 21, -135]}
           scale={40}
           rotation={[0, Math.PI, 0]}
@@ -958,7 +958,7 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/helipad_def.glb"
+          path="https://cdn.innovation2026.in/models/helipad_def.glb"
           position={[-109, 6, -100]}
           scale={30}
           rotation={[0, Math.PI / 4, 0]}
@@ -966,14 +966,14 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/lake.glb"
+          path="https://cdn.innovation2026.in/models/lake.glb"
           position={[35 + cp5[0], 0, -30 + cp5[2]]}
           scale={25}
         />
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/photoroom1.glb"
+          path="https://cdn.innovation2026.in/models/photoroom1.glb"
           position={[90 + cp5[0], 2, cp5[2]]}
           scale={28}
           rotation={[0, Math.PI / 2, 0]}
@@ -981,14 +981,14 @@ function Layer2Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/photoroom2.glb"
+          path="https://cdn.innovation2026.in/models/photoroom2.glb"
           position={[40 + cp5[0], 2, -55 + cp5[2]]}
           scale={24}
         />
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/farmhouse.glb"
+          path="https://cdn.innovation2026.in/models/farmhouse.glb"
           position={[-60 + cp3[0], -4, -70 + cp3[2]]}
           scale={15}
         />
@@ -1066,7 +1066,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/helicopter_def.glb"
+          path="https://cdn.innovation2026.in/models/helicopter_def.glb"
           position={[-109, 31, -100]}
           scale={30}
           rotation={[0, Math.PI / 4, 0]}
@@ -1074,7 +1074,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/def_veh.glb"
+          path="https://cdn.innovation2026.in/models/def_veh.glb"
           position={[-75, 9, -130]}
           scale={20}
           rotation={[0, Math.PI / 4, 0]}
@@ -1082,7 +1082,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/helicopter.glb"
+          path="https://cdn.innovation2026.in/models/helicopter.glb"
           position={[17, 28, 140]}
           scale={20}
           rotation={[-0.2, Math.PI / 6, 0.1]}
@@ -1090,7 +1090,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/ambulance.glb"
+          path="https://cdn.innovation2026.in/models/ambulance.glb"
           position={[80, 5, 60]}
           scale={15}
           rotation={[0, Math.PI / 3, 0]}
@@ -1098,7 +1098,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/slide.glb"
+          path="https://cdn.innovation2026.in/models/slide.glb"
           position={[-20, 11, 135]}
           scale={15}
           rotation={[0, Math.PI, 0]}
@@ -1106,7 +1106,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/Swings.glb"
+          path="https://cdn.innovation2026.in/models/Swings.glb"
           position={[-20, 6, 125]}
           scale={8}
           rotation={[0, Math.PI, 0]}
@@ -1114,7 +1114,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/seesaw.glb"
+          path="https://cdn.innovation2026.in/models/seesaw.glb"
           position={[-10, 3.5, 130]}
           scale={8}
           rotation={[0, Math.PI, 0]}
@@ -1122,7 +1122,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/cycle_stand.glb"
+          path="https://cdn.innovation2026.in/models/cycle_stand.glb"
           position={[-115, 7, 116]}
           scale={20}
           rotation={[0, Math.PI / 6, 0]}
@@ -1131,7 +1131,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <group position={getCornerPos(0)}>
           <Model
-            path="/homepage/models/solarcar.glb"
+            path="https://cdn.innovation2026.in/models/solarcar.glb"
             position={[4, 5, 50]}
             scale={25}
             rotation={[0, -Math.PI / 2, 0]}
@@ -1140,7 +1140,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/bus.glb"
+          path="https://cdn.innovation2026.in/models/bus.glb"
           position={[-89, 4, -50]}
           scale={15}
           rotation={[0, Math.PI / 1.2, 0]}
@@ -1148,7 +1148,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/bike.glb"
+          path="https://cdn.innovation2026.in/models/bike.glb"
           position={[6, 4, 101]}
           scale={10}
           rotation={[0, Math.PI / 2, 0]}
@@ -1156,7 +1156,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/rikshaw.glb"
+          path="https://cdn.innovation2026.in/models/rikshaw.glb"
           position={[-8, 3.5, -102]}
           scale={12}
           rotation={[0, Math.PI, 0]}
@@ -1164,7 +1164,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/scooty.glb"
+          path="https://cdn.innovation2026.in/models/scooty.glb"
           position={[-109, 4, 40]}
           scale={8}
           rotation={[0, Math.PI / 5, 0]}
@@ -1172,7 +1172,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/students.glb"
+          path="https://cdn.innovation2026.in/models/students.glb"
           position={[-100, 9.8, 115]}
           scale={10}
           rotation={[0, Math.PI / 3, 0]}
@@ -1180,7 +1180,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/girls_bench.glb"
+          path="https://cdn.innovation2026.in/models/girls_bench.glb"
           position={[-110, 6, 150]}
           scale={20}
           rotation={[0, Math.PI / 7, 0]}
@@ -1188,7 +1188,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/school_boys.glb"
+          path="https://cdn.innovation2026.in/models/school_boys.glb"
           position={[-105, 7, 160]}
           scale={20}
           rotation={[0, -Math.PI / 1.2, 0]}
@@ -1196,7 +1196,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/boys.glb"
+          path="https://cdn.innovation2026.in/models/boys.glb"
           position={[-28, 6, 125]}
           scale={8}
           rotation={[0, Math.PI / 2, 0]}
@@ -1204,7 +1204,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/bot.glb"
+          path="https://cdn.innovation2026.in/models/bot.glb"
           position={[-90, 7, 100]}
           scale={10}
           rotation={[0, Math.PI / 5, 0]}
@@ -1213,7 +1213,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <group position={getCornerPos(0)}>
           <Model
-            path="/homepage/models/AIboard.glb"
+            path="https://cdn.innovation2026.in/models/AIboard.glb"
             position={[40, 3, -50]}
             scale={18}
             rotation={[0, Math.PI / 6, 0]}
@@ -1223,7 +1223,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <group position={getCornerPos(0)}>
           <Model
-            path="/homepage/models/dustbin.glb"
+            path="https://cdn.innovation2026.in/models/dustbin.glb"
             position={[0, 1, -40]}
             scale={10}
             rotation={[Math.PI / 8, 0, 0]}
@@ -1232,7 +1232,7 @@ function Layer3Scene({
       </Suspense>
       <Suspense fallback={null}>
         <Model
-          path="/homepage/models/plus.glb"
+          path="https://cdn.innovation2026.in/models/plus.glb"
           position={[105, 12, 127]}
           scale={5}
         />
