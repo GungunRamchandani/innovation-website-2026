@@ -443,7 +443,7 @@ useEffect(() => {
                             <div className="info-label">STUDENT COORDINATOR</div>
                             <div className="coordinator-list">
                               {formatCoordinatorNames(eventDetails.studentCoordinator).map((name, index) => (
-                                <span key={index}>{name}</span>
+                                <span key={index} >{name}</span>
                               ))}
                             </div>
                           </div>
