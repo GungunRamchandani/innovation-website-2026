@@ -4,26 +4,60 @@
 .timeline-container2 {
   --neon-blue: #00d2ff;
   --cyber-green: #00ff9f;
-  --dark-bg: rgba(10, 15, 30, 0.85);
+  --dark-bg: rgba(10, 15, 30, 0.95);
   --dark-red: #8B0000;
   font-family: 'Rajdhani', sans-serif;
+  
+  /* --- BREAKOUT LOGIC: Ignores parent padding/max-width --- */
   position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  /* ------------------------------------------------------ */
+
+  min-height: 100vh; /* Changed from height: 100vh to allow scrolling */
+  overflow-x: hidden; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container for the SVG to ensure it doesn't clip */
+/* Container for the SVG to ensure it doesn't clip */
+.map-wrapper2 {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  /* ADD THESE TWO LINES */
+  flex: 1;              /* Grows to fill the remaining height of timeline-container2 */
+  align-items: center;  /* Keeps the map centered vertically if the screen is very tall */
+}
+
+.map-svg2 {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Detail Card Styling - Futuristic Glassmorphism */
 .detail-card2 {
-  position: fixed;
+  position: fixed; /* Fixed ensures it stays relative to the screen, not the root padding */
   background: var(--dark-bg);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 210, 255, 0.3);
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 210, 255, 0.2), inset 0 0 10px rgba(0, 210, 255, 0.1);
-  z-index: 20;
+  z-index: 100;
   animation: cyberSlide 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: white;
   width: 320px;
-  transform: translate(-50%, -100%);
+  pointer-events: auto;
 }
 
 /* Top Right Close Button */
@@ -104,29 +138,47 @@
 /* Marker Styling */
 .marker-pin2 {
   fill: #000000;
+  stroke: var(--neon-blue);
+  stroke-width: 0.2;
+  opacity: 0.8; /* Make pin slightly transparent so text "pops" more */
 }
 
 /* Marker Label Text */
 .marker-label2 {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.15rem;
+  font-size: 2.2px; 
   font-weight: 700;
-  fill: #ffffff;
-  text-anchor: middle;
+  fill: #000; /* Dark text for contrast against the white halo */
   pointer-events: none;
-  letter-spacing: 0.5px;
+  text-anchor: middle; /* Centers text horizontally on the X coordinate */
+  dominant-baseline: middle; /* Centers text vertically on the Y coordinate */
+  
+  /* Create the Translucent Background effect */
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.9); /* Translucent white background */
+  stroke-width: 0.8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @keyframes cyberSlide {
-  from { transform: translate(-50%, -100%) scale(0.95); opacity: 0; }
-  to { transform: translate(-50%, -100%) scale(1); opacity: 1; }
+  from { opacity: 0; transform: scale(0.9) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Mobile View - Smaller Detail Card */
+/* Mobile View Adjustments */
 @media (max-width: 768px) {
+  .timeline-container2 {
+    padding: 0 !important; /* Force override of root padding */
+  }
+
   .detail-card2 {
     width: 280px;
     padding: 16px;
+  }
+
+  .marker-label2 {
+    font-size: 2.5px;
   }
 
   .card-header2 h3 {
