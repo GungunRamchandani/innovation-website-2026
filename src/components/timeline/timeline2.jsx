@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
 import './timeline2.css';
 import roadVertical from '../../assets/timeline-photos/road3.png';
 import roadHorizontal from '../../assets/timeline-photos/horizontal road.jpeg';
 
-const CARD_HEIGHT_ESTIMATE = 260; // approximate card height in px
-const EDGE_PADDING = 12; // min distance from screen edge
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS849usCcQ4dSmg1iQqhm_OmtJs97jk8986SmHaFWCs6cFNKXokNWLgsOxQ5XHMV35wPdziLmW0LkcT/pub?gid=0&single=true&output=csv"; 
+
+const CARD_HEIGHT_ESTIMATE = 260; 
+const EDGE_PADDING = 12;
 
 function getSafeCardStyle(markerX, markerY, isLaptop) {
   const cardWidth = isLaptop ? 320 : 280;
@@ -16,32 +19,23 @@ function getSafeCardStyle(markerX, markerY, isLaptop) {
   let top = markerY;
   let translateX = '-50%';
   let translateY = '-100%';
-  let transformOrigin = 'bottom center';
 
-  // --- Horizontal clamping ---
   const cardLeft = markerX - cardWidth / 2;
   const cardRight = markerX + cardWidth / 2;
 
   if (cardLeft < EDGE_PADDING) {
-    // Too close to left edge — pin card to left
     left = EDGE_PADDING;
     translateX = '0%';
-    transformOrigin = 'bottom left';
   } else if (cardRight > vw - EDGE_PADDING) {
-    // Too close to right edge — pin card to right
     left = vw - EDGE_PADDING - cardWidth;
     translateX = '0%';
-    transformOrigin = 'bottom right';
   }
 
-  // --- Vertical flipping ---
   if (markerY - cardHeight < EDGE_PADDING) {
-    // Not enough space above — flip to below marker
     top = markerY + 24;
     translateY = '0%';
   }
 
-  // Final clamp: ensure card never goes below bottom of screen
   const wouldBottom = top + (translateY === '0%' ? cardHeight : 0);
   if (wouldBottom > vh - EDGE_PADDING) {
     top = vh - EDGE_PADDING - cardHeight;
@@ -52,113 +46,120 @@ function getSafeCardStyle(markerX, markerY, isLaptop) {
     top: `${top}px`,
     left: `${left}px`,
     transform: `translate(${translateX}, ${translateY})`,
-    // Override the animation to match new transform origin
-    animation: 'none',
   };
 }
 
-const Timeline2 = () => {
+const Timeline = () => {
   const [activePoint, setActivePoint] = useState(null);
   const [cardStyle, setCardStyle] = useState({});
   const [isLaptop, setIsLaptop] = useState(window.innerWidth > 768);
-  // Used to re-trigger animation after style is set
   const [animKey, setAnimKey] = useState(0);
+  const [sheetData, setSheetData] = useState([]);
 
   useEffect(() => {
+    const fetchSheetData = () => {
+      Papa.parse(SHEET_URL, {
+        download: true,
+        header: true,
+        complete: (results) => setSheetData(results.data),
+        error: (error) => console.error("Error fetching sheet:", error)
+      });
+    };
+
+    fetchSheetData();
     const handleResize = () => {
       setIsLaptop(window.innerWidth > 768);
-      setActivePoint(null); // close card on resize to avoid stale positions
+      setActivePoint(null);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const verticalLocs = [
-  { id: 3,  x: 85, y: 140, title: "Software Hackathon",      venue: "Mech building classrooms" },
-  { id: 4,  x: 88, y: 132, title: "Code Conquer",            venue: "tnp lab" },
-  { id: 5,  x: 85, y: 120, title: "ML Bootcamp",             venue: "mech auditorium" },
-  { id: 6,  x: 65, y: 125, title: "Open Source Competition",  venue: "main building classroom" },
-  { id: 7,  x: 55, y: 125, title: "AI Cloud event",          venue: "kb joshi auditorium" },
-  { id: 8,  x: 42, y: 122, title: "Zero UI Challenge",       venue: "5th floor main building" },  
-  { id: 12, x: 35, y: 118, title: "AR Game",                 venue: "Main Building 1st floor" },
-  { id: 15, x: 32, y: 110, title: "Project Exhibition",      venue: "Between IT and Main Building" },
-  { id: 16, x: 32, y: 100, title: "Saksham Hackathon",       venue: "Main Building 2nd floor classrooms" },
-  { id: 17, x: 40, y: 92,  title: "Datathon (Datasprint)",   venue: "Day 1/2: IT Building 4th floor" },
-  { id: 18, x: 52, y: 83,  title: "Protosprint",             venue: "Cerie lab" },
-  { id: 19, x: 56, y: 78,  title: "Structural Showdown",     venue: "5th floor mech or Danfoss lab" },
-  { id: 21, x: 57, y: 71,  title: "Escape Room",             venue: "Mech 2nd floor" },
-  { id: 22, x: 44, y: 64,  title: "Mozilla Event",           venue: "Instru green space" },
-  { id: 24, x: 35, y: 58,  title: "Hardware Hackathon",      venue: "Any 2 labs from main building 4th floor" },
-  { id: 26, x: 35, y: 52,  title: "Mini Carnival",           venue: "Main Quad" },
-  { id: 27, x: 39, y: 43,  title: "Botsprint",               venue: "Instru Quad" },
-  { id: 28, x: 44, y: 38,  title: "Buildathon",              venue: "Instru Labs" },
-  { id: 29, x: 45, y: 33,  title: "Trailblazers",            venue: "Mechanical Circle" },
-  { id: 29, x: 35, y: 26,  title: "Business",                venue: "KB Joshi" },
-  { id: 30, x: 15, y: 5,   title: "The Algorithm Human Bot", venue: "Tutorial room IT building Ground floor" },
-  { id: 32, x: 18, y: 22,  title: "ImpEx",                   venue: "Discussion Room - Main building 3rd floor" },
-  { id: 33, x: 15, y: 12,  title: "Math on Spot",            venue: "Near Canteen" },
+  // Simplified: Only IDs and Coordinates
+  // Your Coordinates (IDs match Sr. No in Sheet)
+const verticalLocs = [
+  { id: 3,  x: 85, y: 140 },
+  { id: 4,  x: 88, y: 132 },
+  { id: 5,  x: 85, y: 120 },
+  { id: 6,  x: 65, y: 125 },
+  { id: 7,  x: 55, y: 125 },
+  { id: 8,  x: 42, y: 122 },
+  { id: 9,  x: 35, y: 118 },
+  { id: 12, x: 32, y: 110 },
+  { id: 13, x: 32, y: 100 },
+  { id: 14, x: 40, y: 92  },
+  { id: 17, x: 52, y: 83  },
+  { id: 18, x: 56, y: 78  },
+  { id: 20, x: 57, y: 71  },
+  { id: 21, x: 44, y: 64  },
+  { id: 23, x: 35, y: 58  },
+  { id: 24, x: 35, y: 52  },
+  { id: 25, x: 39, y: 43  },
+  { id: 26, x: 44, y: 38  },
+  { id: 28, x: 45, y: 33  },
+  { id: 29, x: 35, y: 26  },
+  { id: 30, x: 15, y: 5   },
+  { id: 32, x: 18, y: 22  },
+  { id: 33, x: 15, y: 12  },
 ];
 
-  // Horizontal Coordinates (Custom plotted for your horizontal image path)
-  const horizontalLocs = [
-  { id: 3,  x: 5,   y: 46, title: "Software Hackathon",      venue: "Mech building classrooms" },
-  { id: 4,  x: 15,  y: 50, title: "Code Conquer",            venue: "tnp lab" },
-  { id: 5,  x: 16,  y: 55, title: "ML Bootcamp",             venue: "mech auditorium" },
-  { id: 6,  x: 15,  y: 62, title: "Open Source Competition",  venue: "main building classroom" },
-  { id: 7,  x: 25,  y: 66, title: "AI Cloud event",          venue: "kb joshi auditorium" },
-  { id: 8,  x: 35,  y: 67, title: "Zero UI Challenge",       venue: "5th floor main building" },
-  { id: 12, x: 48,  y: 63, title: "AR Game",                 venue: "Main Building 1st floor" },
-  { id: 15, x: 60,  y: 60, title: "Project Exhibition",      venue: "Between IT and Main Building" },
-  { id: 16, x: 68,  y: 50, title: "Saksham Hackathon",       venue: "Main Building 2nd floor classrooms" },
-  { id: 17, x: 62,  y: 41, title: "Datathon",                venue: "Day 1/2: IT Building 4th floor" },
-  { id: 18, x: 75,  y: 37, title: "Protosprint",             venue: "Cerie lab" },
-  { id: 19, x: 85,  y: 42, title: "Structural Showdown",     venue: "5th floor mech or Danfoss lab" },
-  { id: 21, x: 89,  y: 52, title: "Escape Room",             venue: "Mech 2nd floor" },
-  { id: 22, x: 87,  y: 62, title: "Mozilla Event",           venue: "Instru green space" },
-  { id: 24, x: 90,  y: 70, title: "Hardware Hackathon",      venue: "Any 2 labs from main building 4th floor" },
-  { id: 26, x: 94,  y: 74, title: "Mini Carnival",           venue: "Main Quad" },
-  { id: 27, x: 105, y: 77, title: "Botsprint",               venue: "Instru Quad" },
-  { id: 28, x: 118, y: 78, title: "Buildathon",              venue: "Instru Labs" },
-  { id: 29, x: 128, y: 78, title: "Trailblazers",            venue: "Mechanical Circle" },
-  { id: 29, x: 142, y: 75, title: "Business",                venue: "KB Joshi" },
-  { id: 30, x: 155, y: 67, title: "The Algorithm Human Bot", venue: "Tutorial room IT building Ground floor" },
-  { id: 32, x: 173, y: 55, title: "ImpEx",                   venue: "Discussion Room - Main building 3rd floor" },
-  { id: 33, x: 166, y: 60, title: "Math on Spot",            venue: "Near Canteen" },
+// Horizontal Coordinates (Custom plotted for your horizontal image path)
+const horizontalLocs = [
+  { id: 3,  x: 5,   y: 46 },
+  { id: 4,  x: 15,  y: 50 },
+  { id: 5,  x: 16,  y: 55 },
+  { id: 6,  x: 15,  y: 62 },
+  { id: 7,  x: 25,  y: 66 },
+  { id: 8,  x: 35,  y: 67 },
+  { id: 9,  x: 48,  y: 63 },
+  { id: 12, x: 60,  y: 60 },
+  { id: 13, x: 68,  y: 50 },
+  { id: 14, x: 62,  y: 41 },
+  { id: 17, x: 75,  y: 37 },
+  { id: 18, x: 85,  y: 42 },
+  { id: 20, x: 89,  y: 52 },
+  { id: 21, x: 87,  y: 62 },
+  { id: 23, x: 90,  y: 70 },
+  { id: 24, x: 94,  y: 74 },
+  { id: 25, x: 105, y: 77 },
+  { id: 26, x: 118, y: 78 },
+  { id: 28, x: 128, y: 78 },
+  { id: 29, x: 142, y: 75 },
+  { id: 30, x: 155, y: 67 },
+  { id: 32, x: 173, y: 55 },
+  { id: 33, x: 166, y: 60 },
 ];
 
-  const locations = isLaptop ? horizontalLocs : verticalLocs;
+  // Logic to find live data from the CSV based on Sr. No 
+  const currentCoords = isLaptop ? horizontalLocs : verticalLocs;
+  const locations = currentCoords.map(loc => {
+    const liveRow = sheetData.find(row => parseInt(row['Sr. No']) === loc.id);
+    return {
+      ...loc,
+      title: liveRow ? liveRow['Event Name'] : "Loading...", 
+      venue: liveRow ? liveRow['Venue'] : "Loading Venue...",
+      time: liveRow ? liveRow['Day & Time'] : '' 
+    };
+  });
 
   const handleMarkerClick = (e, loc) => {
     e.stopPropagation();
-
     const svg = e.currentTarget.closest('svg');
     const rect = svg.getBoundingClientRect();
     const viewBox = isLaptop ? [0, 0, 177.7, 100] : [0, 0, 100, 150];
-    const scaleX = rect.width / viewBox[2];
-    const scaleY = rect.height / viewBox[3];
+    
+    const markerX = (loc.x / viewBox[2]) * rect.width + rect.left;
+    const markerY = (loc.y / viewBox[3]) * rect.height + rect.top;
 
-    // Pixel coords of marker tip on screen
-    const markerX = loc.x * scaleX + rect.left;
-    const markerY = loc.y * scaleY + rect.top;
-
-    const safeStyle = getSafeCardStyle(markerX, markerY, isLaptop);
-    setCardStyle(safeStyle);
+    setCardStyle(getSafeCardStyle(markerX, markerY, isLaptop));
     setActivePoint(loc);
-    setAnimKey(k => k + 1); // retrigger animation
+    setAnimKey(k => k + 1);
   };
 
-  // Build the final inline style for the card.
-  // We keep all CSS class styles but selectively override position + transform.
-  // We re-enable the animation via a CSS class trick using animKey.
-  const cardInlineStyle = activePoint ? cardStyle : {};
-
   return (
-    <div className={`timeline-container2 ${isLaptop ? 'laptop-view' : 'mobile-view'}`}>
+    <div className="timeline-container2">
       <div className="map-wrapper2" onClick={() => setActivePoint(null)}>
-        <svg
-          viewBox={isLaptop ? "0 0 177.7 100" : "0 0 100 150"}
-          className="map-svg2"
-        >
+        <svg viewBox={isLaptop ? "0 0 177.7 100" : "0 0 100 150"} className="map-svg2">
           <image
             href={isLaptop ? roadHorizontal : roadVertical}
             width={isLaptop ? "177.7" : "100"}
@@ -168,30 +169,25 @@ const Timeline2 = () => {
 
           {locations.map((loc) => (
             <g
-              key={loc.id}
+              key={`${loc.id}-${loc.title}`}
               className={`marker-group2 ${activePoint?.id === loc.id ? 'active' : ''}`}
               onClick={(e) => handleMarkerClick(e, loc)}
             >
-              <circle cx={loc.x} cy={loc.y} r="4" fill="transparent" />
+              <circle cx={loc.x} cy={loc.y} r="5" fill="transparent" />
               <g transform={`translate(${loc.x},${loc.y})`}>
-                <path
-                  d="M 0,-1.2 A 1.2,1.2 0 0,1 1.2,0 Q 1.2,1.5 0,2.5 Q -1.2,1.5 -1.2,0 A 1.2,1.2 0 0,1 0,-1.2 Z"
-                  className="marker-pin2"
-                />
-                <circle cx="0" cy="0" r="0.4" fill="white" />
+                <path d="M 0,-1.5 A 1.5,1.5 0 0,1 1.5,0 Q 1.5,2 0,3.5 Q -1.5,2 -1.5,0 A 1.5,1.5 0 0,1 0,-1.5 Z" className="marker-pin2" />
+                <circle cx="0" cy="0" r="0.5" fill="white" />
               </g>
-              <text x={loc.x + 5} y={loc.y - 3} className="marker-label2">
-                {loc.title}
-              </text>
+              <text x={loc.x + 3} y={loc.y - 3} className="marker-label2">{loc.title}</text>
             </g>
           ))}
         </svg>
 
         {activePoint && (
           <div
-            key={animKey}                  // forces remount → re-runs CSS animation
+            key={animKey}
             className="detail-card2"
-            style={cardInlineStyle}        // overrides position + transform only
+            style={cardStyle}
             onClick={(e) => e.stopPropagation()}
           >
             <button className="close-btn2" onClick={() => setActivePoint(null)}>×</button>
@@ -200,6 +196,7 @@ const Timeline2 = () => {
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒 {activePoint.time}</p>}
             <p className="desc-text">Join us at this location for an exclusive event on the journey.</p>
             <button className="register-btn2">Register Now</button>
           </div>
@@ -209,4 +206,4 @@ const Timeline2 = () => {
   );
 };
 
-export default Timeline2;
+export default Timeline;
