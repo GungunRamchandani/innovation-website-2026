@@ -147,7 +147,7 @@ const Speakers1 = () => {
             {/* THIS IS THE REDIRECT BUTTON */}
             <GlobalBackButton
                 destinationUrl="/overview" // This redirects to your overview page
-                label="BACK TO HOME"
+                label="BACK"
             />
 
             {/* Neural Network Background — rendered directly via Three.js in React */}

@@ -1,9 +1,9 @@
-import MemberCard from '../components/team/MemberCard';
-import WaveBackground from '../components/team/WaveBackground';
-import MouseLight from '../components/team/MouseLight';
 import CursorTrail from '../components/team/CursorTrail';
 import GlitchHeader from '../components/team/GlitchHeader';
-import { technicalPanel, developmentTeam } from '../components/team/team-data';
+import MemberCard from '../components/team/MemberCard';
+import MouseLight from '../components/team/MouseLight';
+import { developmentTeam, technicalPanel } from '../components/team/team-data';
+import WaveBackground from '../components/team/WaveBackground';
 import './team.css';
 
 export default function Team() {

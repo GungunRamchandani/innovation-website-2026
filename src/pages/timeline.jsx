@@ -105,7 +105,7 @@ function timeline() {
       {/* THIS IS THE REDIRECT BUTTON */}
       <GlobalBackButton
         destinationUrl="/overview" // This redirects to your overview page
-        label="BACK TO HOME"
+        label="BACK"
       />
 
       <main>
