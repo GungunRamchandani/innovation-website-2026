@@ -81,15 +81,15 @@ const verticalLocs = [
   { id: 2,  x: 85, y: 140 },
   { id: 3,  x: 88, y: 132 },
   { id: 5,  x: 85, y: 120 },
-  { id: 8,  x: 65, y: 125 },
-  { id: 9,  x: 42, y: 122 },
-  { id: 11, x: 55, y: 125 },
-  { id: 12, x: 32, y: 110 },
-  { id: 13, x: 32, y: 98  },
-  { id: 15, x: 40, y: 92  },
-  { id: 18, x: 52, y: 83  },
-  { id: 20, x: 56, y: 78  },
-  { id: 21, x: 57, y: 71  },
+  { id: 8,  x: 65, y: 115 },
+  { id: 9,  x: 46, y: 122 },
+  { id: 11, x: 55, y: 129 },
+  { id: 12, x: 32, y: 119 },
+  { id: 13, x: 32, y: 107  },
+  { id: 15, x: 40, y: 97  },
+  { id: 18, x: 47, y: 88  },
+  { id: 20, x: 50, y: 78  },
+  { id: 21, x: 57, y: 67  },
   { id: 23, x: 44, y: 64  },
   { id: 25, x: 35, y: 52  },
   { id: 27, x: 39, y: 43  },
@@ -104,7 +104,7 @@ const horizontalLocs = [
   { id: 2,  x: 5,   y: 46 },
   { id: 3,  x: 15,  y: 50 },
   { id: 5,  x: 16,  y: 59 },
-  { id: 8,  x: 25,  y: 66 },
+  { id: 8,  x: 25,  y: 63 },
   { id: 9,  x: 35,  y: 67 },
   { id: 11, x: 48,  y: 63 },
   { id: 12, x: 60,  y: 60 },
@@ -188,9 +188,9 @@ const horizontalLocs = [
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
-            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒 {activePoint.time}</p>}
-            <p className="desc-text">Join us at this location for an exclusive event on the journey.</p>
-            <button className="register-btn2">Register Now</button>
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒Time {activePoint.time}</p>}
+           
+            <button className="register-btn2">More info</button>
           </div>
         )}
       </div>

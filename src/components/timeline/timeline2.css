@@ -135,23 +135,25 @@
   fill: #000000;
   stroke: var(--neon-blue);
   stroke-width: 0.2;
+  opacity: 0.8; /* Make pin slightly transparent so text "pops" more */
 }
 
-/* Marker Label Text - Adjusted for SVG units */
+/* Marker Label Text */
 .marker-label2 {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 3px; /* Changed from 0.15rem to be visible in SVG coordinates */
+  font-size: 2.2px; 
   font-weight: 700;
-  fill: #ffffff;
+  fill: #000; /* Dark text for contrast against the white halo */
   pointer-events: none;
-  letter-spacing: 0.2px;
-  text-shadow: 1px 1px 2px black;
-}
-.marker-label2 {
-  fill: #000;
-  /* Apply a drop shadow with 0 offset and large spread to mimic a box */
-  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
-  background: rgba(255, 255, 255, 0.5); /* Note: Only works in some browsers for SVG */
+  text-anchor: middle; /* Centers text horizontally on the X coordinate */
+  dominant-baseline: middle; /* Centers text vertically on the Y coordinate */
+  
+  /* Create the Translucent Background effect */
+  paint-order: stroke fill;
+  stroke: rgba(255, 255, 255, 0.9); /* Translucent white background */
+  stroke-width: 0.8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 @keyframes cyberSlide {

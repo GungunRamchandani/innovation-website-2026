@@ -81,23 +81,23 @@ const verticalLocs = [
   { id: 3,  x: 85, y: 140 },
   { id: 4,  x: 88, y: 132 },
   { id: 5,  x: 85, y: 120 },
-  { id: 6,  x: 65, y: 125 },
-  { id: 7,  x: 55, y: 125 },
-  { id: 8,  x: 42, y: 122 },
-  { id: 9,  x: 35, y: 118 },
-  { id: 12, x: 32, y: 110 },
-  { id: 13, x: 32, y: 100 },
-  { id: 14, x: 40, y: 92  },
-  { id: 17, x: 52, y: 83  },
-  { id: 18, x: 56, y: 78  },
-  { id: 20, x: 57, y: 71  },
+  { id: 6,  x: 65, y: 115},
+  { id: 7,  x: 55, y: 129 },
+  { id: 8,  x: 44, y: 122 },
+  { id: 9,  x: 32, y: 118 },
+  { id: 12, x: 25, y: 110 },
+  { id: 13, x: 38, y: 100 },
+  { id: 14, x: 30, y: 92  },
+  { id: 17, x: 52, y: 86  },
+  { id: 18, x: 47, y: 78  },
+  { id: 20, x: 59, y: 68  },
   { id: 21, x: 44, y: 64  },
-  { id: 23, x: 35, y: 58  },
-  { id: 24, x: 35, y: 52  },
-  { id: 25, x: 39, y: 43  },
-  { id: 26, x: 44, y: 38  },
-  { id: 28, x: 45, y: 33  },
-  { id: 29, x: 35, y: 26  },
+  { id: 23, x: 30, y: 58  },
+  { id: 24, x: 38, y: 49  },
+  { id: 25, x: 39, y: 40  },
+  { id: 26, x: 50, y: 30  },
+  { id: 28, x: 33, y: 30  },
+  { id: 29, x: 25, y: 26  },
   { id: 30, x: 15, y: 5   },
   { id: 32, x: 18, y: 22  },
   { id: 33, x: 15, y: 12  },
@@ -105,29 +105,29 @@ const verticalLocs = [
 
 // Horizontal Coordinates (Custom plotted for your horizontal image path)
 const horizontalLocs = [
-  { id: 3,  x: 5,   y: 46 },
-  { id: 4,  x: 15,  y: 50 },
+  { id: 3,  x: 7,   y: 40 },
+  { id: 4,  x: 15,  y: 45 },
   { id: 5,  x: 16,  y: 55 },
   { id: 6,  x: 15,  y: 62 },
   { id: 7,  x: 25,  y: 66 },
-  { id: 8,  x: 35,  y: 67 },
+  { id: 8,  x: 35,  y: 69 },
   { id: 9,  x: 48,  y: 63 },
   { id: 12, x: 60,  y: 60 },
   { id: 13, x: 68,  y: 50 },
-  { id: 14, x: 62,  y: 41 },
-  { id: 17, x: 75,  y: 37 },
+  { id: 14, x: 60,  y: 41 },
+  { id: 17, x: 75,  y: 33 },
   { id: 18, x: 85,  y: 42 },
   { id: 20, x: 89,  y: 52 },
   { id: 21, x: 87,  y: 62 },
   { id: 23, x: 90,  y: 70 },
-  { id: 24, x: 94,  y: 74 },
+  { id: 24, x: 96,  y: 74 },
   { id: 25, x: 105, y: 77 },
   { id: 26, x: 118, y: 78 },
-  { id: 28, x: 128, y: 78 },
+  { id: 28, x: 129, y: 73 },
   { id: 29, x: 142, y: 75 },
   { id: 30, x: 155, y: 67 },
-  { id: 32, x: 173, y: 55 },
-  { id: 33, x: 166, y: 60 },
+  { id: 32, x: 171, y: 52 },
+  { id: 33, x: 166, y: 59 },
 ];
 
   // Logic to find live data from the CSV based on Sr. No 
@@ -196,9 +196,9 @@ const horizontalLocs = [
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
-            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒 {activePoint.time}</p>}
-            <p className="desc-text">Join us at this location for an exclusive event on the journey.</p>
-            <button className="register-btn2">Register Now</button>
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒Time {activePoint.time}</p>}
+           
+            <button className="register-btn2">More info</button>
           </div>
         )}
       </div>

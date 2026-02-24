@@ -78,53 +78,53 @@ const Timeline = () => {
   // Simplified: Only IDs and Coordinates
   // Your Coordinates (IDs match Sr. No in Sheet)
 const verticalLocs = [
-  { id: 1,  x: 85, y: 137 },
+  { id: 1,  x: 75, y: 142 },
   { id: 3,  x: 88, y: 132 },
   { id: 5,  x: 85, y: 120 },
-  { id: 6,  x: 65, y: 125 },
-  { id: 9,  x: 55, y: 125 },
-  { id: 10, x: 42, y: 122 },
-  { id: 12, x: 35, y: 118 },
+  { id: 6,  x: 72, y: 116 },
+  { id: 9,  x: 62, y: 123 },
+  { id: 10, x: 46, y: 127 },
+  { id: 12, x: 35, y: 120 },
   { id: 13, x: 32, y: 110 },
   { id: 14, x: 32, y: 100 },
   { id: 18, x: 40, y: 92  },
-  { id: 19, x: 52, y: 80  },
-  { id: 20, x: 56, y: 78  },
-  { id: 21, x: 57, y: 71  },
-  { id: 22, x: 44, y: 64  },
-  { id: 23, x: 35, y: 58  },
-  { id: 24, x: 35, y: 52  },
+  { id: 19, x: 60, y: 82 },
+  { id: 20, x: 48, y: 78  },
+  { id: 21, x: 62, y: 71  },
+  { id: 22, x: 49, y: 64  },
+  { id: 23, x: 39, y: 58  },
+  { id: 24, x: 29, y: 52  },
   { id: 25, x: 39, y: 43  },
-  { id: 28, x: 44, y: 38  },
-  { id: 29, x: 45, y: 33  },
-  { id: 30, x: 35, y: 26  },
+  { id: 28, x: 44, y: 36  },
+  { id: 29, x: 45, y: 27  },
+  { id: 30, x: 35, y: 22  },
   { id: 31, x: 15, y: 5   },
-  { id: 32, x: 25, y: 25  },
-  { id: 33, x: 18, y: 22  },
+  { id: 32, x: 17, y: 24},
+  { id: 33, x: 18, y: 15  },
 ];
 
 // Horizontal Coordinates
 const horizontalLocs = [
-  { id: 1,  x: 5,   y: 46 },
-  { id: 3,  x: 15,  y: 50 },
-  { id: 5,  x: 16,  y: 55 },
-  { id: 6,  x: 15,  y: 59 },
-  { id: 9,  x: 25,  y: 63 },
-  { id: 10, x: 35,  y: 67 },
-  { id: 12, x: 48,  y: 63 },
-  { id: 13, x: 60,  y: 56 },
+  { id: 1,  x: 5,   y: 40 },
+  { id: 3,  x: 15,  y: 45 },
+  { id: 5,  x: 16,  y: 53 },
+  { id: 6,  x: 15,  y: 61 },
+  { id: 9,  x: 24,  y: 65 },
+  { id: 10, x: 33,  y: 69 },
+  { id: 12, x: 45,  y: 61 },
+  { id: 13, x: 60,  y: 58 },
   { id: 14, x: 68,  y: 50 },
   { id: 18, x: 65,  y: 41 },
-  { id: 19, x: 75,  y: 39 },
+  { id: 19, x: 75,  y: 33 },
   { id: 20, x: 85,  y: 42 },
   { id: 21, x: 89,  y: 52 },
   { id: 22, x: 87,  y: 62 },
   { id: 23, x: 90,  y: 70 },
-  { id: 24, x: 94,  y: 74 },
+  { id: 24, x: 96,  y: 74 },
   { id: 25, x: 105, y: 77 },
   { id: 28, x: 118, y: 78 },
-  { id: 29, x: 128, y: 76 },
-  { id: 30, x: 142, y: 74 },
+  { id: 29, x: 128, y: 73 },
+  { id: 30, x: 142, y: 76},
   { id: 31, x: 155, y: 67 },
   { id: 32, x: 155, y: 67 },
   { id: 33, x: 166, y: 60 },
@@ -196,9 +196,8 @@ const horizontalLocs = [
               <h3>{activePoint.title}</h3>
             </div>
             <p className="venue-text"><strong>Venue:</strong> {activePoint.venue}</p>
-            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒 {activePoint.time}</p>}
-            <p className="desc-text">Join us at this location for an exclusive event on the journey.</p>
-            <button className="register-btn2">Register Now</button>
+            {activePoint.time && <p className="venue-text" style={{color: '#fff', fontSize: '0.75rem', opacity: 0.8}}>🕒Time {activePoint.time}</p>}
+            <button className="register-btn2">More info</button>
           </div>
         )}
       </div>

@@ -61,19 +61,19 @@ function timeline() {
             className={`nav-link ${selectedDay === 1 ? 'active' : ''}`}
             onClick={() => setSelectedDay(1)}
           >
-            DAY 1
+            9th April
           </button>
           <button
             className={`nav-link ${selectedDay === 2 ? 'active' : ''}`}
             onClick={() => setSelectedDay(2)}
           >
-            DAY 2
+            10th April
           </button>
           <button
             className={`nav-link ${selectedDay === 3 ? 'active' : ''}`}
             onClick={() => setSelectedDay(3)}
           >
-            DAY 3
+            11th April
           </button>
         </div>
         {renderContent()}
