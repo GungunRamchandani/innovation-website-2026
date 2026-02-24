@@ -29,7 +29,7 @@ const ToggleViewButton = () => {
       onClick={() => navigate(isHome ? "/overview" : "/")}
       className="view-toggle-btn"
     >
-      {isHome ? "2D VIEW" : "3D VIEW"}
+      {isHome ? "SWITCH TO 2D VIEW" : "SWITCH TO 3D VIEW"}
     </button>
   );
 };

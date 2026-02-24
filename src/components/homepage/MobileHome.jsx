@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
+import { px } from "framer-motion";
 
 /* ─── Nav config ─────────────────────────────────────────────── */
 const NAV_ITEMS = [
@@ -86,6 +87,22 @@ export default function MobileHome() {
       {/* ── Background image ── */}
       <img src="/homepage/images/city-bg.jpeg" alt="bg" style={styles.bg} />
       <div style={styles.overlay} />
+
+      {/* ── ADDED: Blended Logo Overlay ── */}
+      <div style={styles.logoContainer}>
+        <img
+          src="/inlogo.png"
+          alt="Innovation Logo"
+          style={styles.blendedLogo}
+        />
+      </div>
+      <div style={styles.logoContainer2}>
+        <img
+          src="/inlogo.png"
+          alt="Innovation Logo"
+          style={styles.blendedLogo}
+        />
+      </div>
 
       {/* ── SVG: lines + rings ── */}
       {w > 0 && (
@@ -301,5 +318,42 @@ const styles = {
     left: 0,
     zIndex: 2,
     pointerEvents: "none",
+  },
+  logoContainer: {
+    position: "absolute", // MANDATORY: top/right won't work without this
+    zIndex: 1,
+    pointerEvents: "none",
+    width: "100%",
+    height: "100%",
+
+    // --- CHANGE THESE VALUES TO MOVE THE LOGO ---
+    top: "120px",    // Distance from the top edge
+    right: "-30px",  // Distance from the right edge
+    // left: "auto", // Ensure these don't conflict
+    // bottom: "auto",
+  },
+  logoContainer2: {
+    position: "absolute", // MANDATORY: top/right won't work without this
+    zIndex: 1,
+    pointerEvents: "none",
+    width: "100%",
+    height: "100%",
+
+    // --- CHANGE THESE VALUES TO MOVE THE LOGO ---
+    bottom: "-480px",    // Distance from the top edge
+    left: "-280px",  // Distance from the right edge
+    // left: "auto", // Ensure these don't conflict
+    // bottom: "auto",
+  },
+
+  blendedLogo: {
+    position: "absolute", // Ensures the image respects the container coordinates
+    top: 0,
+    right: 0,
+    width: "35%",
+    opacity: 0.3,
+    mixBlendMode: "screen",
+    filter: "brightness(1.2) contrast(1.1)",
+    userSelect: "none",
   },
 };

@@ -104,7 +104,7 @@ export function CityLoaderScreen({ allDone }) {
 
       {/* Hexagon Spinner */}
       <div style={{ position: "relative", marginBottom: 44 }}>
-        <svg width="120" height="120" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
+        <svg width="280" height="280" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
           <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(83, 188, 212, 0.6)" strokeWidth="2" strokeDasharray="8 4" />
           <polygon points="60,20 94,39 94,81 60,100 26,81 26,39" fill="none" stroke="rgba(7, 68, 87, 0.22)" strokeWidth="1" />
         </svg>
@@ -112,7 +112,7 @@ export function CityLoaderScreen({ allDone }) {
           src={logoImg}
           alt="Logo"
           style={{
-            width: "55px", // Adjust size as needed
+            width: "150px", // Adjust size as needed
             height: "auto",
             filter: "drop-shadow(0 0 12px rgba(18, 204, 233, 0.8))",
             objectFit: "contain"
