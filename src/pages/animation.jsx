@@ -593,13 +593,13 @@ function Animation({ onComplete = null }) {
     };
 
     const mtlLoader = new MTLLoader();
-    mtlLoader.setResourcePath('/src/components/Animation/Drone_Costum/Material/');
-    mtlLoader.setPath('/src/components/Animation/Drone_Costum/Material/');
+    mtlLoader.setResourcePath('/models/Drone_Costum/Material/');
+    mtlLoader.setPath('/models/Drone_Costum/Material/');
     mtlLoader.load('drone_costum.mtl', function (materials) {
       materials.preload();
       const objLoader = new OBJLoader();
       objLoader.setMaterials(materials);
-      objLoader.setPath('/src/components/Animation/Drone_Costum/Material/');
+      objLoader.setPath('/models/Drone_Costum/Material/');
       objLoader.load('drone_costum.obj', function (obj) {
         // scale and orient model to match scene units
         obj.scale.set(0.025, 0.025, 0.025);

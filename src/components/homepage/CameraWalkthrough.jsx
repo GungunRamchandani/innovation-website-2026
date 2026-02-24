@@ -19,8 +19,8 @@ export default function CameraWalkthrough({ target, active }) {
     }, [target, active, isInitial])
 
     // ===== 🎚 CINEMATIC TUNING =====
-    const introRadius = 290
-    const introHeight = 130
+    const introRadius = 300
+    const introHeight = 150
     const endPointAngle = 3 * Math.PI / 2 // This is your "Reset" position
 
     const startRadius = 80

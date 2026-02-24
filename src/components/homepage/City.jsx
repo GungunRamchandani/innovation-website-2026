@@ -13,7 +13,7 @@ import * as THREE from "three";
 import { SkeletonUtils } from "three-stdlib";
 import Dome from "./Dome";
 import { useNavigate } from "react-router-dom";
-
+//THREE.Cache.enabled = true;
 
 // ─────────────────────────────────────────────
 // PRELOADS — Layer 1 only (tracked by loader screen)
@@ -41,29 +41,28 @@ useTexture.preload("/homepage/images/icon_6.png");
 //  City canvas is rendering behind it but hidden by the black bg.
 // ─────────────────────────────────────────────────────────────
 export function CityLoaderScreen({ allDone }) {
-  const { loaded, total } = useProgress();
-
-  // 1. Internal simulated state
+  const { progress: realProgress } = useProgress();
   const [visualPct, setVisualPct] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
   const [hidden, setHidden] = useState(false);
   const doneRef = useRef(false);
 
-  // 2. Forced Simulation Effect
+  // 1. Forced Visual Counter (Solves the "Instant 100" jump)
   useEffect(() => {
-    setVisualPct(0);
     const interval = setInterval(() => {
       setVisualPct((prev) => {
-        if (prev < 100) {
-          return prev + 1;
+        if (prev >= 99) {
+          // Stay at 99 until Three.js says assets are ready (realProgress) 
+          // AND parent says animation is done (allDone)
+          if (allDone && realProgress >= 100) return 100;
+          return 99;
         }
-        clearInterval(interval);
-        return 100;
+        return prev + 1;
       });
-    }, 30);
+    }, 40); // Counts to 100 in approx 4 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [allDone, realProgress]);
 
   const hide = useCallback(() => {
     if (doneRef.current) return;
@@ -72,10 +71,11 @@ export function CityLoaderScreen({ allDone }) {
     setTimeout(() => setHidden(true), 800);
   }, []);
 
-  // 3. Exit Guard
+  // 2. Trigger Exit when simulation hits 100
   useEffect(() => {
     if (allDone && visualPct >= 100) {
-      hide();
+      const timeout = setTimeout(hide, 600); // Brief pause at 100%
+      return () => clearTimeout(timeout);
     }
   }, [allDone, visualPct, hide]);
 
@@ -99,8 +99,10 @@ export function CityLoaderScreen({ allDone }) {
         pointerEvents: fadeOut ? "none" : "all",
       }}
     >
+      {/* Background Grid */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(0,255,80,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,80,0.04) 1px,transparent 1px)", backgroundSize: "40px 40px", animation: "lsGridPulse 4s ease-in-out infinite" }} />
 
+      {/* Hexagon Spinner */}
       <div style={{ position: "relative", marginBottom: 44 }}>
         <svg width="120" height="120" viewBox="0 0 120 120" style={{ animation: "lsSpin 6s linear infinite", display: "block" }}>
           <polygon points="60,8 104,34 104,86 60,112 16,86 16,34" fill="none" stroke="rgba(0,255,80,0.6)" strokeWidth="2" strokeDasharray="8 4" />
@@ -112,6 +114,7 @@ export function CityLoaderScreen({ allDone }) {
       <div style={{ fontFamily: "'Courier New',monospace", fontSize: 12, letterSpacing: "0.5em", color: "rgba(0,255,80,0.5)", marginBottom: 8 }}>INITIALIZING WORLD</div>
       <div style={{ fontFamily: "'Courier New',monospace", fontSize: 26, fontWeight: 700, letterSpacing: "0.18em", color: "#00ff50", textShadow: "0 0 20px rgba(0,255,80,0.7)", marginBottom: 44 }}>CITY LOADING</div>
 
+      {/* Progress Bar Bars */}
       <div style={{ display: "flex", gap: 3, marginBottom: 18 }}>
         {Array.from({ length: 20 }, (_, i) => (
           <div
@@ -129,17 +132,19 @@ export function CityLoaderScreen({ allDone }) {
         ))}
       </div>
 
-      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 28 }}>
+      {/* Numerical Percentage */}
+      <div style={{ fontFamily: "'Courier New',monospace", fontSize: 40, fontWeight: 700, color: "#00ff50", textShadow: "0 0 28px rgba(0,255,80,0.8)", lineHeight: 1, marginBottom: 10 }}>
         {visualPct}<span style={{ fontSize: 17, color: "rgba(0,255,80,0.55)" }}>%</span>
       </div>
 
+      {/* YOUR TICKER COMPONENT INTEGRATED HERE */}
       <LoaderTicker progress={visualPct} />
 
       <style>{`
         @keyframes lsGridPulse  { 0%,100%{opacity:.6} 50%{opacity:1} }
         @keyframes lsSpin       { to{transform:rotate(360deg)} }
         @keyframes lsIconPulse  { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
-        @keyframes lsTicker     { 0%{opacity:0;transform:translateY(4px)} 15%{opacity:1;transform:translateY(0)} 85%{opacity:1} 100%{opacity:0} }
+        @keyframes lsTicker     { 0%{opacity:0;transform:translateY(10px)} 10%{opacity:1;transform:translateY(0)} 90%{opacity:1} 100%{opacity:0} }
       `}</style>
     </div>
   );
@@ -913,7 +918,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/school1.glb"
-          position={[-115, 7, 90]}
+          position={[-125, 7, 90]}
           scale={35}
           rotation={[0, Math.PI / 6, 0]}
         />
@@ -921,7 +926,7 @@ function Layer2Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/school_boundary.glb"
-          position={[-115, 7, 90]}
+          position={[-125, 7, 90]}
           scale={60}
           rotation={[0, -Math.PI / 1.2, 0]}
         />
@@ -1159,7 +1164,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/students.glb"
-          position={[-95, 9.8, 115]}
+          position={[-100, 9.8, 115]}
           scale={10}
           rotation={[0, Math.PI / 3, 0]}
         />
@@ -1167,7 +1172,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/girls_bench.glb"
-          position={[-110, 6, 140]}
+          position={[-110, 6, 150]}
           scale={20}
           rotation={[0, Math.PI / 7, 0]}
         />
@@ -1175,7 +1180,7 @@ function Layer3Scene({
       <Suspense fallback={null}>
         <Model
           path="/homepage/models/school_boys.glb"
-          position={[-105, 7, 150]}
+          position={[-105, 7, 160]}
           scale={20}
           rotation={[0, -Math.PI / 1.2, 0]}
         />
