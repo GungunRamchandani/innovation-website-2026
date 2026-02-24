@@ -49,7 +49,7 @@ const hotspots = [
         top: "56%",
         left: "27%",
         description: "Explore all the exciting events at Equinox 2026.",
-        path: "/team"
+        path: "/teams"
     },
     {
         id: "initiative",

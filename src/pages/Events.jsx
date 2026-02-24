@@ -9,6 +9,33 @@ import InfoCard from '../components/events/InfoCard';
 import InfoPage from "../components/events/InfoPage";
 import IntroSequence from '../components/events/IntroSequence';
 
+const GlobalBackButton = ({ destinationUrl, label = "RETURN TO HOME" }) => {
+  const handleBackClick = () => {
+    // This will send the user to the same URL every time
+    window.location.href = destinationUrl;
+  };
+
+  return (
+    <button
+      onClick={handleBackClick}
+      style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        padding: '10px 20px',
+        backgroundColor: '#111',
+        color: '#35b512', // Matches your drone/neon theme
+        border: '2px solid #276807',
+        cursor: 'pointer',
+        zIndex: 1000,
+        fontWeight: 'bold'
+      }}
+    >
+      ← {label}
+    </button>
+  );
+};
+
 const categories = [
   {
     name: 'Growth Grid',
@@ -27,21 +54,21 @@ const categories = [
   {
     name: 'Play Field',
     description: 'A category of exciting games featuring interactive, skill-based, and strategy-driven events that combine technology, logic, teamwork, and competitive fun.',
-    events: ['AR Game', 'Structural Showdown', 'Escape Room', 'Tech Trial', 'Mini Carnival','Trailblazers', 'Algorithm: Human Bot', 'Esports', 'GridBid'],
+    events: ['AR Game', 'Structural Showdown', 'Escape Room', 'Tech Trial', 'Mini Carnival', 'Trailblazers', 'Algorithm: Human Bot', 'Esports', 'GridBid'],
     route: '/healthcare',
     color: '#4ade80'
   },
   {
     name: 'Skill Clash',
     description: 'A competitive category featuring skill-based challenges that test coding, innovation, problem-solving, design thinking, and technical expertise through high-intensity contests.',
-    events: ['Code Conquer', 'Zero UI Challenge', 'Sustainability Case Study Competition', 'EcoSprint', 'Buildathon','Ideathon','Protosprint'],
+    events: ['Code Conquer', 'Zero UI Challenge', 'Sustainability Case Study Competition', 'EcoSprint', 'Buildathon', 'Ideathon', 'Protosprint'],
     route: '/smartcities',
     color: '#0088ff'
   },
   {
     name: 'Tech Frontier',
     description: 'A forward-looking category showcasing cutting-edge technologies and innovation-driven events that explore AI, cloud computing, digital twins, data science, and open-source advancements.',
-    events: ['Open Source Competition', 'AAI Cloud Event', 'Vibe Coding', 'Project Exhibition', 'Digital Twin', 'Datasprint','Research Paper Competition','CTF'],
+    events: ['Open Source Competition', 'AAI Cloud Event', 'Vibe Coding', 'Project Exhibition', 'Digital Twin', 'Datasprint', 'Research Paper Competition', 'CTF'],
     route: '/education',
     color: '#22d3ee'
   },
@@ -77,7 +104,7 @@ const PlaceholderPage = ({ title, color }) => (
       <motion.a
         href="/"
         className="inline-block px-8 py-4 rounded-xl font-semibold text-lg"
-        style={{ 
+        style={{
           background: `linear-gradient(135deg, ${color}40, ${color}20)`,
           color,
           border: `2px solid ${color}60`
@@ -115,20 +142,20 @@ const Home = () => {
     const y = Math.sin((angle * Math.PI) / 180) * radius;
     return { x, y };
   };*/
- const calculateSeedPixelPosition = (index) => {
-  const angle = (index * 360) / 6 - 90;
+  const calculateSeedPixelPosition = (index) => {
+    const angle = (index * 360) / 6 - 90;
 
-  const radius = isMobile ? 100 : 240;
+    const radius = isMobile ? 100 : 240;
 
-  let x = Math.cos((angle * Math.PI) / 180) * radius;
-  let y = Math.sin((angle * Math.PI) / 180) * radius;
+    let x = Math.cos((angle * Math.PI) / 180) * radius;
+    let y = Math.sin((angle * Math.PI) / 180) * radius;
 
-  if (isMobile) {
-    x = 70;   // now valid
-  }
+    if (isMobile) {
+      x = 70;   // now valid
+    }
 
-  return { x, y };
-};
+    return { x, y };
+  };
 
   // Get absolute screen position for a seed
   /*const getSeedScreenPosition = (index) => {
@@ -146,25 +173,25 @@ const Home = () => {
     };
   };*/
   const getSeedScreenPosition = (index) => {
-  const container = containerRef.current;
-  if (!container) return { x: 0, y: 0 };
-  
-  const rect = container.getBoundingClientRect();
+    const container = containerRef.current;
+    if (!container) return { x: 0, y: 0 };
 
-  // 👇 SHIFT ENTIRE SYSTEM LEFT ON MOBILE
-  const centerX = isMobile 
-    ? rect.width / 2 - 200   // ← adjust this value
-    : rect.width / 2;
+    const rect = container.getBoundingClientRect();
 
-  const centerY = rect.height / 2;
+    // 👇 SHIFT ENTIRE SYSTEM LEFT ON MOBILE
+    const centerX = isMobile
+      ? rect.width / 2 - 200   // ← adjust this value
+      : rect.width / 2;
 
-  const seedPos = calculateSeedPixelPosition(index);
-  
-  return {
-    x: centerX + seedPos.x,
-    y: centerY + seedPos.y
+    const centerY = rect.height / 2;
+
+    const seedPos = calculateSeedPixelPosition(index);
+
+    return {
+      x: centerX + seedPos.x,
+      y: centerY + seedPos.y
+    };
   };
-};
 
   const handleSeedClick = useCallback((index) => {
     if (activeSeed === index) return;
@@ -219,10 +246,10 @@ const Home = () => {
     if (activeSeed !== null) {
       // Close the card and return drone to center
       setActiveSeed(null);
-      
+
       const container = containerRef.current;
       if (!container) return;
-      
+
       const rect = container.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
@@ -251,10 +278,10 @@ const Home = () => {
 
   const handleCloseCard = useCallback(() => {
     setActiveSeed(null);
-    
+
     const container = containerRef.current;
     if (!container) return;
-    
+
     const rect = container.getBoundingClientRect();
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
@@ -280,12 +307,17 @@ const Home = () => {
   }, [droneTarget]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="relative w-full h-screen overflow-hidden"
       style={{ background: '#050805' }}
       onClick={handleBackgroundClick}
     >
+      {/* THIS IS THE REDIRECT BUTTON */}
+      <GlobalBackButton
+        destinationUrl="/overview" // This redirects to your overview page
+        label="BACK TO HOME"
+      />
       <AnimatePresence>
         {!introComplete && <IntroSequence onComplete={handleIntroComplete} />}
       </AnimatePresence>
@@ -335,7 +367,7 @@ const Home = () => {
       </motion.div>
 
       {/* Energy lines */}
-      <motion.svg 
+      <motion.svg
         className="absolute inset-0 w-full h-full pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: introComplete ? 0.3 : 0 }}
@@ -378,27 +410,27 @@ const Home = () => {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div 
+              <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
                 style={{
                   background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
                   border: '2px solid rgba(0,255,136,0.5)'
                 }}
               >
-                <svg 
-  viewBox="0 0 24 24"
-  width="20"
-  height="20"
-  fill="none"
-  stroke="#00ff88"
-  strokeWidth="2"
->
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#00ff88"
+                  strokeWidth="2"
+                >
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />
                   <path d="M2 17l10 5 10-5" />
                   <path d="M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <h1 
+              <h1
                 className="text-lg md:text-xl font-bold"
                 style={{
                   background: 'linear-gradient(135deg, #00ff88, #00ffff)',
@@ -406,7 +438,7 @@ const Home = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                
+
               </h1>
             </div>
             <nav className="hidden md:flex items-center gap-6">
@@ -430,11 +462,11 @@ const Home = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           {/* Energy Seeds - all clickable */}
           {introComplete && categories.map((category, index) => (
-            <div 
+            <div
               key={category.name}
-              onClick={(e) => { 
-                e.stopPropagation(); 
-                handleSeedClick(index); 
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSeedClick(index);
               }}
               style={{ pointerEvents: 'auto' }}
             >
@@ -444,7 +476,7 @@ const Home = () => {
                 totalSeeds={6}
                 isActive={activeSeed === index}
                 isTransforming={activeSeed === index}
-                size={isMobile ? 0.75 : 1} 
+                size={isMobile ? 0.75 : 1}
               />
             </div>
           ))}
@@ -517,6 +549,7 @@ function Events() {
   const location = useLocation();
 
   return (
+
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
@@ -545,16 +578,16 @@ export const useMobileLayout = () => {
     window.innerWidth <= 768
   );
 
-    /* =========================
-   📱 MOBILE LAYOUT OVERRIDE
-   ========================= */
+  /* =========================
+ 📱 MOBILE LAYOUT OVERRIDE
+ ========================= */
 
-/* 🔧 MANUAL MOBILE POSITION CONTROLS */
-const MOBILE_SEED_OFFSET_X = 0;   // ← move all seeds left/right
-const MOBILE_SEED_OFFSET_Y = 0;     // ← move all seeds up/down
+  /* 🔧 MANUAL MOBILE POSITION CONTROLS */
+  const MOBILE_SEED_OFFSET_X = 0;   // ← move all seeds left/right
+  const MOBILE_SEED_OFFSET_Y = 0;     // ← move all seeds up/down
 
-const MOBILE_CARD_OFFSET_X = 0;     // ← move card left/right
-const MOBILE_CARD_OFFSET_Y = 0;     // ← move card up/down
+  const MOBILE_CARD_OFFSET_X = 0;     // ← move card left/right
+  const MOBILE_CARD_OFFSET_Y = 0;     // ← move card up/down
   React.useEffect(() => {
     const handleResize = () => {
       setIsMobileLayout(window.innerWidth <= 768);

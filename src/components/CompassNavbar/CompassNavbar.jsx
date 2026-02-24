@@ -27,7 +27,7 @@ function CompassNavbar() {
 
       <ul id="nav-menu" className={open ? "show" : ""}>
         {[
-          { name: "Home", path: "/" },
+          { name: "Home", path: "/overview" },
           { name: "Events", path: "/Events" },
           { name: "Timeline", path: "/timeline" },
           { name: "Speakers", path: "/speakers" },

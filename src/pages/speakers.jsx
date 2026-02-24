@@ -6,6 +6,32 @@ import NeuralBackground from "./NeuralBackground";
 import "./speaker.css";
 import speaker1 from "../assets/speakers/prathamkohli.jpeg";
 
+const GlobalBackButton = ({ destinationUrl, label = "RETURN TO HOME" }) => {
+    const handleBackClick = () => {
+        // This will send the user to the same URL every time
+        window.location.href = destinationUrl;
+    };
+
+    return (
+        <button
+            onClick={handleBackClick}
+            style={{
+                position: 'fixed',
+                top: '20px',
+                left: '20px',
+                padding: '10px 20px',
+                backgroundColor: '#111',
+                color: '#439eba', // Matches your drone/neon theme
+                border: '2px solid #0e6473',
+                cursor: 'pointer',
+                zIndex: 1000,
+                fontWeight: 'bold'
+            }}
+        >
+            ← {label}
+        </button>
+    );
+};
 
 const Speakers1 = () => {
     const [selectedSpeaker, setSelectedSpeaker] = useState(null);
@@ -64,7 +90,11 @@ const Speakers1 = () => {
 
     return (
         <section className="speakers1" id="speakers1">
-
+            {/* THIS IS THE REDIRECT BUTTON */}
+            <GlobalBackButton
+                destinationUrl="/overview" // This redirects to your overview page
+                label="BACK TO HOME"
+            />
 
             {/* Neural Network Background — rendered directly via Three.js in React */}
             <NeuralBackground />
