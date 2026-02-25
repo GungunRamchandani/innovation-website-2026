@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Clock, GeoAlt, Heart, Lightbulb, People, Trophy } from 'react-bootstrap-icons';
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Heart, Lightbulb, People, Trophy } from 'react-bootstrap-icons';
 import WaveBackground from "../components/team/WaveBackground";
 import career from "../photos/career.png";
 import digital_literacy from "../photos/digital_literacy.png";
@@ -266,10 +266,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                     title: "School Girls Career Guidance Session",
                     subtitle: "Digital Literacy & Coding Fundamentals",
                     description: `Hands-on learning on emerging technologies in the college laboratories to build foundational digital skills and confidence.`,
-                    date: "March 15, 2026",
-                    time: "10:00 AM - 4:00 PM",
-                    venue: "Cummins College of Engineering, Pune",
-                    registrationLink: "",
                     image: career,
                 },
                 {
@@ -277,10 +273,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                     title: "Senior Citizens Digital Awareness Program",
                     subtitle: "Technology for Daily Life",
                     description: `Interactive and hands-on sessions designed to help senior citizens navigate digital tools for communication, financial transactions, and accessing essential services safely.`,
-                    date: "March 22, 2026",
-                    time: "2:00 PM - 5:00 PM",
-                    venue: "Cummins College of Engineering, Pune",
-                    registrationLink: "",
                     image: digital_literacy,
                 },
             ],
@@ -288,9 +280,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                 title: "All-Women Hackathon",
                 subtitle: "Code for Change: Women Edition",
                 description: `Hackathon focused on creating innovative solutions that address challenges faced by women in technology.Open to all women, regardless of coding experience, with mentorship and workshops leading up to the event to ensure everyone can participate and contribute meaningfully.`,
-                date: "April 5-6, 2026",
-                time: "See in description",
-                venue: "Cummins College of Engineering, Pune",
                 registrationLink: "",
                 image: hackathon,
             },
@@ -546,20 +535,7 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                                     </div>
 
 
-                                    <div className="event-meta">
-                                        <div className="meta-item">
-                                            <Calendar size={14} />
-                                            <span>{session.date}</span>
-                                        </div>
-                                        <div className="meta-item">
-                                            <Clock size={14} />
-                                            <span>{session.time}</span>
-                                        </div>
-                                        <div className="meta-item">
-                                            <GeoAlt size={14} />
-                                            <span>{session.venue}</span>
-                                        </div>
-                                    </div>
+            
 
 
                                     <a href={session.registrationLink || "#"} className="register-btn">
@@ -605,25 +581,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                                     ))}
                                 </div>
 
-
-                                <div className="hackathon-info">
-                                    <div className="hackathon-meta">
-                                        <div className="meta-item">
-                                            <Calendar size={16} />
-                                            <span>{initiativeData.events.hackathon.date}</span>
-                                        </div>
-                                        <div className="meta-item">
-                                            <Clock size={16} />
-                                            <span>{initiativeData.events.hackathon.time}</span>
-                                        </div>
-                                        <div className="meta-item">
-                                            <GeoAlt size={16} />
-                                            <span>{initiativeData.events.hackathon.venue}</span>
-                                        </div>
-                                    </div>
-
-
-                                </div>
 
 
                                 <a
