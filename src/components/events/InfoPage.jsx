@@ -5,42 +5,39 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../../styles/InfoPage.css';
 import { useParams } from "react-router-dom";
 
-
-
 function InfoPage() {
   const location = useLocation();
   const navigate = useNavigate();
   //const { title, description, backgroundClass } = location.state || {};
   
+  // const title = location.state?.title || "Events";
+  const { eventName } = useParams();
+  if (!eventName) {
+    return <div className="info-page">Invalid Event</div>;
+  }
 
-// const title = location.state?.title || "Events";
-const { eventName } = useParams();
- if (!eventName) {
-  return <div className="info-page">Invalid Event</div>;
-}
+  const formatTitle = (slug) => {
+    if (!slug) return "Events";
+    return slug
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  };
 
-
-const formatTitle = (slug) => {
-  if (!slug) return "Events";
-  return slug
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-};
-
-// const title =
-//   formatTitle(eventName) ||
-//   location.state?.title ||
-//   "Events";
-const title = formatTitle(eventName);
-  
-// const description = location.state?.description || "";
-// const backgroundClass = location.state?.backgroundClass || "";
-  
+  // const title =
+  //   formatTitle(eventName) ||
+  //   location.state?.title ||
+  //   "Events";
+  const title = formatTitle(eventName);
+    
+  // const description = location.state?.description || "";
+  // const backgroundClass = location.state?.backgroundClass || "";
+    
   const canvasRef = useRef(null);
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [initiativeImage, setInitiativeImage] = useState(null);
+  const [registrationLink, setRegistrationLink] = useState(null); // New state for registration link
   
   // Your published EventDetails sheet URL
   const DETAILS_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvwQiV77nS4flE63dZnbIEWo6aZVeuDA5cgxUSqCn0I9vA_hFktZJU-GPjXMzZpnUbSAyukHZEpWhq/pub?gid=0&single=true&output=csv";
@@ -54,56 +51,66 @@ const title = formatTitle(eventName);
     return 'long';
   };
 
- const GlobalBackButton = ({ label = "Back" }) => {
-  const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate(-1); // 👈 go one step back in history
+  // Handle register button click
+  const handleRegisterClick = () => {
+    if (registrationLink && registrationLink.trim() !== "" && registrationLink.startsWith('http')) {
+      // Open in new tab
+      window.open(registrationLink, '_blank', 'noopener noreferrer');
+    } else {
+      // Fallback if no registration link found
+      alert('Registration link not available for this event. Please check back later.');
+    }
   };
 
-  return (
-    <>
-      <style>{`
-        @media (max-width: 768px) {
-          .global-back-btn {
-            display: none !important;
+  const GlobalBackButton = ({ label = "Back" }) => {
+    const navigate = useNavigate();
+
+    const handleBackClick = () => {
+      navigate(-1); // 👈 go one step back in history
+    };
+
+    return (
+      <>
+        <style>{`
+          @media (max-width: 768px) {
+            .global-back-btn {
+              display: none !important;
+            }
           }
-        }
-      `}</style>
+        `}</style>
 
-      <button
-        onClick={handleBackClick}
-        className="global-back-btn"
-        style={{
-          position: 'fixed',
-          top: '30px',
-          left: '30px',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '12px 28px',
-          borderRadius: '16px',
-          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#ffffff',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          cursor: 'pointer',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '16px',
-          fontWeight: '600',
-          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'all 0.3s ease-in-out',
-          outline: 'none'
-        }}
-      >
-        ← {label}
-      </button>
-    </>
-  );
-};
-
+        <button
+          onClick={handleBackClick}
+          className="global-back-btn"
+          style={{
+            position: 'fixed',
+            top: '30px',
+            left: '30px',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '12px 28px',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            color: '#ffffff',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '16px',
+            fontWeight: '600',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+            transition: 'all 0.3s ease-in-out',
+            outline: 'none'
+          }}
+        >
+          ← {label}
+        </button>
+      </>
+    );
+  };
 
   // Fetch event details from Google Sheets
   useEffect(() => {
@@ -111,6 +118,7 @@ const title = formatTitle(eventName);
     setEventDetails(null);
     setError(null);
     setInitiativeImage(null);
+    setRegistrationLink(null); // Reset registration link
 
     const fetchEventDetails = async () => {
       if (!eventName) {
@@ -137,55 +145,32 @@ const title = formatTitle(eventName);
           complete: (results) => {
             console.log("Event details fetched:", results.data);
             
-            // Clean and compare titles
-            /*const cleanTitle = title.trim().toLowerCase();
-            
+            const normalize = (str) =>
+              str
+                ?.toString()
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g, "")
+                .trim();
+
+            const cleanTitleNormalized = normalize(title);
+
             const event = results.data.find(row => {
-              const rowTitle = (row['Event Name'] || row['Event_Name'] || row['event name'] || row['title'] || row.Title || "").trim().toLowerCase();
-              return rowTitle === cleanTitle;
-            });*/
-            const cleanTitle = title.trim().toLowerCase();
+              const rowTitleRaw =
+                row['Event Name'] ||
+                row['Event_Name'] ||
+                row['event name'] ||
+                row['title'] ||
+                row.Title ||
+                "";
 
-/*const event = results.data.find(row => {
-  const rowTitle =
-    (row['Event Name'] ||
-      row['Event_Name'] ||
-      row['event name'] ||
-      row['title'] ||
-      row.Title ||
-      "")
-      .toString()
-      .trim()
-      .toLowerCase();
+              const rowTitleNormalized = normalize(rowTitleRaw);
 
-  return rowTitle.includes(cleanTitle); // more flexible matching
-});*/
-const normalize = (str) =>
-  str
-    ?.toString()
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "")
-    .trim();
-
-const cleanTitleNormalized = normalize(title);
-
-const event = results.data.find(row => {
-  const rowTitleRaw =
-    row['Event Name'] ||
-    row['Event_Name'] ||
-    row['event name'] ||
-    row['title'] ||
-    row.Title ||
-    "";
-
-  const rowTitleNormalized = normalize(rowTitleRaw);
-
-  return (
-    rowTitleNormalized === cleanTitleNormalized ||
-    rowTitleNormalized.includes(cleanTitleNormalized) ||
-    cleanTitleNormalized.includes(rowTitleNormalized)
-  );
-});
+              return (
+                rowTitleNormalized === cleanTitleNormalized ||
+                rowTitleNormalized.includes(cleanTitleNormalized) ||
+                cleanTitleNormalized.includes(rowTitleNormalized)
+              );
+            });
             
             if (event) {
               // Check for initiative image link
@@ -195,6 +180,29 @@ const event = results.data.find(row => {
                 setInitiativeImage(initiativeLink.trim());
               } else {
                 setInitiativeImage(null);
+              }
+              
+              // Check for registration link - Try different possible column names
+              const regLink = event['Registration Link'] || 
+                             event['Registration_Link'] || 
+                             event['registration link'] || 
+                             event['Register Link'] || 
+                             event['Register_Link'] || 
+                             event['register link'] || 
+                             event['Link'] || 
+                             event['link'] ||
+                             event['Registration URL'] ||
+                             event['registration_url'] ||
+                             event['Registration'] ||
+                             event['registration'] ||
+                             null;
+              
+              if (regLink && regLink.trim() !== "" && regLink.startsWith('http')) {
+                setRegistrationLink(regLink.trim());
+                console.log("Registration link found:", regLink.trim());
+              } else {
+                setRegistrationLink(null);
+                console.log("No valid registration link found for this event");
               }
               
               setEventDetails({
@@ -212,6 +220,7 @@ const event = results.data.find(row => {
             } else {
               setError(`No additional details found for "${title}"`);
               setInitiativeImage(null);
+              setRegistrationLink(null);
             }
             setLoading(false);
           },
@@ -229,7 +238,7 @@ const event = results.data.find(row => {
     };
 
     fetchEventDetails();
-  }, [eventName]);
+  }, [eventName, title]); // Added title to dependencies
 
   // Matrix animation effect
   useEffect(() => {
@@ -297,49 +306,28 @@ const event = results.data.find(row => {
   }, []);
 
   // Floating particles
-  /*useEffect(() => {
-    const container = document.querySelector('.hack-particles');
-    if (!container) return;
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const container = document.querySelector('.hack-particles');
+      if (!container) return;
 
-    const particleCount = 20;
-    const chars = ['0', '1', '{', '}', '[', ']', '<', '>', '/', '*'];
+      const particleCount = 20;
+      const chars = ['0', '1', '{', '}', '[', ']', '<', '>', '/', '*'];
 
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.textContent = chars[Math.floor(Math.random() * chars.length)];
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.animationDelay = `${Math.random() * 8}s`;
-      particle.style.animationDuration = `${6 + Math.random() * 4}s`;
-      container.appendChild(particle);
-    }
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = chars[Math.floor(Math.random() * chars.length)];
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.animationDuration = `${6 + Math.random() * 4}s`;
+        container.appendChild(particle);
+      }
+    }, 0);
 
-    return () => {
-      container.innerHTML = '';
-    };
+    return () => clearTimeout(timeout);
   }, []);
-*/
-useEffect(() => {
-  const timeout = setTimeout(() => {
-    const container = document.querySelector('.hack-particles');
-    if (!container) return;
 
-    const particleCount = 20;
-    const chars = ['0', '1', '{', '}', '[', ']', '<', '>', '/', '*'];
-
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.textContent = chars[Math.floor(Math.random() * chars.length)];
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.animationDelay = `${Math.random() * 8}s`;
-      particle.style.animationDuration = `${6 + Math.random() * 4}s`;
-      container.appendChild(particle);
-    }
-  }, 0);
-
-  return () => clearTimeout(timeout);
-}, []);
   const handleBackClick = () => {
     navigate(-1);
   };
@@ -354,7 +342,6 @@ useEffect(() => {
   if (loading) {
     return (
       <div className="info-page">
-        
         <div className="loading-container">
           <div className="loading-spinner"></div>
           <p>Loading Event Details</p>
@@ -366,9 +353,9 @@ useEffect(() => {
   return (
     <div className="info-page">
      
-    <GlobalBackButton
-      label="BACK"
-    />
+      <GlobalBackButton
+        label="BACK"
+      />
 
       {/* Hero Section */}
       <section className="hero-section">
@@ -552,7 +539,6 @@ useEffect(() => {
            
           </div>
           
-          
           {/* RIGHT SIDE - Changes based on initiative image */}
           <div className="hero-visual">
             {initiativeImage ? (
@@ -655,15 +641,20 @@ useEffect(() => {
                       </div>
                     )}
                   </div>
-                   {/* Buttons */}
-            <div className="hero-buttons">
-              <button className="btn btn-primary">
-                <span>Register Now</span>
-                <i className="fas fa-arrow-right"></i>
-                <div className="btn-shine"></div>
-              </button>
-             
-            </div>
+                  
+                  {/* Buttons - Updated with registration link functionality */}
+                  <div className="hero-buttons">
+                    <button 
+                      className={`btn btn-primary ${!registrationLink ? 'btn-disabled' : ''}`}
+                      onClick={handleRegisterClick}
+                      disabled={!registrationLink}
+                      title={!registrationLink ? 'Registration link not available' : 'Click to register'}
+                    >
+                      <span>Register Now</span>
+                      <i className="fas fa-arrow-right"></i>
+                      <div className="btn-shine"></div>
+                    </button>
+                  </div>
                   
                   {/* Decorative elements */}
                   <div className="block-glow"></div>
@@ -672,8 +663,6 @@ useEffect(() => {
                   <div className="block-corner bottom-left"></div>
                   <div className="block-corner bottom-right"></div>
                 </div>
-
-                
               )
             )}
           </div>

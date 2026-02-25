@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./cards.css";
 
-function Card({ frontClass, title, description }) {
+function Card({ frontClass, title, description, registrationLink }) { // Added registrationLink prop
   const innerRef = useRef(null);
   const cardRef = useRef(null);
   const navigate = useNavigate();
@@ -120,6 +120,20 @@ function Card({ frontClass, title, description }) {
     }, 500);
   };
 
+  // Handle register button click
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (registrationLink && registrationLink.trim() !== "" && registrationLink.startsWith('http')) {
+      // Open registration link in new tab
+      window.open(registrationLink, '_blank', 'noopener noreferrer');
+    } else {
+      // Fallback if no registration link found
+      alert('Registration link not available for this event. Please check back later.');
+    }
+  };
+
   // Alternative: Device orientation 3D effect (if device supports it)
   useEffect(() => {
     if (!isMobile || !innerRef.current) return;
@@ -154,22 +168,22 @@ function Card({ frontClass, title, description }) {
   }, [isMobile]);
 
   const handleInfoClick = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
 
-  const slug = title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "") // remove special characters
-    .replace(/\s+/g, "-"); // replace spaces with -
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "") // remove special characters
+      .replace(/\s+/g, "-"); // replace spaces with -
 
-  navigate(`/events/info/${slug}`, {
-  state: {
-    title,
-    description,
-    backgroundClass: frontClass
-  }
-});
-};
+    navigate(`/events/info/${slug}`, {
+      state: {
+        title,
+        description,
+        backgroundClass: frontClass
+      }
+    });
+  };
 
   return (
     <div
@@ -192,7 +206,14 @@ function Card({ frontClass, title, description }) {
             <button onClick={handleInfoClick} className="secondary">
               Info
             </button>
-            <a href="#" className="primary">Register</a>
+            <button 
+              onClick={handleRegisterClick} 
+              className={`primary ${!registrationLink ? 'btn-disabled' : ''}`}
+              disabled={!registrationLink}
+              title={!registrationLink ? 'Registration link not available' : 'Click to register'}
+            >
+              Register
+            </button>
           </div>
         </div>
       </div>

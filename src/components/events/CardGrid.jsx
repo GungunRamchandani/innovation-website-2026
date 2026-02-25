@@ -6,7 +6,6 @@ import Card from "./Card";
 import "./cards.css";
 import { useNavigate } from "react-router-dom";
 
-
 function CardGrid() {
   const location = useLocation();
   const selectedCategory = location.state?.category || null;
@@ -15,56 +14,56 @@ function CardGrid() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
-const GlobalBackButton = ({ label = "Back" }) => {
-  const navigate = useNavigate();
+  const GlobalBackButton = ({ label = "Back" }) => {
+    const navigate = useNavigate();
 
-  const handleBackClick = () => {
-    navigate(-1); // 👈 Go one step back
+    const handleBackClick = () => {
+      navigate(-1); // 👈 Go one step back
+    };
+
+    return (
+      <>
+        <style>{`
+          @media (max-width: 768px) {
+            .global-back-btn {
+              display: none !important;
+            }
+          }
+        `}</style>
+
+        <button
+          onClick={handleBackClick}
+          className="global-back-btn"
+          style={{
+            position: 'fixed',
+            top: '30px',
+            left: '30px',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '12px 28px',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            color: '#ffffff',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            cursor: 'pointer',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '16px',
+            fontWeight: '600',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+            transition: 'all 0.3s ease-in-out',
+            outline: 'none'
+          }}
+        >
+          ← {label}
+        </button>
+      </>
+    );
   };
 
-  return (
-    <>
-      <style>{`
-        @media (max-width: 768px) {
-          .global-back-btn {
-            display: none !important;
-          }
-        }
-      `}</style>
-
-      <button
-        onClick={handleBackClick}
-        className="global-back-btn"
-        style={{
-          position: 'fixed',
-          top: '30px',
-          left: '30px',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '12px 28px',
-          borderRadius: '16px',
-          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#ffffff',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          cursor: 'pointer',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '16px',
-          fontWeight: '600',
-          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'all 0.3s ease-in-out',
-          outline: 'none'
-        }}
-      >
-        ← {label}
-      </button>
-    </>
-  );
-};
   // Your working CSV link (the one that downloads)
   const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvwQiV77nS4flE63dZnbIEWo6aZVeuDA5cgxUSqCn0I9vA_hFktZJU-GPjXMzZpnUbSAyukHZEpWhq/pub?gid=0&single=true&output=csv";
 
@@ -92,7 +91,6 @@ const GlobalBackButton = ({ label = "Back" }) => {
             console.log("Headers found:", results.meta.fields);
             
             // Transform the data to match your card structure
-            // Map 'Event Name' to title, 'Event Description' to description, and 'Class' to frontClass
             const formattedCards = results.data.map(row => {
               // Try different possible header variations for event name
               const eventName = row['Event Name'] || row['Event_Name'] || row['event name'] || row['eventName'] || row['title'] || "Untitled Event";
@@ -101,25 +99,40 @@ const GlobalBackButton = ({ label = "Back" }) => {
               const eventDescription = row['Event Description'] || row['Event_Description'] || row['event description'] || row['eventDescription'] || row['description'] || "No description available";
               
               const category = row['Category'] || row['category'] || "Uncategorized";
+              
               // Try different possible header variations for front class
-              // You can add more variations based on your column name in Google Sheets
               const frontClass = row['Class'] || row['Front Class'] || row['frontClass'] || row['front_class'] || row['cardClass'] || row['card-class'] || "one"; // Default to "one" if not found
               
+              // Check for registration link - Try different possible column names
+              const registrationLink = row['Registration Link'] || 
+                                      row['Registration_Link'] || 
+                                      row['registration link'] || 
+                                      row['Register Link'] || 
+                                      row['Register_Link'] || 
+                                      row['register link'] || 
+                                      row['Link'] || 
+                                      row['link'] ||
+                                      row['Registration URL'] ||
+                                      row['registration_url'] ||
+                                      row['Registration'] ||
+                                      row['registration'] ||
+                                      null;
+              
               return {
-                frontClass: frontClass, // Now fetched from sheet
+                frontClass: frontClass,
                 title: eventName,
                 description: eventDescription,
                 category,
-
-                 // NEW FIELDS FROM SHEET
-  date: row['Date'] || "",
-  teamSize: row['Team Size'] || "",
-  prizePool: row['Prize Pool'] || "",
-  registrationFee: row['Registration Fee'] || "",
-  venue: row['Venue'] || "",
-  coordinators: row['Student Coordinator'] || "",
+                registrationLink: registrationLink && registrationLink.startsWith('http') ? registrationLink : null, // Store registration link
+                
+                // NEW FIELDS FROM SHEET
+                date: row['Date'] || "",
+                teamSize: row['Team Size'] || "",
+                prizePool: row['Prize Pool'] || "",
+                registrationFee: row['Registration Fee'] || "",
+                venue: row['Venue'] || "",
+                coordinators: row['Student Coordinator'] || "",
               };
-             
             }).filter(card => card.title !== "Untitled Event" && card.title.trim() !== ""); // Remove empty rows
             
             let filteredCards = formattedCards;
@@ -133,6 +146,7 @@ const GlobalBackButton = ({ label = "Back" }) => {
             }
 
             console.log("Formatted cards:", formattedCards);
+            console.log("Cards with registration links:", filteredCards.map(c => ({ title: c.title, hasLink: !!c.registrationLink })));
             
             if (formattedCards.length === 0) {
               setError("No cards found in the sheet. Please check if your sheet has data.");
@@ -156,64 +170,7 @@ const GlobalBackButton = ({ label = "Back" }) => {
     };
 
     fetchCards();
-  }, []);
-  /*function CardGrid() {
-  const location = useLocation();
-  const selectedCategory = location.state?.category || null; // Get passed category
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvwQiV77nS4flE63dZnbIEWo6aZVeuDA5cgxUSqCn0I9vA_hFktZJU-GPjXMzZpnUbSAyukHZEpWhq/pub?gid=0&single=true&output=csv";
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(SHEET_URL);
-        const csvText = await response.text();
-
-        Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            let formattedCards = results.data.map(row => {
-              const eventName = row['Event Name'] || "Untitled Event";
-              const eventDescription = row['Event Description'] || "No description available";
-              const frontClass = row['Class'] || "one";
-              const eventCategory = row['Category'] || "Uncategorized"; // <-- make sure your sheet has a Category column
-
-              return {
-                title: eventName,
-                description: eventDescription,
-                frontClass,
-                category: eventCategory
-              };
-            });
-
-            // Filter by selected category
-            if (selectedCategory) {
-              formattedCards = formattedCards.filter(card => card.category === selectedCategory);
-            }
-
-            setCards(formattedCards);
-            setLoading(false);
-          },
-          error: (err) => {
-            console.error("Error parsing CSV:", err);
-            setError("Failed to parse sheet data.");
-            setLoading(false);
-          }
-        });
-      } catch (err) {
-        console.error("Error fetching CSV:", err);
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchCards();
-  }, [selectedCategory]); // Re-fetch if selectedCategory changes*/
+  }, [selectedCategory]); // Added selectedCategory to dependencies
 
   const prev = () => setIndex((i) => (i - 1 + cards.length) % cards.length);
   const next = () => setIndex((i) => (i + 1) % cards.length);
@@ -224,7 +181,7 @@ const GlobalBackButton = ({ label = "Back" }) => {
       <div className="page">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-           <WaveBackground />
+          <WaveBackground />
           <p>Loading Events...</p>
         </div>
       </div>
@@ -242,6 +199,7 @@ const GlobalBackButton = ({ label = "Back" }) => {
           <ul>
             <li>URL is working (file downloads)</li>
             <li>Make sure your sheet has columns: "Event Name", "Event Description", and "Class" (for frontClass)</li>
+            <li>For registration links, add a column named "Registration Link" with valid URLs</li>
             <li>Check browser console for more details (F12)</li>
           </ul>
           <button 
@@ -269,37 +227,36 @@ const GlobalBackButton = ({ label = "Back" }) => {
 
   return (
     <>
-    <GlobalBackButton
-                label="BACK"
-            />
-    <div className="page">
-      <div className="carousel-wrapper">
-        <WaveBackground />
-        <button className="nav-btn left" onClick={prev}>‹</button>
-      
+      <GlobalBackButton label="BACK" />
+      <div className="page">
+        <div className="carousel-wrapper">
+          <WaveBackground />
+          <button className="nav-btn left" onClick={prev}>‹</button>
 
-        <div className="carousel">
-          {cards.map((card, i) => {
-            let position = "hidden";
+          <div className="carousel">
+            {cards.map((card, i) => {
+              let position = "hidden";
 
-            if (i === index) position = "center";
-            else if (i === (index - 1 + cards.length) % cards.length) position = "left";
-            else if (i === (index + 1) % cards.length) position = "right";
+              if (i === index) position = "center";
+              else if (i === (index - 1 + cards.length) % cards.length) position = "left";
+              else if (i === (index + 1) % cards.length) position = "right";
 
-            return (
-              <div key={i} className={`carousel-item ${position}`}>
-                <Card {...card} />
-              </div>
-            );
-          })}
+              return (
+                <div key={i} className={`carousel-item ${position}`}>
+                  <Card 
+                    {...card} 
+                    registrationLink={card.registrationLink} // Pass registration link to Card component
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          <button className="nav-btn right" onClick={next}>›</button>
         </div>
-
-        <button className="nav-btn right" onClick={next}>›</button>
       </div>
-    </div>
     </>
   );
 }
-
 
 export default CardGrid;
