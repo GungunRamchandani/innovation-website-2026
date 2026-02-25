@@ -459,11 +459,12 @@ const GlobalBackButton = ({ destinationUrl, label = "Back" }) => {
         {/* Header */}
         <motion.header
           className="absolute top-0 left-0 right-0 z-20 p-6 md:p-8"
+          //className="absolute top-0 left-0 right-0 z-20 p-6 md:p-8"
           initial={{ y: -30, opacity: 0 }}
           animate={{ y: introComplete ? 0 : -30, opacity: introComplete ? 1 : 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-end">
             <div className="flex items-center gap-3">
               {/*<div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -493,16 +494,23 @@ const GlobalBackButton = ({ destinationUrl, label = "Back" }) => {
   style={{ textDecoration: "none" }}
 >
   <div
-    className="w-16 h-16 rounded-full flex items-center justify-center"
+    /*className="w-16 h-16 rounded-full flex items-center justify-center"
     style={{
       background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
       border: '2px solid rgba(0,255,136,0.5)'
-    }}
+    }}*/
+   className="rounded-full flex items-center justify-center"
+style={{
+  width: "100px",
+  height: "100px",
+  background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
+  border: '2px solid rgba(0,255,136,0.5)'
+}}
   >
     <svg
       viewBox="0 0 24 24"
-      width="28"
-      height="28"
+      width="34"
+      height="34"
       fill="none"
       stroke="#00ff88"
       strokeWidth="2"
@@ -516,7 +524,7 @@ const GlobalBackButton = ({ destinationUrl, label = "Back" }) => {
   <span
     style={{
       marginTop: "6px",
-      fontSize: "16px",
+      fontSize: "20px",
       color: "#00ff88",
       fontWeight: "600",
       letterSpacing: "1px"
