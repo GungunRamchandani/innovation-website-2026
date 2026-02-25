@@ -1,10 +1,9 @@
 import Papa from 'papaparse';
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WaveBackground from "../team/WaveBackground";
 import Card from "./Card";
 import "./cards.css";
-import { useNavigate } from "react-router-dom";
 
 function CardGrid() {
   const location = useLocation();
@@ -14,55 +13,72 @@ function CardGrid() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const GlobalBackButton = ({ label = "Back" }) => {
-    const navigate = useNavigate();
 
-    const handleBackClick = () => {
-      navigate(-1); // 👈 Go one step back
+const GlobalBackButton = ({ label = "Back" }) => {
+  const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
 
-    return (
-      <>
-        <style>{`
-          @media (max-width: 768px) {
-            .global-back-btn {
-              display: none !important;
-            }
-          }
-        `}</style>
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-        <button
-          onClick={handleBackClick}
-          className="global-back-btn"
-          style={{
-            position: 'fixed',
-            top: '30px',
-            left: '30px',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '12px 28px',
-            borderRadius: '16px',
-            background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            color: '#ffffff',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            cursor: 'pointer',
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '16px',
-            fontWeight: '600',
-            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-            transition: 'all 0.3s ease-in-out',
-            outline: 'none'
-          }}
-        >
-          ← {label}
-        </button>
-      </>
-    );
-  };
+  return (
+    <>
+      <style>{`
+        @media (max-width: 768px) {
+          .global-back-btn {
+            display: none !important;
+          }
+        }
+      `}</style>
+
+      <button
+        onClick={handleBackClick}
+        className="global-back-btn"
+        style={{
+          position: 'fixed',
+          top: isScrolled ? '30px' : '140px',
+          left: '30px',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '12px 28px',
+          borderRadius: '16px',
+          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          color: '#ffffff',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          cursor: 'pointer',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '16px',
+          fontWeight: '600',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          transition: 'all 0.4s ease',  // smooth animation
+          outline: 'none',
+        }}
+      >
+        ← {label}
+      </button>
+    </>
+  );
+};
+
+
 
   // Your working CSV link (the one that downloads)
   const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRvwQiV77nS4flE63dZnbIEWo6aZVeuDA5cgxUSqCn0I9vA_hFktZJU-GPjXMzZpnUbSAyukHZEpWhq/pub?gid=0&single=true&output=csv";
