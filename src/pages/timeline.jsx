@@ -101,7 +101,7 @@ function timeline() {
   };
 
   return (
-    <div className="App">
+    <div className="App timeline-page">
       {/* THIS IS THE REDIRECT BUTTON */}
       <GlobalBackButton
         destinationUrl="/overview" // This redirects to your overview page
