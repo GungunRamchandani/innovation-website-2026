@@ -114,3 +114,52 @@ main {
     width: auto;
   }
 }
+
+/* Mobile Fix: Create space below date buttons */
+/* ================= MOBILE FIX ================= */
+@media (max-width: 768px) {
+
+  /* Remove extra padding everywhere */
+  .timeline-page {
+    padding: 0;
+  }
+
+  .timeline-page main {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Header → 10px space → Buttons */
+  .nav-overlay {
+    position: relative;
+    margin-top: 10px;     /* 🔥 10px below header */
+    margin-bottom: 10px;  /* 🔥 10px before timeline image */
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    justify-content: center;
+  }
+
+  /* Remove extra spacing around timeline content */
+  .timeline-page img,
+  .timeline-page canvas,
+  .timeline-page svg {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove any extra gap below timeline */
+  .timeline-page section,
+  .timeline-page div {
+    margin-bottom: 0;
+  }
+
+  /* Footer should stick directly below timeline */
+  footer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
