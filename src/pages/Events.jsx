@@ -13,7 +13,7 @@ const categories = [
   {
     name: 'Growth Grid',
     description: 'A series of hands-on workshops designed to provide practical skills, real-world exposure, and in-depth learning in emerging technologies and technical domains.',
-    events: ['AIML Bootcamp', 'Engineering Simulation', 'ESP32 Workshop', 'CyberSkills Workshop'],
+    events: ['AIML Bootcamp', 'Engineering Simulation', 'ESP32 Workshop', 'CyberSkills Workshop', 'Drone Workshop'],
     route: '/climate',
     color: '#00ff88'
   },
@@ -41,7 +41,7 @@ const categories = [
   {
     name: 'Tech Frontier',
     description: 'A forward-looking category showcasing cutting-edge technologies and innovation-driven events that explore AI, cloud computing, digital twins, data science, and open-source advancements.',
-    events: ['CommitVerse', 'AI Cloud Event', 'CodeNova', 'TechExpo', 'CTF', 'Datasprint', 'TechTangle'],
+    events: ['CommitVerse', 'AI Cloud Event', 'CodeNova', 'TechExpo', 'CTF', 'Datasprint', 'TechTangle', 'Digital Twin Arena'],
     route: '/education',
     color: '#22d3ee'
   },
@@ -104,7 +104,6 @@ const Home = () => {
   const isMobile = useMobileLayout();
 
   
-
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -197,8 +196,6 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
     </>
   );
 };
-
-
   const handleIntroComplete = useCallback(() => {
     setIntroComplete(true);
   }, []);
@@ -515,8 +512,8 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
     }}*/
    className="rounded-full flex items-center justify-center"
 style={{
-  width: "100px",
-  height: "100px",
+  width: isMobile ? "50px" : "100px",
+  height: isMobile ? "50px" : "100px",
   background: 'linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,255,255,0.2))',
   border: '2px solid rgba(0,255,136,0.5)'
 }}
@@ -538,7 +535,9 @@ style={{
   <span
     style={{
       marginTop: "6px",
-      fontSize: "20px",
+      //fontSize: "20px",
+      fontSize: isMobile ? "14px" : "20px",
+
       color: "#00ff88",
       fontWeight: "600",
       letterSpacing: "1px"
