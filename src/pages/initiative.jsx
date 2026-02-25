@@ -280,7 +280,7 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                 title: "All-Women Hackathon",
                 subtitle: "Code for Change: Women Edition",
                 description: `Hackathon focused on creating innovative solutions that address challenges faced by women in technology.Open to all women, regardless of coding experience, with mentorship and workshops leading up to the event to ensure everyone can participate and contribute meaningfully.`,
-                registrationLink: "",
+                registrationLink: "/events/info/navira-hackathon",
                 image: hackathon,
             },
         },
@@ -534,13 +534,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                                         ))}
                                     </div>
 
-
-            
-
-
-                                    <a href={session.registrationLink || "#"} className="register-btn">
-                                        Register Now <ArrowRight size={14} />
-                                    </a>
                                 </div>
                             </motion.div>
                         ))}
@@ -584,11 +577,11 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
 
 
                                 <a
-                                    href={initiativeData.events.hackathon.registrationLink || "#"}
-                                    className="register-btn hackathon-btn"
-                                >
-                                    Register for Hackathon <ArrowRight size={16} />
-                                </a>
+  href={initiativeData.events.hackathon.registrationLink || "#"}
+  className="register-btn hackathon-btn"
+>
+  Register for Hackathon <ArrowRight size={16} />
+</a>
                             </div>
                         </motion.div>
                     </div>

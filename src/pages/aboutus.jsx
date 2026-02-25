@@ -300,7 +300,7 @@ const AboutUs = () => {
         }
         rightContent={
           <RevealCard
-            title="CUMMINS"
+            title="CCOEW"
             content="Empowering women in technology and fostering innovation."
             icon={<Lightbulb className="w-6 h-6 text-innovation-amber" />}
             gradient="amber"
@@ -312,7 +312,7 @@ const AboutUs = () => {
         sectionId="aim-vision"
         leftContent={
           <RevealCard
-            title="Our Aim"
+            title="Our Mission"
             content="To ignite curiosity and foster creativity among students."
             icon={<Target className="w-6 h-6 text-innovation-purple" />}
             gradient="purple"
