@@ -68,7 +68,7 @@ const color = colors[index % colors.length];
         left: `calc(50% + ${x}px)`,
         top: `calc(50% + ${y}px)`,
         transform: 'translate(-50%, -50%)',
-        zIndex: isActive ? 25 : 10,
+        zIndex: isActive ? 50 : 40,
       }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ 
