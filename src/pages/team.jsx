@@ -168,12 +168,6 @@ export default function Team() {
           </div>
         </section>
 
-        {/* ================= FOOTER ================= */}
-        <footer className="mt-auto pt-20 pb-8 text-center border-t border-white/5">
-          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-            &copy; 2024 TechFest Core System • Version 2.0.4
-          </p>
-        </footer>
       </main>
     </div>
   );

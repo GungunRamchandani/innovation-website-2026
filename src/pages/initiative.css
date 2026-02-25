@@ -2,11 +2,11 @@
 
 :root {
     /* Primary accent palette (purple) */
-    --val-red: #8A2BE2;
+    --val-red: #f947b8;
     /* primary purple replacing red */
-    --val-red-dark: #5B1EA6;
+    --val-red-dark: #f73eb3;
     /* darker purple */
-    --val-red-glow: rgba(138, 43, 226, 0.45);
+    --val-red-glow: rgba(249, 117, 220, 0.45);
     --val-red-dim: rgba(138, 43, 226, 0.15);
 
     /* Background tones */
@@ -602,7 +602,7 @@ body {
 }
 
 .cta-btn.primary:hover {
-    background: #6f1ed0;
+    background: #f947b8;
     /* darker purple hover */
     box-shadow: 0 0 35px var(--val-red-glow), 0 0 70px rgba(138, 43, 226, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.08);
     transform: translateY(-3px) scale(1.02);
