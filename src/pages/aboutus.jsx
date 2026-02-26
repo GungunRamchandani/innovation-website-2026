@@ -305,42 +305,42 @@ const AboutUs = () => {
       </h2>
 
       
-      <div className="hero-stats">
+      <div className="hero-stats2">
 
   {/* Participants Card */}
-  <div className="stat-card">
-    <div className="stat-icon">
+  <div className="stat-card2">
+    <div className="stat-icon2">
       <i className="fas fa-user-friends"></i>
     </div>
-    <div className="stat-content">
-      <div className="stat-number">6000+</div>
-      <div className="stat-label">PARTICIPANTS</div>
+    <div className="stat-content2">
+      <div className="stat-number2">6000+</div>
+      <div className="stat-label2">PARTICIPANTS</div>
     </div>
-    <div className="stat-glow"></div>
+    <div className="stat-glow2"></div>
   </div>
 
   {/* Prize Pool Card */}
-  <div className="stat-card">
-    <div className="stat-icon">
+  <div className="stat-card2">
+    <div className="stat-icon2">
       <i className="fas fa-trophy"></i>
     </div>
-    <div className="stat-content">
-      <div className="stat-number">6 Lakh+</div>
-      <div className="stat-label">PRIZE POOL</div>
+    <div className="stat-content2">
+      <div className="stat-number2">6 Lakh+</div>
+      <div className="stat-label2">PRIZE POOL</div>
     </div>
-    <div className="stat-glow"></div>
+    <div className="stat-glow2"></div>
   </div>
 
   {/* Events Card */}
-  <div className="stat-card">
-    <div className="stat-icon">
+  <div className="stat-card2">
+    <div className="stat-icon2">
       <i className="fas fa-calendar-check"></i>
     </div>
-    <div className="stat-content">
-      <div className="stat-number">30+</div>
-      <div className="stat-label">EVENTS</div>
+    <div className="stat-content2">
+      <div className="stat-number2">30+</div>
+      <div className="stat-label2">EVENTS</div>
     </div>
-    <div className="stat-glow"></div>
+    <div className="stat-glow2"></div>
   </div>
 
 </div>
