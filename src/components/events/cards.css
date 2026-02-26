@@ -98,6 +98,11 @@
   font-size: 1.7rem;
   color: var(--accent);
   margin-bottom: 0.6rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .card-front p {

@@ -304,6 +304,48 @@ const AboutUs = () => {
         ABOUT US
       </h2>
 
+      
+      <div className="hero-stats">
+
+  {/* Participants Card */}
+  <div className="stat-card">
+    <div className="stat-icon">
+      <i className="fas fa-user-friends"></i>
+    </div>
+    <div className="stat-content">
+      <div className="stat-number">6000+</div>
+      <div className="stat-label">PARTICIPANTS</div>
+    </div>
+    <div className="stat-glow"></div>
+  </div>
+
+  {/* Prize Pool Card */}
+  <div className="stat-card">
+    <div className="stat-icon">
+      <i className="fas fa-trophy"></i>
+    </div>
+    <div className="stat-content">
+      <div className="stat-number">6 Lakh+</div>
+      <div className="stat-label">PRIZE POOL</div>
+    </div>
+    <div className="stat-glow"></div>
+  </div>
+
+  {/* Events Card */}
+  <div className="stat-card">
+    <div className="stat-icon">
+      <i className="fas fa-calendar-check"></i>
+    </div>
+    <div className="stat-content">
+      <div className="stat-number">30+</div>
+      <div className="stat-label">EVENTS</div>
+    </div>
+    <div className="stat-glow"></div>
+  </div>
+
+</div>
+
+
       <DoubleRingSection
         sectionId="innovation-cummins"
         leftContent={
