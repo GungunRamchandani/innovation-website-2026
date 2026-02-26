@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import React, { useCallback, useRef, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CardGrid from "../components/events/CardGrid";
 import Drone from '../components/events/Drone';
 import EnergySeed from '../components/events/EnergySeed';
@@ -15,42 +15,42 @@ const categories = [
     description: 'A series of hands-on workshops designed to provide practical skills, real-world exposure, and in-depth learning in emerging technologies and technical domains.',
     events: ['AIML Bootcamp', 'Engineering Simulation', 'ESP32 Workshop', 'CyberSkills Workshop', 'Drone Workshop'],
     route: '/climate',
-    color: '#00ff88'
+    color: '#FFD700' // Yellow
   },
   {
     name: 'Hack Genesis',
     description: 'A series of competitive hackathons that challenge participants to innovate, collaborate, and build impactful software and hardware solutions within a limited time frame.',
     events: ['Software Hackathon', 'Mission: HARDWARE', 'NAVIRA Hackathon'],
     route: '/ai',
-    color: '#00ffff'
+    color: '#00FF66' // Green
   },
   {
     name: 'Play Field',
     description: 'A category of exciting games featuring interactive, skill-based, and strategy-driven events that combine technology, logic, teamwork, and competitive fun.',
     events: ['The StARburst Theory', 'Structural Showdown', 'Chrono Escape', 'Tech Trials', 'Mini Carnival', 'QuadraClash', 'Algorithm Human-Bot', 'Esports Arena', 'Grid Bid'],
     route: '/healthcare',
-    color: '#4ade80'
+    color: '#FF8800' // Orange
   },
   {
     name: 'Skill Clash',
     description: 'A competitive category featuring skill-based challenges that test coding, innovation, problem-solving, design thinking, and technical expertise through high-intensity contests.',
     events: ['Code Conquer', 'Zero UI Challenge', 'E-Move', 'ProtoSprint', 'Buildathon', 'Ideathon', 'BotSprint'],
     route: '/smartcities',
-    color: '#0088ff'
+    color: '#FF2E2E' // Red
   },
   {
     name: 'Tech Frontier',
     description: 'A forward-looking category showcasing cutting-edge technologies and innovation-driven events that explore AI, cloud computing, digital twins, data science, and open-source advancements.',
     events: ['CommitVerse', 'AI Cloud Event', 'CodeNova', 'TechExpo', 'CTF', 'Datasprint', 'TechTangle', 'Digital Twin Arena'],
     route: '/education',
-    color: '#22d3ee'
+    color: '#0088FF' // Blue
   },
   {
     name: 'Equity Edge',
     description: 'A business-focused category featuring entrepreneurial, trade, and strategy-driven events that test innovation, financial acumen, leadership, and decision-making under real-world scenarios.',
     events: ['Founder Courtroom', 'BeTrade', 'Idea Forge'],
     route: '/security',
-    color: '#34d399'
+    color: '#A855F7' // Purple
   }
 ];
 
@@ -104,29 +104,15 @@ const Home = () => {
   const isMobile = useMobileLayout();
 
   
-const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
+const GlobalBackButton = ({ label = "Back" }) => {
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
-    window.location.href = destinationUrl;
+    navigate(-1); // 👈 Go one step back
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 80) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
-      {/* Hide on mobile */}
       <style>{`
         @media (max-width: 768px) {
           .global-back-btn {
@@ -139,63 +125,41 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
         onClick={handleBackClick}
         className="global-back-btn"
         style={{
-          position: 'fixed',
-          top: isScrolled ? '30px' : '140px', // 🔥 dynamic top
-          left: '30px',
+          position: "fixed",
+          top: "140px",
+          left: "30px",
           zIndex: 9999,
 
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          padding: '12px 28px',
-          borderRadius: '16px',
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          padding: "12px 28px",
+          borderRadius: "16px",
 
           background:
-            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          color: '#ffffff',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          cursor: 'pointer',
+            "linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          color: "#ffffff",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
+          cursor: "pointer",
 
           fontFamily: "'Inter', sans-serif",
-          fontSize: '16px',
-          fontWeight: '600',
+          fontSize: "16px",
+          fontWeight: "600",
 
-          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'top 0.4s ease, transform 0.3s ease, background 0.3s ease',
-          outline: 'none'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background =
-            'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
-          e.currentTarget.style.transform = 'translateY(-2px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background =
-            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
-          e.currentTarget.style.transform = 'translateY(0)';
+          boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+          transition: "all 0.3s ease-in-out",
+          outline: "none",
         }}
       >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="19" y1="12" x2="5" y2="12" />
-          <polyline points="12 19 5 12 12 5" />
-        </svg>
-
-        <span>{label}</span>
+        ← {label}
       </button>
     </>
   );
 };
+
+
   const handleIntroComplete = useCallback(() => {
     setIntroComplete(true);
   }, []);
@@ -498,7 +462,7 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
                 </svg>
               </div>*/}
               <a
-  href="https://drive.google.com/drive/folders/1ffGlDJVEEePgJaHZnG11Koh6cKHSC_mI"
+  href="https://drive.google.com/file/d/1eGOIkdG1fcXh9Dt6omRQAlXqvc1ICVGe/view?usp=drive_link"
   target="_blank"
   rel="noopener noreferrer"
   className="flex flex-col items-center cursor-pointer"

@@ -220,12 +220,12 @@ function InfoPage() {
               }
               
               setEventDetails({
-                date: event['Day & Time'] || event['Day_&_Time'] || event['day & time'] || event.date || event.Date || "TBA",
+                time: event['Day & Time'] || event['Day_&_Time'] || event['day & time'] || event.time || event.Time || "TBA",
                 venue: event['Finalized Venues'] || event['Finalized_Venues'] || event['finalized venues'] || event.venue || event.Venue || "TBA",
                 teamSize: event['Team Size'] || event['Team_Size'] || event['team size'] || "N/A",
                 noOfTeams: event['No. of Teams'] || event['No_of_Teams'] || event['no of teams'] || "N/A",
                 prizePool: event['Prize Pool'] || event['Prize_Pool'] || event['prize pool'] || "N/A",
-                registrationFee: event['Registration Fees/team'] || event['Registration_Fees/team'] || event['registration fees/team'] || "N/A",
+                registrationFee: event['Registration Fee'] || event['Registration_Fees'] || event['registration fees/team'] || "N/A",
                 studentCoordinator: event['Student Coordinator'] || event['Student_Coordinator'] || event['student coordinator'] || "N/A",
                 facultyCoordinator: event['Faculty Coordinator'] || event['Faculty_Coordinator'] || event['faculty coordinator'] || "N/A",
                 detailedDescription: event['Event Description'] || event['Event_Description'] || event['event description']
@@ -418,12 +418,13 @@ function InfoPage() {
                       <i className="fas fa-calendar-alt"></i>
                     </div>
                     <div className="stat-content">
-                      <div 
-                        className="stat-number" 
-                        data-length={getTextLengthCategory(eventDetails.date)}
-                      >
-                        {eventDetails.date}
-                      </div>
+                     <div 
+  className="stat-number"
+  style={{ whiteSpace: "pre-line" }}
+  data-length={getTextLengthCategory(eventDetails.time)}
+>
+  {eventDetails.time}
+</div>
                       <div className="stat-label">DATE & TIME</div>
                     </div>
                     <div className="stat-glow"></div>
@@ -446,6 +447,8 @@ function InfoPage() {
                     <div className="stat-glow"></div>
                   </div>
 
+
+
                   {/* Prize Pool Card - Only if not N/A */}
                   {eventDetails.prizePool && eventDetails.prizePool !== "N/A" && eventDetails.prizePool !== "NA" && (
                     <div className="stat-card">
@@ -457,13 +460,16 @@ function InfoPage() {
                           className="stat-number" 
                           data-length={getTextLengthCategory(eventDetails.prizePool)}
                         >
-                          ₹{eventDetails.prizePool}
+                          {eventDetails.prizePool}
                         </div>
                         <div className="stat-label">PRIZE POOL</div>
                       </div>
                       <div className="stat-glow"></div>
                     </div>
                   )}
+
+                  
+
 
                   {/* Registration Fee Card - Only if not N/A */}
                   {eventDetails.registrationFee && eventDetails.registrationFee !== "N/A" && eventDetails.registrationFee !== "NA" && (
@@ -476,7 +482,7 @@ function InfoPage() {
                           className="stat-number" 
                           data-length={getTextLengthCategory(eventDetails.registrationFee)}
                         >
-                          ₹{eventDetails.registrationFee}
+                          {eventDetails.registrationFee}
                         </div>
                         <div className="stat-label">REGISTRATION FEE</div>
                       </div>

@@ -4,7 +4,7 @@
     /* Primary accent palette (purple) */
     --val-red: #f947b8;
     /* primary purple replacing red */
-    --val-red-dark: #f73eb3;
+    --val-red-dark: #fb9bd8;
     /* darker purple */
     --val-red-glow: rgba(249, 117, 220, 0.45);
     --val-red-dim: rgba(138, 43, 226, 0.15);
@@ -18,9 +18,9 @@
     --val-surface2: #1a2837;
 
     /* Text */
-    --val-text: #ECE8E1;
-    --val-text-sub: rgba(236, 232, 225, 0.65);
-    --val-text-muted: rgba(236, 232, 225, 0.35);
+    --val-text: #ffffff;
+    --val-text-sub: rgba(255, 255, 255, 0.65);
+    --val-text-muted: rgba(255, 255, 255, 0.35);
 
     /* Accents */
     --val-gold: #C8AA6E;
@@ -723,7 +723,7 @@ body {
 }
 
 .intro-content p {
-    font-size: 1.08rem;
+    font-size: 1.5rem;
     line-height: 1.92;
     color: var(--val-text-sub);
     margin-bottom: 22px;
@@ -731,7 +731,7 @@ body {
 }
 
 .intro-content p:first-child {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--val-text);
     font-weight: 400;
 }
@@ -765,7 +765,7 @@ body {
 }
 
 .impact-text p {
-    font-size: 1.05rem;
+    font-size: 1.5rem;
     line-height: 1.85;
     color: var(--val-text-sub);
     margin-bottom: 18px;
@@ -879,7 +879,7 @@ body {
     gap: 20px;
     padding: 18px 0;
     border-bottom: 1px solid rgba(255, 70, 85, 0.07);
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: var(--val-text-sub);
     transition: all 0.2s ease;
     cursor: default;
