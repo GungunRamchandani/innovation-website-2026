@@ -78,48 +78,46 @@ const Timeline = () => {
   // Simplified: Only IDs and Coordinates
   // Vertical Coordinates (Stripped for dynamic sheet mapping)
 const verticalLocs = [
-  { id: 2,  x: 78, y: 140 },
+  { id: 1,  x: 78, y: 140 },
   { id: 3,  x: 88, y: 132 },
-  { id: 5,  x: 85, y: 120 },
-  { id: 8,  x: 65, y: 115 },
+  { id: 6,  x: 85, y: 120 },
+  { id: 7,  x: 65, y: 115 },
   { id: 9,  x: 46, y: 122 },
-  { id: 11, x: 55, y: 129 },
-  { id: 12, x: 32, y: 119 },
+  { id: 10, x: 55, y: 129 },
+  { id: 11, x: 32, y: 119 },
   { id: 13, x: 32, y: 107  },
-  { id: 15, x: 40, y: 97  },
-  { id: 18, x: 47, y: 88  },
-  { id: 20, x: 50, y: 78  },
+  { id: 15, x: 34, y: 97  },
+  { id: 16, x: 43, y: 88  },
+  { id: 18, x: 50, y: 78  },
   { id: 21, x: 57, y: 67  },
-  { id: 23, x: 44, y: 64  },
-  { id: 25, x: 35, y: 52  },
-  { id: 27, x: 39, y: 43  },
-  { id: 28, x: 45, y: 33  },
-  { id: 30, x: 35, y: 26  },
-  { id: 31, x: 18, y: 22  },
-  { id: 33, x: 15, y: 12  },
+  { id: 26, x: 42, y: 62  },
+  { id: 27, x: 35, y: 52  },
+  { id: 28, x: 39, y: 43  },
+  { id: 31, x: 45, y: 33  },
+  { id: 32, x: 35, y: 26  },
+  { id: 35, x: 18, y: 22  },
 ];
 
 // Horizontal Coordinates (Stripped for dynamic sheet mapping)
 const horizontalLocs = [
-  { id: 2,  x: 5,   y: 46 },
+  { id: 1,  x: 8,   y: 44 },
   { id: 3,  x: 15,  y: 50 },
-  { id: 5,  x: 16,  y: 59 },
-  { id: 8,  x: 25,  y: 63 },
-  { id: 9,  x: 35,  y: 67 },
-  { id: 11, x: 48,  y: 63 },
-  { id: 12, x: 60,  y: 60 },
-  { id: 15, x: 68,  y: 50 },
-  { id: 18, x: 65,  y: 39 },
-  { id: 19, x: 85,  y: 42 },
-  { id: 20, x: 89,  y: 52 },
+  { id: 6,  x: 16,  y: 59 },
+  { id: 7,  x: 25,  y: 64 },
+  { id: 9,  x: 40,  y: 64 },
+  { id: 10, x: 48,  y: 61 },
+  { id: 11, x: 60,  y: 58 },
+  { id: 13, x: 68,  y: 48 },
+  { id: 15, x: 65,  y: 39 },
+  { id: 16, x: 85,  y: 42 },
+  { id: 18, x: 89,  y: 52 },
   { id: 21, x: 87,  y: 62 },
-  { id: 23, x: 94,  y: 71 },
-  { id: 25, x: 103, y: 76 },
-  { id: 27, x: 115, y: 78 },
-  { id: 28, x: 128, y: 78 },
-  { id: 30, x: 142, y: 75 },
-  { id: 31, x: 155, y: 67 },
-  { id: 33, x: 166, y: 60 },
+  { id: 26, x: 91,  y: 71 },
+  { id: 27, x: 100, y: 74 },
+  { id: 28, x: 113, y: 77 },
+  { id: 31, x: 129, y: 77 },
+  { id: 32, x: 144, y: 73 },
+  { id: 35, x: 157, y: 65 },
 ];
 
   // Logic to find live data from the CSV based on Sr. No 
@@ -130,7 +128,7 @@ const horizontalLocs = [
       ...loc,
       title: liveRow ? liveRow['Event Name'] : "Loading...", 
       venue: liveRow ? liveRow['Venue'] : "Loading Venue...",
-      time: liveRow ? liveRow['Day & Time'] : '' 
+      time: liveRow ? liveRow['Time'] : '' 
     };
   });
 
