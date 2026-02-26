@@ -13,6 +13,9 @@ import icon8 from "../../assets/header-footer/icon-8.png";
 import sideLeft from "../../assets/header-footer/logo-2.png";
 import sideRight from "../../assets/header-footer/logo-1.png";
 
+import text from "../../assets/header-footer/header-text-image.png";
+import sideLeft2 from "../../assets/header-footer/logo-3.png";
+
 function Header() {
   const canvasRef = useRef(null);
 
@@ -26,7 +29,7 @@ function Header() {
       { x: 0.13, y: 0.9 },
       { x: 0.23, y: 0.15 },
       { x: 0.28, y: 0.95 },
-      { x: 0.33, y: 0.10, black:true},
+      { x: 0.33, y: 0.10,},
       { x: 0.38, y: 0.88 },
       { x: 0.43, y: 0.23 },
       { x: 0.48, y: 0.45 },
@@ -90,13 +93,23 @@ function Header() {
         }
       }
       // Draw dots
+      const mobileBlackIndexes = [12]; 
       scaled.forEach((point, i) => {
-        const original = points[i];
+        const isMobile = window.innerWidth <= 768;
+        const dotRadius = isMobile ? 1.8 : 3;  
+        
+        let isBlack;
 
-        ctx.fillStyle = original.black ? "#000000" : "#00f0ff";
+        if (isMobile) {
+          isBlack = mobileBlackIndexes.includes(i);
+        } else {
+        isBlack = points[i].black;
+        }
+
+        ctx.fillStyle = isBlack ? "#000000" : "#00f0ff";
 
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
+        ctx.arc(point.x, point.y, dotRadius, 0, Math.PI * 2);
         ctx.fill();
       });
     }
@@ -125,11 +138,11 @@ function Header() {
 
       {/* SIDE LOGOS */}
       <img src={sideLeft} alt="Left Logo" className="side-logo left-logo" />
+      <img src={sideLeft2} alt="Extra Left Logo" className="side-logo extra-left-logo" />
       <img src={sideRight} alt="Right Logo" className="side-logo right-logo" />
 
       <div className="center-content">
-        <h1>INNOVATION 2026</h1>
-        <h2>EQUINOX: POWERED BY PURPOSE</h2>
+        <img src={text} alt="Innovation 2026" className="main-title" />
       </div>
     </header>
   );

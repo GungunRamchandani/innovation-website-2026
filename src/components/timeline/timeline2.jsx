@@ -90,8 +90,8 @@ const verticalLocs = [
   { id: 15, x: 32, y: 102  },
   { id: 16, x: 40, y: 92  },
   { id: 18, x: 47, y: 82  },
-  { id: 19, x: 59, y: 72  },
-  { id: 20, x: 50, y: 68  },
+  { id: 19, x: 55, y: 68  },
+  // { id: 20, x: 50, y: 68  },
   { id: 21, x: 37, y: 62  },
   { id: 22, x: 26, y: 53  },
   { id: 23, x: 40, y: 49  },
@@ -107,7 +107,7 @@ const verticalLocs = [
 
 // Horizontal Coordinates (Custom plotted for your horizontal image path)
 const horizontalLocs = [
-  { id: 1,  x: 7,   y: 42 },
+  { id: 1,  x: 9,   y: 42 },
   { id: 2,  x: 15,  y: 45 },
   { id: 3,  x: 16,  y: 53 },
   { id: 4,  x: 15,  y: 60 },
@@ -119,9 +119,9 @@ const horizontalLocs = [
   { id: 15, x: 64,  y: 37 },
   { id: 16, x: 75,  y: 33 },
   { id: 18, x: 83,  y: 39 },
-  { id: 19, x: 89,  y: 46 },
-  { id: 20, x: 88,  y: 55 },
-  { id: 21, x: 87,  y: 64 },
+  { id: 19, x: 89,  y: 50 },
+  // { id: 20, x: 88,  y: 55 },
+  { id: 21, x: 87,  y: 62 },
   { id: 22, x: 91,  y: 72 },
   { id: 23, x: 99, y: 75 },
   { id: 24, x: 108, y: 78 },
@@ -129,9 +129,9 @@ const horizontalLocs = [
   { id: 27, x: 128, y: 74 },
   { id: 28, x: 138, y: 78 },
   { id: 29, x: 145, y: 68 },
-  { id: 30, x: 157, y: 68 },
+  { id: 30, x: 157, y: 70 },
   { id: 31, x: 166, y: 63 },
-  { id: 35, x: 166, y: 55 },
+  { id: 35, x: 163, y: 55 },
 ];
 
   // Logic to find live data from the CSV based on Sr. No 
