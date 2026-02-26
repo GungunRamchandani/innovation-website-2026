@@ -558,6 +558,7 @@ style={{
                 isActive={activeSeed === index}
                 isTransforming={activeSeed === index}
                 size={isMobile ? 0.75 : 1} 
+                 color={category.color}
               />
             </div>
           ))}

@@ -7,7 +7,8 @@ const EnergySeed = ({
   totalSeeds, 
   isActive, 
   isTransforming, 
-  onClick
+  onClick,
+  color
 }) => {
 
   const [isHovered, setIsHovered] = useState(false);
@@ -49,18 +50,7 @@ const y = isMobile ? baseY + MOBILE_SHIFT_Y : baseY - 50;
   };
 */
   //const color = seedColors[category] || '#00ff88';
-const colors = [
-  '#f9770c',
-  '#2fa1ff',
-  '#23914b',
-  '#f8f81a',
   
-  '#f00d0d',
-  '#901af8'
-  
-];
-
-const color = colors[index % colors.length];
   return (
     <motion.div
       className="absolute cursor-pointer"
