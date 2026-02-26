@@ -1,18 +1,34 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Eye, Lightbulb, Sparkles, Target } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Globe from "../components/Aboutus/Globe";
 import WaveBackground from '../components/team/WaveBackground';
 import "./aboutus.css";
 
+
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleBackClick = () => {
     window.location.href = destinationUrl;
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      {/* Media Query to hide on mobile (screens smaller than 768px) */}
+      {/* Hide on mobile */}
       <style>{`
         @media (max-width: 768px) {
           .global-back-btn {
@@ -23,45 +39,43 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
 
       <button
         onClick={handleBackClick}
-        className="global-back-btn" // Added class name here
+        className="global-back-btn"
         style={{
-          // Positioning
           position: 'fixed',
-          top: '30px',
+          top: isScrolled ? '30px' : '140px', // 🔥 dynamic top
           left: '30px',
           zIndex: 9999,
 
-          // Layout & Shape
-          display: 'flex', // This is overridden by the media query on mobile
+          display: 'flex',
           alignItems: 'center',
           gap: '12px',
           padding: '12px 28px',
           borderRadius: '16px',
 
-          // Glassmorphism Styling
-          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
+          background:
+            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
           color: '#ffffff',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           cursor: 'pointer',
 
-          // Typography
           fontFamily: "'Inter', sans-serif",
           fontSize: '16px',
           fontWeight: '600',
 
-          // Effects
           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'all 0.3s ease-in-out',
+          transition: 'top 0.4s ease, transform 0.3s ease, background 0.3s ease',
           outline: 'none'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
+          e.currentTarget.style.background =
+            'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
           e.currentTarget.style.transform = 'translateY(-2px)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
+          e.currentTarget.style.background =
+            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
           e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
@@ -75,8 +89,8 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
         </svg>
 
         <span>{label}</span>
@@ -84,6 +98,7 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
     </>
   );
 };
+
 
 /* ---------------- RevealCard Component ---------------- */
 
@@ -293,14 +308,14 @@ const AboutUs = () => {
         sectionId="innovation-cummins"
         leftContent={
           <RevealCard
-            title="INNOVATION"
+            title="INNOVATION 2026"
             content="The annual national-level technical fest inspiring creativity."
             icon={<Sparkles className="w-6 h-6 text-innovation-cyan" />}
           />
         }
         rightContent={
           <RevealCard
-            title="CUMMINS"
+            title="MKSSS Cummins College of Engineering"
             content="Empowering women in technology and fostering innovation."
             icon={<Lightbulb className="w-6 h-6 text-innovation-amber" />}
             gradient="amber"
@@ -312,7 +327,7 @@ const AboutUs = () => {
         sectionId="aim-vision"
         leftContent={
           <RevealCard
-            title="Our Aim"
+            title="Our Mission"
             content="To ignite curiosity and foster creativity among students."
             icon={<Target className="w-6 h-6 text-innovation-purple" />}
             gradient="purple"

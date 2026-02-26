@@ -12,7 +12,7 @@ export const sponsors = {
 
 
   Silver: [
-    { name: "Boeing", logo: "/sponsors/boeing.png",url:"https://www.boeing.com/" },
+    { name: "Boeing India", logo: "/sponsors/boeing.png",url:"https://www.boeing.com/" },
   ],
 
 

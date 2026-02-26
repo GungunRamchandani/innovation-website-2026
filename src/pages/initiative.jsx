@@ -15,16 +15,31 @@ import { default as eventPhoto3, default as eventPhoto4 } from "../photos/image1
 import eventPhoto6 from "../photos/images5.jpg";
 
 
+
 const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
-    const handleBackClick = () => {
-        window.location.href = destinationUrl;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleBackClick = () => {
+    window.location.href = destinationUrl;
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
 
-    return (
-        <>
-          
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-            <style>{`
+  return (
+    <>
+      {/* Hide on mobile */}
+      <style>{`
         @media (max-width: 768px) {
           .global-back-btn {
             display: none !important;
@@ -34,45 +49,43 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
 
       <button
         onClick={handleBackClick}
-        className="global-back-btn" // Added class name here
+        className="global-back-btn"
         style={{
-          // Positioning
           position: 'fixed',
-          top: '30px',
+          top: isScrolled ? '30px' : '140px', // 🔥 dynamic top
           left: '30px',
           zIndex: 9999,
 
-          // Layout & Shape
-          display: 'flex', // This is overridden by the media query on mobile
+          display: 'flex',
           alignItems: 'center',
           gap: '12px',
           padding: '12px 28px',
           borderRadius: '16px',
 
-          // Glassmorphism Styling
-          background: 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
+          background:
+            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)',
           backdropFilter: 'blur(10px)',
           WebkitBackdropFilter: 'blur(10px)',
           color: '#ffffff',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           cursor: 'pointer',
 
-          // Typography
           fontFamily: "'Inter', sans-serif",
           fontSize: '16px',
           fontWeight: '600',
 
-          // Effects
           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          transition: 'all 0.3s ease-in-out',
+          transition: 'top 0.4s ease, transform 0.3s ease, background 0.3s ease',
           outline: 'none'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
+          e.currentTarget.style.background =
+            'linear-gradient(135deg, rgba(54, 63, 67, 0.9) 0%, rgba(22, 28, 30, 0.9) 100%)';
           e.currentTarget.style.transform = 'translateY(-2px)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
+          e.currentTarget.style.background =
+            'linear-gradient(135deg, rgba(44, 53, 57, 0.7) 0%, rgba(12, 18, 20, 0.8) 100%)';
           e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
@@ -86,14 +99,14 @@ const GlobalBackButton = ({ destinationUrl, label = "Back to Events" }) => {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
         </svg>
 
         <span>{label}</span>
       </button>
     </>
-    );
+  );
 };
 
 const Initiative = () => {
@@ -280,7 +293,7 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                 title: "All-Women Hackathon",
                 subtitle: "Code for Change: Women Edition",
                 description: `Hackathon focused on creating innovative solutions that address challenges faced by women in technology.Open to all women, regardless of coding experience, with mentorship and workshops leading up to the event to ensure everyone can participate and contribute meaningfully.`,
-                registrationLink: "",
+                registrationLink: "/events/info/navira-hackathon",
                 image: hackathon,
             },
         },
@@ -534,13 +547,6 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
                                         ))}
                                     </div>
 
-
-            
-
-
-                                    <a href={session.registrationLink || "#"} className="register-btn">
-                                        Register Now <ArrowRight size={14} />
-                                    </a>
                                 </div>
                             </motion.div>
                         ))}
@@ -584,11 +590,11 @@ Our impact goes beyond teaching tools — we build confidence, encourage curiosi
 
 
                                 <a
-                                    href={initiativeData.events.hackathon.registrationLink || "#"}
-                                    className="register-btn hackathon-btn"
-                                >
-                                    Register for Hackathon <ArrowRight size={16} />
-                                </a>
+  href={initiativeData.events.hackathon.registrationLink || "#"}
+  className="register-btn hackathon-btn"
+>
+  Register for Hackathon <ArrowRight size={16} />
+</a>
                             </div>
                         </motion.div>
                     </div>
