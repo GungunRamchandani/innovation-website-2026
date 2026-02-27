@@ -34,7 +34,7 @@ const categories = [
   {
     name: 'Skill Clash',
     description: 'A competitive category featuring skill-based challenges that test coding, innovation, problem-solving, design thinking, and technical expertise through high-intensity contests.',
-    events: ['Code Conquer', 'Zero UI Challenge', 'E-Move', 'ProtoSprint', 'Buildathon', 'Ideathon', 'BotSprint'],
+    events: ['Code Conquer', 'Zero UI Challenge', 'E-Move', 'ProtoSprint', 'Buildathon', 'Ideation', 'BotSprint'],
     route: '/smartcities',
     color: '#FF2E2E' // Red
   },
@@ -462,7 +462,7 @@ const GlobalBackButton = ({ label = "Back" }) => {
                 </svg>
               </div>*/}
               <a
-  href="https://drive.google.com/file/d/1eGOIkdG1fcXh9Dt6omRQAlXqvc1ICVGe/view?usp=drive_link"
+  href="https://drive.google.com/file/d/18Kv-r1A_lJ6RRSEz0wRcqRYom57NhYv1/view?usp=drivesdk"
   target="_blank"
   rel="noopener noreferrer"
   className="flex flex-col items-center cursor-pointer"
