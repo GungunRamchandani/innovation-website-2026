@@ -2,6 +2,7 @@ export const sponsors = {
   Platinum: [
     { name: "Cummins", logo: "/sponsors/cummins.png",url: "https://www.cummins.com/en-in/company" },
     { name: "BNY", logo: "/sponsors/bny.png",url: "https://www.bny.com/corporate/apac/en.html" },
+    { name: "Amdocs", logo: "/sponsors/amdocs_logo.png",url:"https://www.amdocs.com/" },
   ],
 
 
