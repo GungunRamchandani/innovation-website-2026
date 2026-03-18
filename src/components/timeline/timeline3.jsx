@@ -81,8 +81,8 @@ const verticalLocs = [
   { id: 1,  x: 78, y: 140 },
   { id: 3,  x: 88, y: 132 },
   { id: 6,  x: 85, y: 120 },
-  { id: 7,  x: 65, y: 115 },
-  { id: 9,  x: 46, y: 122 },
+  { id: 21,  x: 65, y: 115 },
+  { id: 37,  x: 46, y: 122 },
   { id: 10, x: 55, y: 129 },
   { id: 11, x: 32, y: 119 },
   { id: 13, x: 32, y: 107  },
@@ -103,8 +103,8 @@ const horizontalLocs = [
   { id: 1,  x: 8,   y: 44 },
   { id: 3,  x: 15,  y: 50 },
   { id: 6,  x: 16,  y: 59 },
-  { id: 7,  x: 25,  y: 64 },
-  { id: 9,  x: 40,  y: 64 },
+  { id: 21,  x: 25,  y: 64 },
+  { id: 37,  x: 36,  y: 67 },
   { id: 10, x: 48,  y: 61 },
   { id: 11, x: 60,  y: 58 },
   { id: 13, x: 68,  y: 48 },
@@ -118,7 +118,7 @@ const horizontalLocs = [
   { id: 31, x: 129, y: 77 },
   { id: 32, x: 144, y: 73 },
   { id: 35, x: 157, y: 65 },
-];
+]; //remove 7  21 added
 
   // Logic to find live data from the CSV based on Sr. No 
   const currentCoords = isLaptop ? horizontalLocs : verticalLocs;

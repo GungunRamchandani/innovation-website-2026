@@ -91,15 +91,17 @@ const verticalLocs = [
   { id: 18, x: 40, y: 89 },
   { id: 19, x: 52, y: 78  },
   { id: 21, x: 62, y: 71  },
-  { id: 22, x: 49, y: 64  },
+  { id: 28, x: 49, y: 64  },
   { id: 23, x: 39, y: 58  },
   { id: 25, x: 29, y: 54  },
   { id: 26, x: 39, y: 45  },
   { id: 30, x: 44, y: 36  },
   { id: 31, x: 45, y: 27  },
-  { id: 33, x: 33, y: 22  },
+  { id: 33, x: 39, y: 20  },
   { id: 35, x: 18, y: 16},
-];
+  { id: 36, x: 18, y: 25},
+  { id: 37 , x: 18, y: 6},
+];//22 remove d 28,36 added tba wale kahi nhi ho
 
 // Horizontal Coordinates
 const horizontalLocs = [
@@ -111,12 +113,12 @@ const horizontalLocs = [
   { id: 8, x: 38,  y: 67 },
   { id: 10, x: 48,  y: 61 },
   { id: 11, x: 60,  y: 58 },
-  { id: 12, x: 64,  y: 44 },
+  { id: 12, x: 64,  y: 46 },
   // { id: 17, x: 65,  y: 41 },
-  { id: 18, x: 75,  y: 33 },
+  { id: 18, x: 68,  y: 37 },
   { id: 19, x: 85,  y: 42 },
   { id: 21, x: 89,  y: 52 },
-  { id: 22, x: 87,  y: 62 },
+  { id: 28, x: 87,  y: 62 },
   { id: 23, x: 90,  y: 70 },
   { id: 25, x: 96,  y: 73 },
   { id: 26, x: 105, y: 76 },
@@ -124,6 +126,8 @@ const horizontalLocs = [
   { id: 31, x: 128, y: 75 },
   { id: 33, x: 144, y: 73},
   { id: 35, x: 158, y: 66 },
+  { id: 36, x: 80, y: 33},
+  { id: 37 , x: 162, y: 56},
 ];
 
   // Logic to find live data from the CSV based on Sr. No 

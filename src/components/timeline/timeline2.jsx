@@ -83,6 +83,7 @@ const verticalLocs = [
   { id: 3,  x: 86, y: 122 },
   { id: 4,  x: 77, y: 115},
   { id: 7,  x: 68, y: 126 },
+  { id: 9,  x: 48, y: 131 },
   { id: 10,  x: 57, y: 131 },
   { id: 11,  x: 50, y: 122 },
   { id: 12, x: 36, y: 125 },
@@ -90,7 +91,7 @@ const verticalLocs = [
   { id: 15, x: 32, y: 102  },
   { id: 16, x: 40, y: 92  },
   { id: 18, x: 47, y: 82  },
-  { id: 19, x: 55, y: 68  },
+  { id: 19, x: 53, y: 65  },
   // { id: 20, x: 50, y: 68  },
   { id: 21, x: 37, y: 62  },
   { id: 22, x: 26, y: 53  },
@@ -99,11 +100,12 @@ const verticalLocs = [
   { id: 26, x: 46, y: 32  },
   { id: 27, x: 38, y: 20  },
   { id: 28, x: 30, y: 28   },
-  { id: 29, x: 18, y: 22  },
+  // { id: 29, x: 18, y: 22  },
   { id: 30, x: 22, y: 13  },
   { id: 31, x: 10, y: 15  },
   { id: 35, x: 17, y: 6  },
-];
+  { id: 37 , x: 59, y: 74},
+]; //29 removed
 
 // Horizontal Coordinates (Custom plotted for your horizontal image path)
 const horizontalLocs = [
@@ -112,14 +114,16 @@ const horizontalLocs = [
   { id: 3,  x: 16,  y: 53 },
   { id: 4,  x: 15,  y: 60 },
   { id: 7,  x: 25,  y: 66 },
+  { id: 9,  x: 34, y: 69 },
   { id: 10,  x: 41,  y: 63 },
   { id: 11,  x: 54,  y: 59 },
   { id: 12, x: 67,  y: 53 },
   { id: 14, x: 66,  y: 44 },
+   { id: 37 , x: 89, y: 42},
   { id: 15, x: 64,  y: 37 },
   { id: 16, x: 75,  y: 33 },
   { id: 18, x: 83,  y: 39 },
-  { id: 19, x: 89,  y: 50 },
+  { id: 19, x: 89,  y: 52 },
   // { id: 20, x: 88,  y: 55 },
   { id: 21, x: 87,  y: 62 },
   { id: 22, x: 91,  y: 72 },
@@ -128,11 +132,12 @@ const horizontalLocs = [
   { id: 26, x: 117, y: 82 },
   { id: 27, x: 128, y: 74 },
   { id: 28, x: 138, y: 78 },
-  { id: 29, x: 145, y: 68 },
+  // { id: 29, x: 145, y: 68 },
   { id: 30, x: 157, y: 70 },
   { id: 31, x: 166, y: 63 },
   { id: 35, x: 163, y: 55 },
-];
+ 
+]; //29 removed
 
   // Logic to find live data from the CSV based on Sr. No 
   const currentCoords = isLaptop ? horizontalLocs : verticalLocs;
