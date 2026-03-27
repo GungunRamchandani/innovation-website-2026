@@ -18,8 +18,11 @@ export const sponsors = {
 
 
   Event: [
-    // { name: "Codemetron", logo: "/sponsors/forbes.png" ,url: "https://www.codemetron.com/" },
+    { name: "Codemetron", logo: "/sponsors/Codemetron_logo_light.png" ,url: "https://www.codemetron.com/" },
     { name: "Rotary", logo: "/sponsors/Rotary.jpeg" ,url:"https://www.rotary.org/en" },
+    { name: "Williams Sonoma", logo: "/sponsors/william.png" ,url:"http://williams-sonoma.com/" },
+    // { name: "", logo: "/sponsors/Rotary.jpeg" ,url:"https://www.rotary.org/en" },
+
     // { name: "Warwick University Technologies", logo: "/sponsors/linkcode.png" ,url:"https://warwick.ac.uk/services/innovations/" },
   ],
 

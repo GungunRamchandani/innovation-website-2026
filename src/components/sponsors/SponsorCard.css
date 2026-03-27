@@ -202,8 +202,32 @@
     0 40px 80px rgba(0, 0, 0, 0.9);
 }
 
-
 /* SILVER — slightly bigger than normal */
 .glow-card.silver {
   transform: scale(1.08);
+}
+
+/* .codemetron-logo {
+  background: linear-gradient(135deg, #000, #222);
+} */
+
+.codemetron-logo {
+  position: relative;
+  background: #fff; /* keep consistent with others */
+  overflow: hidden;
+}
+
+/* dark overlay */
+.codemetron-logo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+}
+
+/* bring logo above overlay */
+.codemetron-logo img {
+  position: relative;
+  z-index: 1;
 }

@@ -12,8 +12,13 @@ function SponsorCard({ logo, name, category, url }) {
       <div className="sponsor-card">
         <div className="card-wrapper">
           <div className={`glow-card ${category}`}>
-            <div className="logo-box">
-              <img src={logo} alt={name} className="sponsor-logo" />
+            <div className={`logo-box ${name === "Codemetron" ? "codemetron-logo" : ""}`}>
+              {/* <img src={logo} alt={name} className="sponsor-logo" /> */}
+              <img
+                src={logo}
+                alt={name}
+                className={`sponsor-logo ${name === "Codemetron" ? "invert-logo" : ""}`}
+              />
             </div>
           </div>
         </div>
